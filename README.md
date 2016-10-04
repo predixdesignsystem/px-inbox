@@ -1,8 +1,8 @@
-#Px-Inbox
+#px-inbox
 
 ## Overview
 
-Px-Inbox is a Predix UI component
+A list/detail or “Inbox” view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.
 
 ## Usage
 
@@ -19,27 +19,27 @@ Node, npm and bower are necessary to install the component and dependencies. web
 First, install the component via bower on the command line.
 
 ```
-bower install Px-Inbox --save
+bower install px-inbox --save
 ```
 
 Second, import the component to your application with the following tag in your head.
 
 ```
-<link rel="import" href="/bower_components/Px-Inbox/Px-Inbox.html"/>
+<link rel="import" href="/bower_components/px-inbox/px-inbox.html"/>
 ```
 
 Finally, use the component in your application:
 
 ```
-Insert Your demo code here.
+<px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","info":"1:29 PM"}]'></px-inbox>
 ```
 
 <br />
 <hr />
 
-## documentation
+## Documentation
 
-Read the full API and view the demo [here](https://predixdev.github.io/Px-Inbox).
+Read the full API and view the demo [here](https://predixdev.github.io/px-inbox).
 
 The documentation in this repository is supplemental to the official Predix documentation, which is continuously updated and maintained by the Predix documentation team. Go to [http://predix.io](http://predix.io)  to see the official Predix documentation.
 
@@ -70,4 +70,4 @@ Navigate to the root of that server (e.g. http://localhost:8080/) in a browser t
 
 ## Known Issues
 
-Please use [Github Issues](https://github.com/PredixDev/Px-Inbox/issues) to submit any bugs you might find.
+Please use [Github Issues](https://github.com/PredixDev/px-inbox/issues) to submit any bugs you might find.
