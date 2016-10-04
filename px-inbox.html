@@ -1,0 +1,194 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+-->
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="css/px-inbox-styles.html">
+<link rel="import" href="../px-dropdown/px-dropdown.html" />
+
+<!--
+A list/detail or “Inbox” view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.
+
+##### Usage
+
+    <px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","info":"1:29 PM"}]'></px-inbox>
+
+@element px-inbox
+@blurb A list/detail or "Inbox" view for drilling down on items for more information.
+@homepage index.html
+@demo index.html
+-->
+
+<dom-module id="px-inbox">
+  <template>
+    <style include="px-inbox-styles"></style>
+    <div id="container" class="container flex">
+      <div id="list" class="list u-1/3">
+        <div class="flex flex--right flex--middle u-m--">
+          <span class="u-mr--">Sort By:</span>
+          <px-dropdown value="{{sortBy}}" display-value="{{sortBy}}">
+            <px-dropdown-content
+              items='[
+                {"key":"one", "val": "Title"},
+                {"key":"two", "val": "Subtitle"},
+                {"key":"two", "val": "Severity"},
+                {"key":"two", "val": "Info"}]'>
+            </px-dropdown-content>
+          </px-dropdown>
+        </div>
+        <div class="flex flex--right flex--middle u-m--">
+          <span class="u-mr--">Search:</span>
+          <input class="text-input input--tiny" value="{{_query::input}}"></input>
+        </div>
+        <ul class=list-ui>
+          <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy)}}">
+            <li id="{{listItem.id}}" class="list-ui__item" on-click="_selectItem">
+              <div class="flex flex--justify">
+                <div class="flex flex--left">
+                  <div id="icon" class$="{{listItem.severity}} u-mr-">
+                    <div class="svg-canvas">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-triangle">
+                        <polygon points="0,27 15,0 30,27"/>
+                      </svg>
+                    </div>
+                    <span class="number"></span>
+                  </div>
+                  <div class="text">
+                    <span class="title">{{listItem.title}}</span>
+                    <br/>
+                    <span class="subtitle">{{listItem.subtitle}}</span>
+                  </div>
+                </div>
+                <div class="flex flex--right">
+                  <span class="info">{{listItem.info}}</span>
+                </div>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </div>
+      <div id="detail" class="detail u-2/3">
+        <content></content>
+      </div>
+    </div>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'px-inbox',
+
+    properties: {
+      /**
+      * Array of items to include in the list.
+      * @property listItems
+      */
+      listItems: {
+        type: Array
+      },
+      /**
+      * ID of the selected item, for pulling up the details to display in the right side of the inbox view.
+      * @property selectedItem
+      */
+      selectedItem: {
+        type: String,
+        notify: true
+      },
+      /**
+      * Search query used to filter the list.
+      * @property _query
+      */
+      _query: {
+        type: String
+      },
+      /**
+      * Property to sort the list by.
+      * @property sortBy
+      */
+      sortBy: {
+        type: String,
+        value: "Title"
+      }
+    },
+
+    /**
+    * Adds visual style to the currently selected item and triggers display of the details.
+    * @method selectItem
+    */
+    _selectItem: function(evt) {
+      var otherItems = document.getElementsByClassName("selected");
+      Array.prototype.forEach.call(otherItems, function(otherItem) {
+        otherItem.classList.remove("selected");
+      });
+      evt.currentTarget.classList.add("selected");
+      this.selectedItem = evt.currentTarget.id;
+    },
+    /**
+    * Searches through the list titles and subtitles and filters based on the query.
+    * @method computeFilter
+    */
+    _computeFilter: function(query) {
+      // clear all selections
+      var otherItems = document.getElementsByClassName("selected");
+      Array.prototype.forEach.call(otherItems, function(otherItem) {
+        otherItem.classList.remove("selected");
+      });
+      this.selectedItem = "";
+
+      if (!query) {
+        // set filter to null to disable filtering
+        return null;
+      } else {
+        // return a filter function for the current search query
+        query = query.toLowerCase();
+        return function(listItem) {
+          var title = listItem.title.toLowerCase();
+          var subtitle = listItem.subtitle.toLowerCase();
+          return (title.indexOf(query) != -1 ||
+              subtitle.indexOf(query) != -1);
+        };
+      }
+    },
+    /**
+    * Sort function for the array of list items.
+    * @method computeSort
+    */
+    _computeSort: function(sortBy) {
+      sortBy = sortBy.toLowerCase();
+      // clear all selections
+      var otherItems = document.getElementsByClassName("selected");
+      Array.prototype.forEach.call(otherItems, function(otherItem) {
+        otherItem.classList.remove("selected");
+      });
+      this.selectedItem = "";
+      // return sort function which maps severities to numeric values
+      if(sortBy === "severity") {
+        return function(a, b) {
+          var severities = {
+            "important":4,
+            "warning":3,
+            "error":2,
+            "information":1
+          }
+          return severities[b.severity] - severities[a.severity];
+        }
+      }
+      // return sort function which compares the items mathematically
+      else {
+        return function(a, b) {
+          if (a[sortBy] < b[sortBy]) {
+            return -1;
+          }
+          if (a[sortBy] > b[sortBy]) {
+            return 1;
+          }
+          // values must be the same
+          return 0;
+        }
+      }
+    }
+  });
+</script>

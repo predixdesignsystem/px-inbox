@@ -1,0 +1,158 @@
+/*
+ * Copyright (c) 2014 GE Global Research. All rights reserved.
+ *
+ * The copyright to the computer software herein is the property of
+ * GE Global Research. The software may be used and/or copied only
+ * with the written permission of GE Global Research or in accordance
+ * with the terms and conditions stipulated in the agreement/contract
+ * under which the software has been supplied.
+ */
+
+//
+// Sass for the "sketch" notion of the px-inbox component
+//
+// @author
+//
+
+/*
+THIS FILE SHOULD CONTAIN ONLY ABSTRACT/'SKETCH' THEME RULES, NOT SPECIFIC TO PREDIX BRANDING
+Predix branding rules go in px-inbox-predix.scss, not in this file.
+*/
+
+
+
+// Generic
+@import "px-normalize-design/_generic.normalize.scss";
+@import "px-box-sizing-design/_generic.box-sizing.scss";
+@import "px-helpers-design/_generic.helpers.scss";
+
+// Base
+@import "px-flexbox-design/_base.flexbox.scss";
+@import "px-viewport-design/_base.viewport.scss";
+$inuit-enable-input--tiny: true;
+@import "px-forms-design/_base.forms.scss";
+
+
+
+@import "px-meta-lists-design/_meta.lists.scss";
+
+
+
+// Component
+.container {
+  // TODO: this should be based on the parent container - in this case, the demo container is 400px
+  height: 398px;
+  overflow-y: auto;
+}
+.list {
+  height: 100%;
+  overflow-y: auto;
+  min-width: 275px;
+}
+.title {
+  font-weight: bold;
+}
+.subtitle, .info {
+  color: $gray6;
+}
+.info {
+  text-align: right;
+}
+.list-ui__item.selected {
+  background-color: $select-blue-default;
+  color: white;
+  .subtitle, .info {
+    color: white;
+  }
+}
+.detail {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.svg-canvas {
+    display: none;
+}
+
+@mixin iconCommon {
+  color: $white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+  font-weight: bold;
+  border: 1px solid $white;
+}
+
+#icon {
+  position: relative;
+  height:  1.9rem;
+  width:  1.9rem;
+  &.important {
+    @include iconCommon;
+    .svg-triangle polygon {
+      fill: $alert-red;
+      stroke: $white;
+      stroke-width: 1;
+    }
+    .svg-triangle{
+      margin: 0 auto;
+      width: 100px;
+      height: 100px;
+    }
+    border: none;
+    span:before {
+      content: '1';
+      position: absolute;
+      top: 4px;
+      left: 11px;
+    }
+    .svg-canvas {
+      display: block !important;
+      position: absolute;
+      top: 0px;
+    }
+  }
+  &.warning {
+    height: 1.9rem !important;
+    width: 1.9rem !important;
+    left: 2px;
+    margin-right: 1rem !important;
+    background-color: $alert-orange;
+    transform: rotate(45deg);
+    @include iconCommon;
+    span {
+      display: block;
+      position: relative;
+      padding-left: 2px;
+      line-height: 1.9rem;
+      transform: rotate(-45deg);
+    }
+    span:before {
+      content: '2';
+    }
+  }
+  &.error {
+    //The square needs to be visually smaller
+    height:  1.8rem;
+    width:  1.8rem;
+    background-color: $alert-yellow;
+    @include iconCommon;
+    span:before {
+      content: '3';
+    }
+  }
+  &.information {
+    background-color: $alert-blue;
+    border-radius: 40px;
+    @include iconCommon;
+    span:before {
+      content: '4';
+    }
+  }
+}
+
+// Trumps
+@import "inuit-clearfix/_trumps.clearfix.scss";
+$inuit-enable-margins--tiny: true;
+@import "px-spacing-responsive-design/_trumps.spacing-responsive.scss";
+@import "px-widths-responsive-design/_trumps.widths-responsive.scss";
