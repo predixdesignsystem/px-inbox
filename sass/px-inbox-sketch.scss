@@ -40,8 +40,7 @@ $inuit-enable-input--tiny: true;
 
 // Component
 .container {
-  // TODO: this should be based on the parent container - in this case, the demo container is 400px
-  height: 398px;
+  height: var(--px-inbox-height, 100vh);
   overflow-y: auto;
 }
 .list {
@@ -68,6 +67,11 @@ $inuit-enable-input--tiny: true;
 .detail {
   height: 100%;
   overflow-y: auto;
+}
+
+.header, .details {
+  padding: 1rem;
+  border-bottom: 1px solid $gray6;
 }
 
 .svg-canvas {
@@ -115,8 +119,7 @@ $inuit-enable-input--tiny: true;
   &.warning {
     height: 1.9rem !important;
     width: 1.9rem !important;
-    left: 2px;
-    margin-right: 1rem !important;
+    margin-right: 0.8rem !important;
     background-color: $alert-orange;
     transform: rotate(45deg);
     @include iconCommon;

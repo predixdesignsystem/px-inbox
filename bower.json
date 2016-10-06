@@ -25,12 +25,13 @@
     "px-theme": "~0.8.0",
     "px-meta-lists-design": "^0.3.4",
     "px-forms-design": "#~0.3.15",
-    "px-dropdown": "^0.11.2"
+    "px-dropdown": "^0.11.2",
+    "moment": "^2.15.1"
   },
   "devDependencies": {
     "px-tables-design": "#~0.3.12",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.3",
-    "px-polymer-font-awesome":"^0.1.8",
+    "px-polymer-font-awesome": "^0.1.8",
     "px-tabs": "~0.4.0",
     "px-api-viewer": "^0.0.5",
     "px-demo-snippet": "^0.6.0",

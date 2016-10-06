@@ -6,13 +6,22 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="css/px-inbox-styles.html">
 <link rel="import" href="../px-dropdown/px-dropdown.html" />
+<script src="../moment/moment.js"></script>
 
 <!--
-A list/detail or “Inbox” view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.
 
 ##### Usage
 
-    <px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","info":"1:29 PM"}]'></px-inbox>
+    <px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","info":"2016-10-05T01:29"}]'>
+      // define or bind to your details view here
+    </px-inbox>
+
+##### Styling
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--px-inbox-height` | Height for the inbox component | `100vh`
 
 @element px-inbox
 @blurb A list/detail or "Inbox" view for drilling down on items for more information.
@@ -25,21 +34,19 @@ A list/detail or “Inbox” view is appropriate when a user has a list of items
     <style include="px-inbox-styles"></style>
     <div id="container" class="container flex">
       <div id="list" class="list u-1/3">
-        <div class="flex flex--right flex--middle u-m--">
-          <span class="u-mr--">Sort By:</span>
-          <px-dropdown value="{{sortBy}}" display-value="{{sortBy}}">
+        <div class="flex flex--left flex--middle u-m--">
+          <span class="u-mr--">Sort:</span>
+          <px-dropdown class="u-mr" value="{{sortBy}}" display-value="{{sortBy}}">
             <px-dropdown-content
               items='[
                 {"key":"one", "val": "Title"},
                 {"key":"two", "val": "Subtitle"},
                 {"key":"two", "val": "Severity"},
-                {"key":"two", "val": "Info"}]'>
+                {"key":"two", "val": "Date"}]'>
             </px-dropdown-content>
           </px-dropdown>
-        </div>
-        <div class="flex flex--right flex--middle u-m--">
           <span class="u-mr--">Search:</span>
-          <input class="text-input input--tiny" value="{{_query::input}}"></input>
+          <input class="text-input" value="{{_query::input}}"></input>
         </div>
         <ul class=list-ui>
           <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy)}}">
@@ -61,7 +68,7 @@ A list/detail or “Inbox” view is appropriate when a user has a list of items
                   </div>
                 </div>
                 <div class="flex flex--right">
-                  <span class="info">{{listItem.info}}</span>
+                  <span class="info">{{listItem.formattedDate}}</span>
                 </div>
               </div>
             </li>
@@ -83,11 +90,17 @@ A list/detail or “Inbox” view is appropriate when a user has a list of items
 
     properties: {
       /**
-      * Array of items to include in the list.
+      * Array of items to include in the list. Each item in the array should be an object with:
+      * - id (used for fetching the details view)
+      * - title
+      * - subtitle
+      * - severity (one of "important", "error", "warning", or "information")
+      * - date (optional, should be valid <a href="https://www.w3.org/TR/NOTE-datetime">8601 date strings</a>)
       * @property listItems
       */
       listItems: {
-        type: Array
+        type: Array,
+        observer: '_formatDates'
       },
       /**
       * ID of the selected item, for pulling up the details to display in the right side of the inbox view.
@@ -110,7 +123,7 @@ A list/detail or “Inbox” view is appropriate when a user has a list of items
       */
       sortBy: {
         type: String,
-        value: "Title"
+        value: "Date"
       }
     },
 
@@ -125,6 +138,22 @@ A list/detail or “Inbox” view is appropriate when a user has a list of items
       });
       evt.currentTarget.classList.add("selected");
       this.selectedItem = evt.currentTarget.id;
+    },
+    /**
+    * Formats the date strings in each listItem to display correctly in the table using Moment.js.
+    * @method formatDates
+    */
+    _formatDates: function() {
+      Array.prototype.forEach.call(this.listItems, function(listItem) {
+        // If date is defined and recognized as a valid date string, convert to a friendlier display format.
+        if(listItem.date && moment(listItem.date).isValid()) {
+          listItem.formattedDate = moment(listItem.date).fromNow();
+        }
+        // If not recognized as a valid date string, just display whatever was passed in.
+        else {
+          listItem.formattedDate = listItem.date;
+        }
+      });
     },
     /**
     * Searches through the list titles and subtitles and filters based on the query.
@@ -174,6 +203,19 @@ A list/detail or “Inbox” view is appropriate when a user has a list of items
             "information":1
           }
           return severities[b.severity] - severities[a.severity];
+        }
+      }
+      // return sort function which correctly compares dates
+      else if (sortBy === "date") {
+        return function(a,b) {
+          if(a.date > b.date) {
+            return -1;
+          }
+          if(a.date < b.date) {
+            return 1;
+          }
+          // dates must be the same
+          return 0;
         }
       }
       // return sort function which compares the items mathematically
