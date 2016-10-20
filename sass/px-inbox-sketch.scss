@@ -156,6 +156,8 @@ $inuit-enable-input--tiny: true;
 
 // Trumps
 @import "inuit-clearfix/_trumps.clearfix.scss";
+$inuit-enable-margins: true;
 $inuit-enable-margins--tiny: true;
-@import "px-spacing-responsive-design/_trumps.spacing-responsive.scss";
-@import "px-widths-responsive-design/_trumps.widths-responsive.scss";
+$inuit-enable-margins--small: true;
+@import "px-spacing-design/_trumps.spacing.scss";
+@import "px-widths-design/_trumps.widths.scss";
