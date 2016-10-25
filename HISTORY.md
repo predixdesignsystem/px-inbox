@@ -1,3 +1,7 @@
+v0.1.0
+==================
+* bump version out of alpha
+
 v0.0.2
 ==================
 * added auto-ghp
