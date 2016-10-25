@@ -7,18 +7,10 @@
 <link rel="import" href="css/px-inbox-styles.html">
 
 <!--
-
-##### Usage
-
-    <px-inbox list-items='[{...}]'>
-      <px-inbox-detail>
-      </px-inbox-detail>
-    </px-inbox>
-
-@element px-inbox-detail
-@blurb A list/detail or "Inbox" view for drilling down on items for more information.
-@homepage index.html
-@demo index.html
+This sub-component is simply an example for demo purposes.
+Any content placed between the <px-inbox> and </px-inbox> tags will be rendered as the "detail view"
+of the px-inbox list/detail component. You could componentize your detail view with Polymer like
+we've done in this file, or you could define your view in plain HTML/JS/CSS or any other library or framework.
 -->
 
 <dom-module id="px-inbox-detail">
@@ -46,7 +38,6 @@
           <span>Alert Source</span><br/>
           <span class="title">Combustion</span>
         </div>
-        <div class="flex__item"></div>
       </div>
       <div class="flex u-mt">
         <div class="flex__item">
@@ -57,7 +48,6 @@
           <span>Case Number</span><br/>
           <span class="title">127587937</span>
         </div>
-        <div class="flex__item"></div>
       </div>
     </div>
     <div class="details">
@@ -71,10 +61,6 @@
           <span>Serial Number</span><br/>
           <span class="title">GT769375</span>
         </div>
-        <div class="flex__item">
-          <span>Site</span><br/>
-          <span class="title">Turkey Point Fossil Power Station</span>
-        </div>
       </div>
       <div class="flex u-mt">
         <div class="flex__item">
@@ -85,7 +71,6 @@
           <span>Model</span><br/>
           <span class="title">7FA+e</span>
         </div>
-        <div class="flex__item"></div>
       </div>
     </div>
   </template>
@@ -103,15 +88,6 @@
       severity: {
         type: String
       }
-    },
-
-
-    /**
-    * Sort function for the array of list items.
-    * @method computeSort
-    */
-    _computeSort: function(sortBy) {
-
     }
   });
 </script>

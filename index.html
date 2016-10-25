@@ -8,7 +8,9 @@
   <link rel="stylesheet" type="text/css" href="css/px-inbox-demo.css" />
   <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
   <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../px-theme/px-theme.html" />
+  <link rel="import" href="../px-theme/px-theme-styles.html" />
+  <style include="px-theme-styles" is="custom-style"></style>
+
   <link rel="import" href="../px-api-viewer/px-api-viewer.html" />
   <link rel="import" href="../px-tabs/px-tab-set.html" />
   <link rel="import" href="../px-dropdown/px-dropdown.html" />
@@ -19,11 +21,6 @@
   <link rel="import" href="../px-demo-snippet/px-demo-snippet.html">
   <link rel="import" href="../px-polymer-font-awesome/polymer-font-awesome.html" />
   <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
-  <style is="custom-style">
-    #inbox1 {
-      --px-inbox-height: 398px;
-    }
-  </style>
 </head>
 
 <body>
@@ -40,6 +37,8 @@
       <h1 class="delta">px-inbox</h1>
       <div class="description-text">
         A list/detail or “Inbox” view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.
+        <br/><br/>
+        For a full-screen demo of this component, click <a href="demo.html" target="_blank">here</a>.<br/><br/>
       </div>
       <div class="flex">
         <img class="u-mr-- " src="https://img.shields.io/travis/PredixDev/px-inbox.svg?style=flat-square" alt="Travis"  onerror="this.style.display='none'"/>
@@ -65,29 +64,7 @@
               <!-- Properties -->
               <div class="properties u-ph+ u-pb+ u-mt+">
                 <p class="epsilon">Properties</p>
-                <!--
-                //code sample for dropdown
-                <div class="u-mb-">DROPDOWN TITLE:
-                  <div style="width: 100%;">
-                    <px-dropdown id="dropdownName{{indexPlusOne(index)}}" value="{{item.dropdownName}}" display-value="{{item.dropdownName}}" bound-target="properties">
-                      <px-dropdown-content
-                        items='[
-                          {"key":"one", "val": "firstVal"},
-                          {"key":"two", "val": "SecondVal"}]'>
-                      </px-dropdown-content>
-                    </px-dropdown>
-                  </div>
-                </div> -->
-                <!--
-                //code sample for input box:
-                <div class="u-mb-">Text Input Label: <input class="text-input" type="text" placeholder="{{item.textInputProp}}" value="{{item.textInputProp::input}}" /></div> -->
-                <!--
-                //code for boolean option
-                <div class="flex u-mb-">
-                  <input id="booleanID{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.booleanID::change}}">
-                  <label for$="booleanID{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
-                  <div class="u-ml-">BOOLEAN TITLE</div>
-                </div> -->
+                <div class="u-mb-">Height: <input class="text-input" type="text" placeholder="{{item.height}}" value="{{item.height::input}}" /></div>
 
               </div>
 
@@ -96,7 +73,7 @@
                 <div class="flex flex--col">
                   <div class="flex__item demo">
                     <div>
-                      <px-inbox id="inbox1" list-items="{{item.listItems}}">
+                      <px-inbox id="inbox1" list-items="{{item.listItems}}" height={{item.height}}>
                         <px-inbox-detail id="inboxDetail1" title="CMS Cold Spot" severity="important">
                         </px-inbox-detail>
                       </px-inbox>
@@ -113,30 +90,6 @@
             </div>
             <div class="apiContainer">
               <div class="flex flex--col api u-mt++" >
-                <!--
-                //these are optional in case the component has any children or associated components. remove this code if they don't.
-                <div class="flex">
-                  <div class="flex__item">
-                    <div class="flex flex--col childrenAssociated">
-                      <div class="componentHeader">Children Component</div>
-                      <div class="componentList">
-                        <ul>
-                          <li><a href="demo-page.html">Demo Page</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex__item">
-                    <div class="flex flex--col">
-                      <div class="componentHeader">Associated Components</div>
-                      <div class="componentList">
-                        <ul>
-                          <li><a href="demo-page.html">Demo Page</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
                 <div>
                   <px-api-viewer source="px-inbox"></px-api-viewer>
                 </div>
@@ -195,22 +148,11 @@
               "subtitle":"Block 4",
               "severity":"information",
               "date":"2016-10-03T01:05"
-            },{
-              "id":"5",
-              "title":"GT Trip",
-              "subtitle":"GT23193",
-              "severity":"important",
-              "date":"2016-10-02T12:30"
-            },{
-              "id":"6",
-              "title":"CMS Cold Spot",
-              "subtitle":"GT29372",
-              "severity":"warning",
-              "date":"2016-10-02T01:33"
             }],
           optionsArray = [
             {
-              "listItems" : listItems
+              "listItems" : listItems,
+              "height" : "398px"
             }
           ],
           indexPlusOne = function(num) {

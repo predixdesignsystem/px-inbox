@@ -12,16 +12,9 @@
 
 ##### Usage
 
-    <px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","info":"2016-10-05T01:29"}]'>
+    <px-inbox height="100vh" list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","date":"2016-10-05T01:29"}]'>
       // define or bind to your details view here
     </px-inbox>
-
-##### Styling
-The following custom properties are available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--px-inbox-height` | Height for the inbox component | `100vh`
 
 @element px-inbox
 @blurb A list/detail or "Inbox" view for drilling down on items for more information.
@@ -106,6 +99,11 @@ Custom property | Description | Default
       * ID of the selected item, for pulling up the details to display in the right side of the inbox view.
       * @property selectedItem
       */
+      /**
+      * Event that is fired when the selected item is changed in the list component.
+      * You should listen for this event and then access selectedItem to get the ID of the item.
+      * @event selected-item-changed
+      */
       selectedItem: {
         type: String,
         notify: true
@@ -124,8 +122,19 @@ Custom property | Description | Default
       sortBy: {
         type: String,
         value: "Date"
+      },
+      /**
+      * Height to render the inbox view component.
+      * @property height
+      * @default "100vh"
+      */
+      height: {
+        type: String,
+        value: "100vh",
+        observer: "_updateHeight"
       }
     },
+
 
     /**
     * Adds visual style to the currently selected item and triggers display of the details.
@@ -208,29 +217,18 @@ Custom property | Description | Default
       // return sort function which correctly compares dates
       else if (sortBy === "date") {
         return function(a,b) {
-          if(a.date > b.date) {
-            return -1;
-          }
-          if(a.date < b.date) {
-            return 1;
-          }
-          // dates must be the same
-          return 0;
+          return (a.date > b.date) ? -1 : (a.date < b.date) ? 1 : 0;
         }
       }
       // return sort function which compares the items mathematically
       else {
         return function(a, b) {
-          if (a[sortBy] < b[sortBy]) {
-            return -1;
-          }
-          if (a[sortBy] > b[sortBy]) {
-            return 1;
-          }
-          // values must be the same
-          return 0;
+          return (a[sortBy] < b[sortBy]) ? -1 : (a[sortBy] > b[sortBy]) ? 1 : 0;
         }
       }
+    },
+    _updateHeight: function() {
+      this.$.container.style.height = this.height;
     }
   });
 </script>

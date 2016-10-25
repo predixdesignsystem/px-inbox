@@ -40,13 +40,13 @@ $inuit-enable-input--tiny: true;
 
 // Component
 .container {
-  height: var(--px-inbox-height, 100vh);
   overflow-y: auto;
 }
 .list {
   height: 100%;
   overflow-y: auto;
   min-width: 275px;
+  border-right: 1px solid $gray4;
 }
 .title {
   font-weight: bold;

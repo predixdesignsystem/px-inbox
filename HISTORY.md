@@ -1,3 +1,8 @@
+v0.2.0
+==================
+* change height from style variable to property
+* update demo
+
 v0.1.0
 ==================
 * bump version out of alpha
