@@ -1,3 +1,7 @@
+v0.2.2
+==================
+* fixed sauce credentials
+
 v0.2.1
 ==================
 * update dependencies
