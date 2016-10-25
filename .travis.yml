@@ -1,0 +1,30 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+- stable
+branches:
+  except:
+  - gh-pages
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+before_script:
+- npm install web-component-tester
+- npm install bower
+- export PATH=$PWD/node_modules/.bin:$PATH
+- bower install
+script:
+- xvfb-run wct --skip-plugin sauce
+- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --plugin sauce --skip-plugin
+  local; fi
+env:
+  global:
+  - secure: ZbW6kDHW2pycj0Pv5TsIbNxcUYbU5m8Y+nRVB/kY/pR7lQm5+Kvcqg+l/phB8w3/KtYaDOO78wpQhMJNDbwJmOui0c3NA1XWqxxN3CdUZae6BDq4k41yCK6czSiYovuStP4MbCSWt0f2Q8gwg7ayxDyySQIL1sFxUOkNUUxkIX6PLtKZuuThsq/UyQ6X1VbY7PI0NRuO4A4beQCNNfSpwJ0A5lyrpX31JRwF/lKSgyH8bHtOT3uVCVpFE29II4ScFHqWVYUTnpEvL7y7z0O+IvLIOhbsorIWyFd/I87wk2hM3xdKnLI6igwe9YTZqgovg/lYB/tFvNEnmFlQKx7kHtaLi2dFsVgB627HykdcYOfOwlMKPOZ2gqTOcX5C2dY86luV+uY5jimZdxrvXUdSOfDfWhCgxjxX1t+9mQKOCurchwVmPYk617MMH2KgTIzpzWhX4ui4Uz9wGDT7goW4EF1DgVodmf/mdKx7pwcBkEh5pI8xwC7W3wa6niN3xRxVtIVc2XhTLPP4Tww44p0a+JQzPZJAWm8y69UQ4s27JiluzLQhHUrPg7STRsRLWmo3JZ+bKH8SQwui0bhu0O+2XvteUr/2k9zYmUZD85n8SK60IHYtqC9mtdW+UQDOFb5r2HC1ROzIQakQ20smbpsigLvj6PNa6zxriayT84yTwug=
+  - secure: jRSf9W7arA321VlRodguDXYtPuiziWeb0BguSPWcFdyNubT/u7PrwGy/1VU3U4UznpwzmiG4/dV3WY8dYF3oFuR4W9B+vQDYMAC7IZ2UQ6m822AAUUBqimxCIqSsZv3gCNR+ZHXTC6/oxB9j7Bhepb8OsigdN84/UafSVlxATW6/aRILbqdlGqBx4pVjEo1bizyVVb9bkWwknxeAcUeooJFGYQ0yKYF8JMEmBcS8xHdwPj6rq6oGHLIgY4zqVBJoXrzWq62lxFJgebATsfBdmSMSDtBg6ehqsosIURwyCm5b9EGEjG3bLXQe1f8Kwqi8F2KkiE0v3PF9yFqnCGP9p8iO+Wu2Ssy1AWcjNMMcWOuFcbJ/Rcws9anDXMbOmnYJ+tsYltIhxCoebnZbHutchySG9nWwvEV+EoS6hNmeOTzhUGKeMw3QMZC957m4Jjo+dTTvPyJsf9yHSfc9DTMzseyv69wYbxDEjPxOQ3RI7ECIlZMoatQZKrKzrFYVr3OQ+6iwSNwDsODd1BIem1OMVdS8sRIEhDPtuKC1XGG8CvnEP4EC4+CGnuu+MfqKrLQdQxe1UpzVucJ4r+HpjBLYI1637hToXZnDurJGuvFqhhnuf8TgFbt7/nbYW2BVfLs+SrIso+8aWvlzhXlObGWOEK1uAZ5V2Xj+tLZHOv4RoqU=
+before_install:
+- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then openssl aes-256-cbc -k "$password"
+  -in id_rsa.enc -out deploy_key -d; fi

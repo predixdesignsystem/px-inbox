@@ -1,6 +1,6 @@
 {
   "name": "px-inbox",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": [
     "px-inbox.html"
   ],
@@ -38,7 +38,7 @@
     "px-list-inline-design": "^0.2.11",
     "px-toggle-design": "^0.2.12",
     "px-headings-design": "^0.2.14",
-    "px-actionable-text-icons-design": "^0.0.3",
+    "px-actionable-text-icons-design": "^0.1.0",
     "px-code-design": "^0.2.11",
     "px-list-bare-design": "^0.2.13",
     "px-starter-kit-design": "~0.5.5"
