@@ -57,6 +57,11 @@ $inuit-enable-input--tiny: true;
 .info {
   text-align: right;
 }
+.list-ui__item {
+  &:hover {
+    cursor: pointer;
+  }
+}
 .list-ui__item.selected {
   background-color: $select-blue-default;
   color: white;
