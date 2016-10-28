@@ -1,3 +1,7 @@
+v0.2.7
+==================
+* Added cursor "hand" state on hover over an inbox item
+
 v0.2.6
 ==================
 * fixed sauce credentials
