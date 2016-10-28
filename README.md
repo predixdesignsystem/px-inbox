@@ -1,4 +1,6 @@
-#px-inbox
+#px-inbox [![Build Status](https://travis-ci.org/PredixDev/px-inbox.svg?branch=master)](https://travis-ci.org/PredixDev/px-inbox)
+-----------------------------------------------
+[![px-inbox demo](px-inbox.png?raw=true)](https://predixdev.github.io/predix-ui/?type=component&show=px-inbox/)
 
 ## Overview
 
@@ -31,7 +33,9 @@ Second, import the component to your application with the following tag in your 
 Finally, use the component in your application:
 
 ```
-<px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","info":"1:29 PM"}]'></px-inbox>
+<px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","info":"1:29 PM"}]'>
+  // define or bind to your detail view here
+</px-inbox>
 ```
 
 <br />
@@ -39,7 +43,7 @@ Finally, use the component in your application:
 
 ## Documentation
 
-Read the full API and view the demo [here](https://predixdev.github.io/px-inbox).
+Read the full API and view the demo [here](https://predixdev.github.io/predix-ui/?type=component&show=px-inbox/).
 
 The documentation in this repository is supplemental to the official Predix documentation, which is continuously updated and maintained by the Predix documentation team. Go to [http://predix.io](http://predix.io)  to see the official Predix documentation.
 

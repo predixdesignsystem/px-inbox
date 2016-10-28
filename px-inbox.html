@@ -43,7 +43,7 @@
         </div>
         <ul class=list-ui>
           <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy)}}">
-            <li id="{{listItem.id}}" class="list-ui__item" on-click="_selectItem">
+            <li id="{{listItem.id}}" class="list-ui__item pointer" on-click="_selectItem">
               <div class="flex flex--justify">
                 <div class="flex flex--left">
                   <div id="icon" class$="{{listItem.severity}} u-mr-">

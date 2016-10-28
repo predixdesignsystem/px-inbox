@@ -34,7 +34,7 @@ $inuit-enable-input--tiny: true;
 
 
 
-@import "px-meta-lists-design/_meta.lists.scss";
+@import "px-list-ui-design/_objects.list-ui.scss";
 
 
 
@@ -46,7 +46,7 @@ $inuit-enable-input--tiny: true;
   height: 100%;
   overflow-y: auto;
   min-width: 275px;
-  border-right: 1px solid $gray4;
+  border-right: 1px solid $gray6;
 }
 .title {
   font-weight: bold;
@@ -56,6 +56,13 @@ $inuit-enable-input--tiny: true;
 }
 .info {
   text-align: right;
+}
+px-dropdown {
+  margin-top: -2px;
+}
+.list-ui__item {
+  border-bottom-color: $gray6;
+  background-color: $gray1;
 }
 .list-ui__item.selected {
   background-color: $select-blue-default;
@@ -68,12 +75,13 @@ $inuit-enable-input--tiny: true;
   height: 100%;
   overflow-y: auto;
 }
-
 .header, .details {
   padding: 1rem;
   border-bottom: 1px solid $gray6;
 }
-
+.label {
+  color: $gray6;
+}
 .svg-canvas {
     display: none;
 }
@@ -100,8 +108,8 @@ $inuit-enable-input--tiny: true;
     }
     .svg-triangle{
       margin: 0 auto;
-      width: 100px;
-      height: 100px;
+      width: 1.9rem;
+      height: 1.9rem;
     }
     border: none;
     span:before {

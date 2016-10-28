@@ -1,3 +1,12 @@
+v0.2.7
+==================
+* fixed svg sizing
+* added grey background to list items
+* added cursor 'pointer' for list items
+* hid detail on initial load
+* added picture to readme
+* updated demo
+
 v0.2.6
 ==================
 * fixed sauce credentials

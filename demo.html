@@ -18,8 +18,7 @@
 <body>
 
   <px-inbox id="inbox1" list-items='[{"id":"1","title":"CMS Cold Spot","subtitle":"GT240182","severity":"important","date":"2016-10-05T01:29"},{"id":"2","title":"Drum Level Anomaly","subtitle":"Block 2","severity":"warning","date":"2016-10-04T01:27"},{"id":"3","title":"GT Vibration","subtitle":"GT20145","severity":"error","date":"2016-10-03T01:21"},{"id":"4","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-10-03T01:05"},{"id":"5","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-10-02T12:30"},{"id":"6","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-10-02T01:33"},{"id":"7","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-09-12T01:05"},{"id":"8","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-09-02T12:30"},{"id":"9","title":"GT Stall","subtitle":"GT29372","severity":"error","date":"2016-09-15T01:33"},{"id":"10","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-09-04T01:33"}]'>
-    <px-inbox-detail
-      id="inboxDetail1" title="CMS Cold Spot" severity="important">
+    <px-inbox-detail>
     </px-inbox-detail>
   </px-inbox>
 
@@ -29,7 +28,8 @@
       setTimeout(function() {
         var inbox = document.querySelector('#inbox1');
         inbox.addEventListener('selected-item-changed', function() {
-          var detail = document.querySelector('#inboxDetail1');
+          var detail = document.querySelector('px-inbox-detail');
+          detail.id = 'detail' + this.selectedItem;
           detail.title = inbox.listItems.find(x => x.id === inbox.selectedItem).title;
           detail.severity = inbox.listItems.find(x => x.id === inbox.selectedItem).severity;
         });

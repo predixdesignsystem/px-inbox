@@ -16,63 +16,65 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
 <dom-module id="px-inbox-detail">
   <template>
     <style include="px-inbox-styles"></style>
-    <div class="header flex flex--center">
-      <div id="icon" class$="{{severity}} u-mr-">
-        <div class="svg-canvas">
-          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-triangle">
-            <polygon points="0,27 15,0 30,27"/>
-          </svg>
+    <template is="dom-if" if="{{id}}">
+      <div class="header flex flex--left">
+        <div id="icon" class$="{{severity}} u-mr-">
+          <div class="svg-canvas">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-triangle">
+              <polygon points="0,27 15,0 30,27"/>
+            </svg>
+          </div>
+          <span class="number"></span>
         </div>
-        <span class="number"></span>
+        <span class="epsilon" style="line-height:30px;">{{title}}</span>
       </div>
-      <span class="delta">{{title}}</span>
-    </div>
-    <div class="details">
-      <span class="caps title">Alert Information</span>
-      <div class="flex u-mt">
-        <div class="flex__item">
-          <span>Alert ID</span><br/>
-          <span class="title">749581</span>
+      <div class="details">
+        <span class="caps title">Alert Information</span>
+        <div class="flex u-mt">
+          <div class="flex__item">
+            <span class="label">Alert ID</span><br/>
+            <span>749581</span>
+          </div>
+          <div class="flex__item">
+            <span class="label">Alert Source</span><br/>
+            <span>Combustion</span>
+          </div>
         </div>
-        <div class="flex__item">
-          <span>Alert Source</span><br/>
-          <span class="title">Combustion</span>
-        </div>
-      </div>
-      <div class="flex u-mt">
-        <div class="flex__item">
-          <span>Received Date/Time</span><br/>
-          <span class="title">2016-10-05T08:00</span>
-        </div>
-        <div class="flex__item">
-          <span>Case Number</span><br/>
-          <span class="title">127587937</span>
-        </div>
-      </div>
-    </div>
-    <div class="details">
-      <span class="caps title">Asset Information</span>
-      <div class="flex u-mt">
-        <div class="flex__item">
-          <span>Customer</span><br/>
-          <span class="title">Customer Name</span>
-        </div>
-        <div class="flex__item">
-          <span>Serial Number</span><br/>
-          <span class="title">GT769375</span>
+        <div class="flex u-mt">
+          <div class="flex__item">
+            <span class="label">Received Date/Time</span><br/>
+            <span>2016-10-05T08:00</span>
+          </div>
+          <div class="flex__item">
+            <span class="label">Case Number</span><br/>
+            <span>127587937</span>
+          </div>
         </div>
       </div>
-      <div class="flex u-mt">
-        <div class="flex__item">
-          <span>DLN Type</span><br/>
-          <span class="title">DLN 2.6</span>
+      <div class="details">
+        <span class="caps title">Asset Information</span>
+        <div class="flex u-mt">
+          <div class="flex__item">
+            <span class="label">Customer</span><br/>
+            <span>Customer Name</span>
+          </div>
+          <div class="flex__item">
+            <span class="label">Serial Number</span><br/>
+            <span>GT769375</span>
+          </div>
         </div>
-        <div class="flex__item">
-          <span>Model</span><br/>
-          <span class="title">7FA+e</span>
+        <div class="flex u-mt">
+          <div class="flex__item">
+            <span class="label">DLN Type</span><br/>
+            <span>DLN 2.6</span>
+          </div>
+          <div class="flex__item">
+            <span class="label">Model</span><br/>
+            <span>7FA+e</span>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
   </template>
 </dom-module>
 
