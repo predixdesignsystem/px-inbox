@@ -1,3 +1,7 @@
+v0.2.8
+==================
+* added style variables for theming
+
 v0.2.7
 ==================
 * fixed svg sizing

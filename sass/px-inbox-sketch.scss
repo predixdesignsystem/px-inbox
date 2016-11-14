@@ -46,13 +46,13 @@ $inuit-enable-input--tiny: true;
   height: 100%;
   overflow-y: auto;
   min-width: 275px;
-  border-right: 1px solid $gray6;
+  border-right: 1px solid var(--px-inbox-border-color, $gray6);
 }
 .title {
   font-weight: bold;
 }
 .subtitle, .info {
-  color: $gray6;
+  color: var(--px-inbox-secondary-text-color, $gray6);
 }
 .info {
   text-align: right;
@@ -61,14 +61,14 @@ px-dropdown {
   margin-top: -2px;
 }
 .list-ui__item {
-  border-bottom-color: $gray6;
-  background-color: $gray1;
+  border-bottom-color: var(--px-inbox-border-color, $gray6);
+  background-color: var(--px-inbox-li-background-color, $gray1);
 }
 .list-ui__item.selected {
-  background-color: $select-blue-default;
-  color: white;
+  background-color: var(--px-inbox-li-background-color--selected, $select-blue-default);
+  color: var(--px-inbox-li-text-color--selected, $white);
   .subtitle, .info {
-    color: white;
+    color: var(--px-inbox-li-text-color--selected, $white);
   }
 }
 .detail {
@@ -77,22 +77,22 @@ px-dropdown {
 }
 .header, .details {
   padding: 1rem;
-  border-bottom: 1px solid $gray6;
+  border-bottom: 1px solid var(--px-inbox-border-color, $gray6);
 }
 .label {
-  color: $gray6;
+  color: var(--px-inbox-secondary-text-color, $gray6);
 }
 .svg-canvas {
     display: none;
 }
 
 @mixin iconCommon {
-  color: $white;
+  color: var(--px-inbox-icon-outline-color, $white);
   text-align: center;
   vertical-align: middle;
   line-height: 30px;
   font-weight: bold;
-  border: 1px solid $white;
+  border: 1px solid var(--px-inbox-icon-outline-color, $white);
 }
 
 #icon {
@@ -102,8 +102,8 @@ px-dropdown {
   &.important {
     @include iconCommon;
     .svg-triangle polygon {
-      fill: $alert-red;
-      stroke: $white;
+      fill: var(--px-inbox-alert-color, $alert-red);
+      stroke: var(--px-inbox-icon-outline-color, $white);
       stroke-width: 1;
     }
     .svg-triangle{
@@ -128,7 +128,7 @@ px-dropdown {
     height: 1.9rem !important;
     width: 1.9rem !important;
     margin-right: 0.8rem !important;
-    background-color: $alert-orange;
+    background-color: var(--px-inbox-warning-color, $alert-orange);
     transform: rotate(45deg);
     @include iconCommon;
     span {
@@ -146,14 +146,14 @@ px-dropdown {
     //The square needs to be visually smaller
     height:  1.8rem;
     width:  1.8rem;
-    background-color: $alert-yellow;
+    background-color: var(--px-inbox-error-color, $alert-yellow);
     @include iconCommon;
     span:before {
       content: '3';
     }
   }
   &.information {
-    background-color: $alert-blue;
+    background-color: var(--px-inbox-information-color, $alert-blue);
     border-radius: 40px;
     @include iconCommon;
     span:before {
