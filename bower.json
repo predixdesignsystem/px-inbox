@@ -1,45 +1,45 @@
 {
-  "name": "px-inbox",
-  "version": "0.2.8",
-  "main": [
-    "px-inbox.html"
-  ],
-  "ignore": [
-    ".*",
-    "npm-debug.log",
-    "gulpfile.js",
-    "sass",
-    "bower_components",
-    "node_modules",
-    "test",
-    "OSS_Notice.pdf",
-    "scripts",
-    ".github",
-    "px-inbox.png",
-    "LICENSE.md",
-    "CONTRIBUTING.md",
-    "HISTORY.md"
-  ],
-  "dependencies": {
-    "polymer": "^1.6.0",
-    "px-theme": "~1.1.2",
-    "px-meta-lists-design": "^0.3.4",
-    "px-forms-design": "^0.3.15",
-    "px-dropdown": "^0.12.2",
-    "moment": "^2.15.1"
-  },
-  "devDependencies": {
-    "px-tables-design": "~0.3.12",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.3",
-    "px-polymer-font-awesome": "^0.1.8",
-    "px-tabs": "~0.5.2",
-    "px-api-viewer": "^0.1.0",
-    "px-demo-snippet": "^0.6.0",
-    "px-toggle-design": "^0.2.12",
-    "px-headings-design": "^0.2.14",
-    "px-actionable-text-icons-design": "^0.1.0",
-    "px-code-design": "^0.2.11",
-    "px-list-bare-design": "^0.2.13",
-    "px-starter-kit-design": "^0.6.0"
-  }
+    "name": "px-inbox",
+    "version": "0.2.9",
+    "main": [
+        "px-inbox.html"
+    ],
+    "ignore": [
+        ".*",
+        "npm-debug.log",
+        "gulpfile.js",
+        "sass",
+        "bower_components",
+        "node_modules",
+        "test",
+        "OSS_Notice.pdf",
+        "scripts",
+        ".github",
+        "px-inbox.png",
+        "LICENSE.md",
+        "CONTRIBUTING.md",
+        "HISTORY.md"
+    ],
+    "dependencies": {
+        "polymer": "^1.6.0",
+        "px-theme": "~1.1.2",
+        "px-meta-lists-design": "^0.3.4",
+        "px-forms-design": "^0.3.15",
+        "px-dropdown": "^0.12.2",
+        "moment": "^2.15.1"
+    },
+    "devDependencies": {
+        "px-tables-design": "~0.3.12",
+        "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.3",
+        "px-polymer-font-awesome": "^0.1.8",
+        "px-tabs": "~0.5.2",
+        "px-api-viewer": "^0.1.0",
+        "px-demo-snippet": "^0.6.9",
+        "px-toggle-design": "^0.2.12",
+        "px-headings-design": "^0.2.14",
+        "px-actionable-text-icons-design": "^0.1.0",
+        "px-code-design": "^0.2.11",
+        "px-list-bare-design": "^0.2.13",
+        "px-starter-kit-design": "^0.6.0"
+    }
 }
