@@ -1,3 +1,6 @@
+v0.2.10
+==================
+* separated predix and sketch styles
 
 v0.2.9
 ==================

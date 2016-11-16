@@ -21,5 +21,106 @@ common/abstract rules go in px-inbox-sketch.scss, not in this file.
 
 // Settings
 @import "px-colors-design/_settings.colors.scss";
-
 @import 'px-inbox-sketch.scss';
+
+// Component
+
+.list {
+  border-right: 1px solid var(--px-inbox-border-color, $gray6);
+}
+.subtitle, .info {
+  color: var(--px-inbox-secondary-text-color, $gray6);
+}
+.list-ui__item {
+  border-bottom-color: var(--px-inbox-border-color, $gray6);
+  background-color: var(--px-inbox-li-background-color, $gray1);
+}
+.list-ui__item.selected {
+  background-color: var(--px-inbox-li-background-color--selected, $select-blue-default);
+  color: var(--px-inbox-li-text-color--selected, $white);
+  .subtitle, .info {
+    color: var(--px-inbox-li-text-color--selected, $white);
+  }
+}
+.header, .details {
+  border-bottom: 1px solid var(--px-inbox-border-color, $gray6);
+}
+.label {
+  color: var(--px-inbox-secondary-text-color, $gray6);
+}
+
+@mixin iconCommon {
+  color: var(--px-inbox-icon-outline-color, $white);
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+  font-weight: bold;
+  border: 1px solid var(--px-inbox-icon-outline-color, $white);
+}
+
+#icon {
+  position: relative;
+  height:  1.9rem;
+  width:  1.9rem;
+  &.important {
+    @include iconCommon;
+    .svg-triangle polygon {
+      fill: var(--px-inbox-alert-color, $alert-red);
+      stroke: var(--px-inbox-icon-outline-color, $white);
+      stroke-width: 1;
+    }
+    .svg-triangle{
+      margin: 0 auto;
+      width: 1.9rem;
+      height: 1.9rem;
+    }
+    border: none;
+    span:before {
+      content: '1';
+      position: absolute;
+      top: 4px;
+      left: 11px;
+    }
+    .svg-canvas {
+      display: block !important;
+      position: absolute;
+      top: 0px;
+    }
+  }
+  &.warning {
+    height: 1.9rem !important;
+    width: 1.9rem !important;
+    margin-right: 0.8rem !important;
+    background-color: var(--px-inbox-warning-color, $alert-orange);
+    transform: rotate(45deg);
+    @include iconCommon;
+    span {
+      display: block;
+      position: relative;
+      padding-left: 2px;
+      line-height: 1.9rem;
+      transform: rotate(-45deg);
+    }
+    span:before {
+      content: '2';
+    }
+  }
+  &.error {
+    //The square needs to be visually smaller
+    height:  1.8rem;
+    width:  1.8rem;
+    background-color: var(--px-inbox-error-color, $alert-yellow);
+    @include iconCommon;
+    span:before {
+      content: '3';
+    }
+  }
+  &.information {
+    background-color: var(--px-inbox-information-color, $alert-blue);
+    border-radius: 40px;
+    @include iconCommon;
+    span:before {
+      content: '4';
+    }
+  }
+}
