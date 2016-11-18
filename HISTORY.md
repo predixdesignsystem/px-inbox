@@ -1,3 +1,7 @@
+v0.2.11
+==================
+* update dependencies for dropdown
+
 v0.2.10
 ==================
 * separated predix and sketch styles
