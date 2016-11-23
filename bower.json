@@ -1,6 +1,6 @@
 {
     "name": "px-inbox",
-    "version": "0.2.12",
+    "version": "0.2.13",
     "main": [
         "px-inbox.html"
     ],
@@ -29,10 +29,10 @@
         "moment": "^2.15.1"
     },
     "devDependencies": {
-        "px-tables-design": "~0.3.12",
+        "px-tables-design": "^0.3.12",
         "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.3",
         "px-polymer-font-awesome": "^0.1.8",
-        "px-tabs": "~0.5.2",
+        "px-tabs": "^0.5.2",
         "px-api-viewer": "^0.1.0",
         "px-demo-snippet": "^0.6.9",
         "px-toggle-design": "^0.2.12",
