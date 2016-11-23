@@ -1,3 +1,7 @@
+v0.2.12
+==================
+* Update px-theme to 2.0.1 and update test fixtures
+
 v0.2.11
 ==================
 * update dependencies for dropdown

@@ -1,6 +1,6 @@
 {
     "name": "px-inbox",
-    "version": "0.2.11",
+    "version": "0.2.12",
     "main": [
         "px-inbox.html"
     ],
@@ -22,7 +22,7 @@
     ],
     "dependencies": {
         "polymer": "^1.6.0",
-        "px-theme": "~1.1.2",
+        "px-theme": "^2.0.1",
         "px-meta-lists-design": "^0.3.4",
         "px-forms-design": "^0.3.15",
         "px-dropdown": "~2.0.0",
