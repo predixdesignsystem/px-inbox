@@ -62,6 +62,7 @@ common/abstract rules go in px-inbox-sketch.scss, not in this file.
   position: relative;
   height:  1.9rem;
   width:  1.9rem;
+  min-width: 1.9rem;
   &.important {
     @include iconCommon;
     .svg-triangle polygon {
@@ -70,8 +71,8 @@ common/abstract rules go in px-inbox-sketch.scss, not in this file.
       stroke-width: 1;
     }
     .svg-triangle{
-      margin: 0 auto;
-      width: 1.9rem;
+      margin: 0.1rem auto;
+      width: 2.0rem;
       height: 1.9rem;
     }
     border: none;
@@ -109,6 +110,7 @@ common/abstract rules go in px-inbox-sketch.scss, not in this file.
     //The square needs to be visually smaller
     height:  1.8rem;
     width:  1.8rem;
+    min-width: 1.8rem;
     background-color: var(--px-inbox-error-color, $alert-yellow);
     @include iconCommon;
     span:before {

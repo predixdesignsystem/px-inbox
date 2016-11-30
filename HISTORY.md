@@ -1,3 +1,7 @@
+v0.2.14
+==================
+* fixed icon spacing issues
+
 v0.2.13
 ==================
 * changing all devDeps to ^
