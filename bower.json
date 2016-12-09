@@ -1,6 +1,6 @@
 {
     "name": "px-inbox",
-    "version": "0.2.14",
+    "version": "0.2.15",
     "main": [
         "px-inbox.html"
     ],

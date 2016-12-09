@@ -1,3 +1,7 @@
+v0.2.15
+==================
+* changing browser in wct testing from safari 8 to safari 10 on elcapitan
+
 v0.2.14
 ==================
 * fixed icon spacing issues
