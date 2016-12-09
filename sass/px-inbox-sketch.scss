@@ -47,6 +47,10 @@ $inuit-enable-input--tiny: true;
   overflow-y: auto;
   min-width: 275px;
 }
+.list-ui__item {
+  word-wrap: break-word;
+  word-break: break-word;
+}
 .title {
   font-weight: bold;
 }
