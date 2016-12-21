@@ -1,3 +1,7 @@
+v0.2.17
+==================
+* Update dependencies
+
 v0.2.16
 ==================
 * added word-wrap and word-break for long strings
