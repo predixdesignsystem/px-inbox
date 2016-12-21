@@ -7,6 +7,7 @@ branches:
   except:
   - gh-pages
 addons:
+  firefox: latest
   apt:
     sources:
     - google-chrome
@@ -21,14 +22,13 @@ script:
 - xvfb-run wct --skip-plugin sauce
 - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --plugin sauce --skip-plugin
   local; fi
-env:
-  global:
-  - secure: qlhr4jILF19/vzvPstaxkGUE5aDktTyEudXFylIAZ1nsqpKuQV0WVf6WohJ0Vd3NpF5K1RHfod/2rNAxufsHT1fTa+9udhHYwQttBGW7ZcrBvFbPhgFBNLMNPKhxE9nT7Wy1YLeitczf2Om7a5j+AqQmj3hapEq6zFE4ZxWSMnADbTE8xr2mlovbdFR/01tbZwDJ7UmqyFBrSdF0NQDSnp00T4d4t3pA4FlN+zMup3KrTugpGgss/xaiSuzLvTk/YSG5Rv+K54svpehrh3ZItnR8xsx+IUtk4OlE25NjSnzHwbGty4zq/8ir3R+s1OOeuAxMgaxqUWQ0g1jNDa3UQHx4q8YNQvSLeatK45qlpF4cMjuWUvOxeHqNIvLRPb1QZHzj2aNMGmlIC4OpdcbUj3HSVEjaO5qJdM6hGtmvWWi4Lo56bLtuGOTg0btmzi5ApCuvWXBaFltdnyN++0APKkxD4m65cR0Sf7CS1gyv0P/daoWNHil1J1S7ZQ78MAZNe2ryJCb73M8h16cpN5IjZ41NUPHHZoC8kuvn56Q5rtTtRNYZkOa9YlzzxowJ5TB2vlCjGYoCJifvVB9B7NsmlR5ZMY8p15G9MzIU93yGyLdzLjK0cd1lRXvRxM4eWFlRp6ngspARyIpfzogOXq+y5UbRryH7i9XO2Fj46Q9Zh6U=
-  - secure: KruBn9Ug2s7pQ3wMP7H3ThJGYwGl1kZgbzjqkjPaY0kHUY2QUVbtRS3mU4mBYR3Sgcr0vDfulIJooZHIKL12MEUQmYti4ZDeeQOsVYgVrXdAlr1CDSXOJTaqadKDBtj7uCzQwoSl9ueeOWDCyKA5ZGoSC/MX7eoKCb6pYyTv3j+vs/uKBv5pCGAHqiutcRnQ/jHpPjBjqYNpqVy6dF1do//apTywgFBy1K26IbuN2mBcdaVWg+gB4SOa9Ddz8+7IcLCRR1vDktiTfXvG/7uCtjirSafSulyXSSOBCtdgEby32U2LKPoc/wFNj6J8egfwh2E+Vw4KxE/YDkpzrn29yca0Sj7oSPG+8OnSQCj15P7Y/URduuOHIzJTK7b4pQ9SWV7w5grtQegSHY8JYzwdUTnd6jdB9XbLNSclMOHOsjJlNNTqY9g03s0eIA1Qeb13J0XF6GvGEIZtY3XXXWLuK7n/fIOeFjYIyJTXcSt1UUJNUFebMN8rtHnFur1IvRpace7Fq5zJDd66EDyFbU61BNrTDnCclOVNRJuQ4wl9afJOpzRi/lFtVfRdYR2UmeZNAUtB0b1CCGvMz8TLheUP8K9Mcj3PqiZ3NaK8uD/2x7W1IIUKxR04cMSpp5HdsIVbj/mtI1QmiIN8/cWn241iTPu6P+PvVBxyWStvvgB+aPQ=
-before_install:
-- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then openssl aes-256-cbc -k "$password"
-  -in id_rsa.enc -out deploy_key -d; fi
 after_success:
+- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then openssl aes-256-cbc -k "$DEPLOYSECRET"
+  -in deploy.enc -out deploy_key -d; fi
 - cd $TRAVIS_BUILD_DIR/scripts
 - chmod 755 ghp.sh
 - "./ghp.sh"
+env:
+  global:
+  - secure: Lqho2jdWYfRVeYswzah9jQCkm/gUoDEx1UTYPJmdobtH3GKdFcWm9Y1Yn5/1zTSWrSFFpxqEC94JYbZV1nRIdojIWFOdKbgc3HJgPa3lfKoyCFcxZ1cu/vPtn95s26tmImpoxTVjSFf94U5tkcXaceAJq/78Ou8pEDSoF0WslBFKq12+ysvvknDwlGS3vKp1FLS/ISGiNB3OoLrGgHdn/szdX+Z5Qww7FDiZ9n8xiPoYU1mn+igaR168BIifGcb1TzFGkunng32LKhp+kVv6a0GrWt6O5S/gFQO9Wt2nL9ItZlS3eP1GPfqVmS8mbhaXkByGzcuOpiq/u+nL96Cgv9/9PMIr2lDYY2g6lEpO382stqacF8G00OJgV1ZipLXgmQg7C3UjZ9vxvNvcYapdNOuqIa+tbVgyciEA7JlPYnc1gYDnJPWs0oL3L+kNakYjQjzsl9Ntg+lag+1lU0Bm4jHPg1csXXi1rEZqAN4DdOpEfKvOUEm2EFyseqXxVlVA3tBu6MQza09bBB/GHLXw4mJ3014Mftt0hvvbB0H2bza29LLryTQ5dS8GiaLWv07RCFr+uJlvhi9oGvRrpNbNpQ5U4qDpb8sve3JTOYznS6oyMcAATSehXM8lc3r6DAXwyhimilUg2VliwIed4znodLoSFrcTt0H/zSo/hjVSYpY=
+  - secure: KzKQePdnrAPdG4xBLTwclwdBulVMGlA+/L8zXOfY0zpQAc8ORZ7n8sUKbV+bRqIQS3Cn8f4vTrpaaQ1RYfrdJ5tE6RcacsTFwP7RW2eHLEhO+tEL9v7CfJBwlXa/+2sZC5XpcOnchgX5SC3A3O709mb89XYxNRghUDibuwmr4oGKtE92PF8rIfQ+35OO/bcIN739S34I5ggJh/oUAVpC8KWufPPITWUnMfGxwbsKBuHcdE9QRs6kPAAVFpWPnm9rFHE51kA0ROty1Xyecfh2w8eH07Bi2zCwnVrRZEegl6G6ORVDZsv523AJPe5Q8Lvuvrpm0di4vfnv8ImlWU7aFb5UK+65vJfnIRNztzVkYO4IobX2TSeUseI3MTv43j6kn+ujvfHAyB38HZvtCmAW0JjLWP8shb/1fvHSa4gTjKnChQUQiUB8WVr4mUUdhuzB1nVk8jn3buVOv+1rVPpJDZmD0Iw1MkaUoeKaWXjLXPIx2E8k9a/CSwMVQ981DX93OpkjrLtaqgQfwEpHRpsXeBNSgpVqcbOJO4mThRvNdYbbESmeEFT+iTR7ddarwbwuJmbYs3QtZk3j2PHldfyTcqNRBT6NaaJZebVas7mtxF6AWaruHarcKPWWWvuJqpakezLci+MbuAOPRhi3bxBwL8SQtNBaQQrNjWVB89raGFw=
