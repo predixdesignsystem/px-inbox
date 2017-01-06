@@ -1,3 +1,7 @@
+v0.2.18
+==================
+* update style of sort/search to closer match spec
+
 v0.2.17
 ==================
 * Update dependencies
