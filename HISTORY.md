@@ -1,3 +1,7 @@
+v0.2.19
+==================
+* changing ghp.sh to account for Alpha releases
+
 v0.2.18
 ==================
 * update style of sort/search to closer match spec
