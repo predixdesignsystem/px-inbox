@@ -1,3 +1,7 @@
+v0.2.21
+==================
+* small display issue in Safari (desktop/mobile) and Chrome (mobile)
+
 v0.2.20
 ==================
 * Update colors design to pick up new colors

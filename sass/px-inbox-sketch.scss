@@ -76,10 +76,13 @@ px-dropdown {
 }
 .search-field .text-input {
   padding-right: 2rem;
+  -webkit-appearance: none;
+  border-radius: 0px;
 }
 .search-icon {
   position: absolute;
   right: 0.3333rem;
+  top: 0.3333rem;
   height: 1rem;
   width: 1rem;
 }
