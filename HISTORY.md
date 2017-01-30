@@ -1,3 +1,7 @@
+v0.2.22
+==================
+* Updating so px-demo-snippet and px-api-viewer get new grays
+
 v0.2.21
 ==================
 * small display issue in Safari (desktop/mobile) and Chrome (mobile)
