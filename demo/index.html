@@ -1,0 +1,152 @@
+<!-- Common imports -->
+<link rel="import" href="../../polymer/polymer.html" />
+<link rel="import" href="../../px-polymer-font-awesome/px-polymer-font-awesome.html" />
+
+<!-- Common demo imports -->
+<link rel="import" href="../../px-demo/px-demo-header.html" />
+<link rel="import" href="../../px-demo/px-demo-api-viewer.html" />
+<link rel="import" href="../../px-demo/px-demo-footer.html" />
+<link rel="import" href="../../px-demo/px-demo-configs.html" />
+<link rel="import" href="../../px-demo/px-demo-props.html" />
+<link rel="import" href="../../px-demo/px-demo-interactive.html" />
+<link rel="import" href="../../px-demo/px-demo-component-snippet.html" />
+<link rel="import" href="../../px-demo/px-demo-code-editor.html" />
+
+<!-- Imports for this component -->
+<link rel="import" href="../../px-demo/css/px-demo-styles.html" />
+<link rel="import" href="../px-inbox.html" />
+
+<!-- Demo DOM module -->
+<dom-module id="local-element-demo">
+  <template>
+    <style include="px-demo-styles" is="custom-style"></style>
+
+    <!-- Header -->
+    <px-demo-header
+        module-name="px-inbox"
+        description="A list/detail or “Inbox” view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.">
+    </px-demo-header>
+
+    <!-- Interactive -->
+    <px-demo-interactive>
+      <!-- Configs -->
+      <px-demo-configs configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+
+      <!-- Props -->
+      <px-demo-props props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+
+      <!-- Code Editor -->
+      <px-demo-code-editor props="{{props}}"></px-demo-code-editor>
+
+      <!-- Component ---------------------------------------------------------->
+      <px-demo-component>
+        <px-inbox
+          list-items="{{props.listItems.value}}"
+          height={{props.height.value}}>
+            <px-inbox-detail>
+            </px-inbox-detail>
+        </px-inbox>
+      </px-demo-component>
+      <!-- END Component ------------------------------------------------------>
+
+      <px-demo-component-snippet
+          element-properties="{{props}}"
+          element-name="px-inbox">
+      </px-demo-component-snippet>
+    </px-demo-interactive>
+
+    <!-- API Viewer -->
+    <px-demo-api-viewer source="px-inbox"></px-demo-api-viewer>
+
+    <!-- Footer -->
+    <px-demo-footer></px-demo-footer>
+
+  </template>
+
+</dom-module>
+<script>
+  Polymer({
+    is: 'local-element-demo',
+
+    properties: {
+
+      /*
+       * @property demoProps
+       * @type {Object}
+       */
+      props: {
+        type: Object,
+        value: function(){ return this.demoProps; }
+      },
+
+      /**
+       * An array of pre-configured `props` that can be used to provide the user
+       * with a set of common examples. These configs will be made available
+       * as a set of tabs the user can click that will automatically change
+       * the `props` to specific values.
+       *
+       * @property demoProps
+       * @type {Array}
+       */
+      configs: {
+        type: Array,
+        value: function(){
+          return [
+            { configName: "Basic",
+              configReset: true,
+              lightDomContent : "Define or bind to detail view here"
+            }
+          ]
+        }
+      }
+    },
+
+    /**
+     * A reference for `this.props`.
+     */
+    demoProps: {
+      listItems: {
+        type: Array,
+        defaultValue: [{
+            "id":"1",
+            "title":"CMS Cold Spot",
+            "subtitle":"GT240182",
+            "severity":"important",
+            "date":"2016-10-05T01:29"
+          },{
+            "id":"2",
+            "title":"Drum Level Anomaly",
+            "subtitle":"Block 2",
+            "severity":"warning",
+            "date":"2016-10-04T01:27"
+          },{
+            "id":"3",
+            "title":"GT Vibration",
+            "subtitle":"GT20145",
+            "severity":"error",
+            "date":"2016-10-03T01:21"
+          },{
+            "id":"4",
+            "title":"Drum Level Anomaly",
+            "subtitle":"Block 4",
+            "severity":"information",
+            "date":"2016-10-03T01:05"
+          },{
+            "id":"5",
+            "title":"GT Trip",
+            "subtitle":"GT23193",
+            "severity":"important",
+            "date":"2016-10-02T12:30"
+          }],
+        inputType: 'code:JSON'
+      },
+      height: {
+        type: String,
+        defaultValue: '398px',
+        inputType: 'text',
+        inputPlaceholder: '400px'
+      }
+    }
+
+  });
+</script>

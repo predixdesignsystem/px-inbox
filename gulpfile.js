@@ -28,17 +28,17 @@ gulp.task('clean', function() {
 
 function buildCSS(){
   return combiner.obj([
-    $.sass(sassOptions).on('error', $.sass.logError),
+    $.sass(sassOptions),
     $.autoprefixer({
-      browsers: ['last 2 versions', 'Safari 8.0'],
+      browsers: ['last 2 versions'],
       cascade: false
     }),
     gulpif(!argv.debug, $.cssmin())
-  ]);
+  ]).on('error', handleError);
 }
 
 gulp.task('sass', function() {
-  return gulp.src(['./sass/*.scss', '!./sass/*sketch.scss', '!./sass/*-demo.scss'])
+  return gulp.src(['./sass/*.scss', '!./sass/*sketch.scss'])
     .pipe(buildCSS())
     .pipe(gulpif(/.*predix/,
       $.rename(function(path){
@@ -54,16 +54,8 @@ gulp.task('sass', function() {
     .pipe(browserSync.stream({match: 'css/*.html'}));
 });
 
-gulp.task('demosass', function() {
-  return gulp.src(['./sass/*-demo.scss'])
-    .pipe(buildCSS())
-    .pipe(gulp.dest('css'))
-    .pipe(browserSync.stream({match: '**/*.css'}));
-});
-
 gulp.task('watch', function() {
-  gulp.watch(['!sass/*-demo.scss', 'sass/*.scss'], ['sass']);
-  gulp.watch('sass/*-demo.scss', ['demosass']);
+  gulp.watch(['sass/*.scss'], ['sass']);
 });
 
 gulp.task('serve', function() {
@@ -73,13 +65,11 @@ gulp.task('serve', function() {
     reloadOnRestart: true,
     logPrefix: `${pkg.name}`,
     https: false,
-    files: ['*.*'],
     server: ['./', 'bower_components'],
   });
 
-  gulp.watch(['!${pkg.name}-styles.html', '*.html', 'bower_components/**/*.html']).on('change', browserSync.reload);
-  gulp.watch(['!sass/*-demo.scss', 'sass/*.scss'], ['sass']);
-  gulp.watch('sass/*-demo.scss', ['demosass']);
+  gulp.watch(['css/*-styles.html', '*.html', '*.js', 'demo/*.html']).on('change', browserSync.reload);
+  gulp.watch(['sass/*.scss'], ['sass']);
 
 });
 
@@ -102,5 +92,5 @@ gulp.task('bump:major', function(){
 });
 
 gulp.task('default', function(callback) {
-  gulpSequence('clean', 'sass', 'demosass')(callback);
+  gulpSequence('clean', 'sass')(callback);
 });
