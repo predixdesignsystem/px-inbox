@@ -11,6 +11,7 @@
 <link rel="import" href="../../px-demo/px-demo-interactive.html" />
 <link rel="import" href="../../px-demo/px-demo-component-snippet.html" />
 <link rel="import" href="../../px-demo/px-demo-code-editor.html" />
+<link rel="import" href="px-inbox-detail-demo.html" />
 
 <!-- Imports for this component -->
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
@@ -41,10 +42,11 @@
       <!-- Component ---------------------------------------------------------->
       <px-demo-component>
         <px-inbox
+          id="inbox1"
           list-items="{{props.listItems.value}}"
           height={{props.height.value}}>
-            <px-inbox-detail>
-            </px-inbox-detail>
+            <px-inbox-detail-demo>
+            </px-inbox-detail-demo>
         </px-inbox>
       </px-demo-component>
       <!-- END Component ------------------------------------------------------>

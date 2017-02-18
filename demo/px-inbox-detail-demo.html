@@ -3,8 +3,8 @@
     siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
 -->
-<link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="css/px-inbox-styles.html">
+<link rel="import" href="../../polymer/polymer.html"/>
+<link rel="import" href="../css/px-inbox-styles.html">
 
 <!--
 This sub-component is simply an example for demo purposes.
@@ -13,10 +13,10 @@ of the px-inbox list/detail component. You could componentize your detail view w
 we've done in this file, or you could define your view in plain HTML/JS/CSS or any other library or framework.
 -->
 
-<dom-module id="px-inbox-detail">
+<dom-module id="px-inbox-detail-demo">
   <template>
     <style include="px-inbox-styles"></style>
-    <template is="dom-if" if="{{id}}">
+    <!-- <template is="dom-if" if="{{id}}"> -->
       <div class="header flex flex--left">
         <div id="icon" class$="{{severity}} u-mr-">
           <div class="svg-canvas">
@@ -74,14 +74,14 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
           </div>
         </div>
       </div>
-    </template>
+    <!-- </template> -->
   </template>
 </dom-module>
 
 <script>
   Polymer({
 
-    is: 'px-inbox-detail',
+    is: 'px-inbox-detail-demo',
 
     properties: {
       title: {
