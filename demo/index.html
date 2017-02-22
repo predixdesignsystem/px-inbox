@@ -37,15 +37,18 @@
       <px-demo-props props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
 
       <!-- Code Editor -->
-      <px-demo-code-editor props="{{props}}"></px-demo-code-editor>
+      <!-- <px-demo-code-editor props="{{props}}"></px-demo-code-editor> -->
 
       <!-- Component ---------------------------------------------------------->
-      <px-demo-component>
+      <px-demo-component class="flex__item">
         <px-inbox
-          id="inbox1"
           list-items="{{props.listItems.value}}"
-          height={{props.height.value}}>
-            <px-inbox-detail-demo>
+          height={{props.height.value}}
+          on-selected-item-changed="_updateInboxDetails">
+            <px-inbox-detail-demo
+                title="{{detailTitle}}"
+                severity="{{detailSeverity}}"
+                is-selected="{{detailIsSelected}}">
             </px-inbox-detail-demo>
         </px-inbox>
       </px-demo-component>
@@ -53,7 +56,9 @@
 
       <px-demo-component-snippet
           element-properties="{{props}}"
-          element-name="px-inbox">
+          element-name="px-inbox"
+          scripts-includes=["https://cdn.rawgit.com/moment/moment/2.17.1/moment.js"]
+          polygit-includes=["moment+moment+2.17.1"]>
       </px-demo-component-snippet>
     </px-demo-interactive>
 
@@ -95,12 +100,24 @@
         value: function(){
           return [
             { configName: "Basic",
-              configReset: true,
-              lightDomContent : "Define or bind to detail view here"
+              configReset: true
             }
           ]
         }
-      }
+      },
+
+      detailTitle: {
+        type: String
+      },
+
+      detailSeverity: {
+        type: String
+      },
+
+      detailIsSelected: {
+        type: Boolean,
+        value: false
+      },
     },
 
     /**
@@ -147,8 +164,24 @@
         defaultValue: '398px',
         inputType: 'text',
         inputPlaceholder: '400px'
+      },
+      lightDomContent: {
+        type: String,
+        value: "Define or bind to detail view here"
       }
-    }
+    },
+
+    _updateInboxDetails: function(e) {
+      var selectedId = e.detail.value;
+      var inboxItem = this.demoProps.listItems.defaultValue.find(function(item) {
+        return item.id===e.detail.value;
+      });
+      if (!inboxItem || !inboxItem.title || !inboxItem.severity) return;
+      this.set("detailTitle", inboxItem.title);
+      this.set("detailSeverity", inboxItem.severity);
+      this.set("detailIsSelected", true);
+    },
+
 
   });
 </script>

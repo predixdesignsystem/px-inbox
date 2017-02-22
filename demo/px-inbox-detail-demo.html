@@ -5,6 +5,7 @@
 -->
 <link rel="import" href="../../polymer/polymer.html"/>
 <link rel="import" href="../css/px-inbox-styles.html">
+<link rel="import" href="../../px-demo/css/px-demo-styles.html" />
 
 <!--
 This sub-component is simply an example for demo purposes.
@@ -16,7 +17,8 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
 <dom-module id="px-inbox-detail-demo">
   <template>
     <style include="px-inbox-styles"></style>
-    <!-- <template is="dom-if" if="{{id}}"> -->
+    <style include="px-demo-styles"></style>
+     <template is="dom-if" if="{{isSelected}}">
       <div class="header flex flex--left">
         <div id="icon" class$="{{severity}} u-mr-">
           <div class="svg-canvas">
@@ -74,7 +76,7 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
           </div>
         </div>
       </div>
-    <!-- </template> -->
+    </template>
   </template>
 </dom-module>
 
@@ -89,6 +91,10 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
       },
       severity: {
         type: String
+      },
+      isSelected: {
+        type: Boolean,
+        value: false
       }
     }
   });
