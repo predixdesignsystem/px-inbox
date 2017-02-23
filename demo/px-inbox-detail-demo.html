@@ -35,21 +35,21 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">Alert ID</span><br/>
-            <span>749581</span>
+            <span>{{alertId}}</span>
           </div>
           <div class="flex__item">
             <span class="label">Alert Source</span><br/>
-            <span>Combustion</span>
+            <span>{{alertSource}}</span>
           </div>
         </div>
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">Received Date/Time</span><br/>
-            <span>2016-10-05T08:00</span>
+            <span>{{receivedDateTime}}</span>
           </div>
           <div class="flex__item">
             <span class="label">Case Number</span><br/>
-            <span>127587937</span>
+            <span>{{caseNumber}}</span>
           </div>
         </div>
       </div>
@@ -58,21 +58,21 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">Customer</span><br/>
-            <span>Customer Name</span>
+            <span>{{customer}}</span>
           </div>
           <div class="flex__item">
             <span class="label">Serial Number</span><br/>
-            <span>GT769375</span>
+            <span>{{serialNumber}}</span>
           </div>
         </div>
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">DLN Type</span><br/>
-            <span>DLN 2.6</span>
+            <span>{{dlnType}}</span>
           </div>
           <div class="flex__item">
             <span class="label">Model</span><br/>
-            <span>7FA+e</span>
+            <span>{{model}}</span>
           </div>
         </div>
       </div>
@@ -86,15 +86,50 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
     is: 'px-inbox-detail-demo',
 
     properties: {
+
+      /*
+       * This property checks whether the user has selected an inbox item 
+       *
+       * @property isSelected
+       * @type Boolean
+       */
+      isSelected: {
+        type: Boolean,
+        value: false
+      },
+
+      /*
+       * The following properties provide hooks through which we can display detailed information about the selected inbox item
+       */
       title: {
         type: String
       },
       severity: {
         type: String
       },
-      isSelected: {
-        type: Boolean,
-        value: false
+      alertId: {
+        type: String
+      },
+      alertSource: {
+        type: String
+      },
+      receivedDateTime: {
+        type: String
+      },
+      caseNumber: {
+        type: String
+      },
+      customer: {
+        type: String
+      },
+      serialNumber: {
+        type: String
+      },
+      dlnType: {
+        type: String
+      },
+      model: {
+        type: String
       }
     }
   });
