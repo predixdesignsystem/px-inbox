@@ -88,11 +88,14 @@ px-dropdown {
 }
 .sort-dropdown {
   min-width: 5rem;
-  --px-dropdown-bg-color--default: transparent;
+  --px-dropdown-bg-color: transparent;
   --px-dropdown-bg-color--hover: transparent;
   --px-dropdown-bg-color--disabled: transparent;
   --px-dropdown-bg-color--opened: transparent;
   --px-dropdown-border-color: transparent;
+  --px-dropdown-border-color--hover: transparent;
+  --px-dropdown-border-color--opened: transparent;
+  --px-dropdown-border-color--disabled: transparent;
 }
 .sort-dropdown-content {
   font-weight: normal;

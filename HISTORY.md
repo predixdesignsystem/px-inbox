@@ -1,3 +1,7 @@
+v0.2.24
+==================
+* update style variables for dropdown
+
 v0.2.23
 ==================
 * Update demo page using px-demo

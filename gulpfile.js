@@ -26,6 +26,11 @@ gulp.task('clean', function() {
   }).pipe($.clean());
 });
 
+function handleError(err){
+  console.log(err.toString());
+  this.emit('end');
+}
+
 function buildCSS(){
   return combiner.obj([
     $.sass(sassOptions),
