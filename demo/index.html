@@ -43,7 +43,7 @@
       <px-demo-component class="flex__item">
         <px-inbox
           list-items="{{props.listItems.value}}"
-          height={{props.height.value}}
+          height="{{props.height.value}}"
           on-selected-item-changed="_updateInboxDetails">
             <px-inbox-detail-demo
                 title="{{detailTitle}}"
@@ -108,7 +108,7 @@
         value: function(){
           return [
             { configName: "Basic",
-              // configReset: true,
+              configShowProps: []
             }
           ]
         }

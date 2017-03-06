@@ -10,8 +10,6 @@
 
 <!--
 
-For a full-screen demo of this component, click <a href="demo.html" target="_blank">here</a>.
-
 ##### Usage
 
     <px-inbox height="100vh" list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","date":"2016-10-05T01:29"}]'>
@@ -64,9 +62,9 @@ Custom property | Description | Default
             </px-dropdown-content>
           </px-dropdown>
         </div>
-        <ul class=list-ui>
+        <ul class="list-ui list-ui--small">
           <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy)}}">
-            <li id="{{listItem.id}}" class="list-ui__item pointer" on-click="_selectItem">
+            <li id="{{listItem.id}}" class$="{{_computeClass(selectedItem,listItem.id)}}" on-click="_selectItem">
               <div class="flex flex--justify">
                 <div class="flex flex--left">
                   <div id="icon" class$="{{listItem.severity}} u-mr-">
@@ -104,6 +102,12 @@ Custom property | Description | Default
 
     is: 'px-inbox',
 
+    /**
+    * Event that is fired when the selected item is changed in the list component.
+    * You should listen for this event and then access selectedItem to get the ID of the item.
+    * @event selected-item-changed
+    */
+
     properties: {
       /**
       * Array of items to include in the list. Each item in the array should be an object with:
@@ -121,11 +125,6 @@ Custom property | Description | Default
       /**
       * ID of the selected item, for pulling up the details to display in the right side of the inbox view.
       * @property selectedItem
-      */
-      /**
-      * Event that is fired when the selected item is changed in the list component.
-      * You should listen for this event and then access selectedItem to get the ID of the item.
-      * @event selected-item-changed
       */
       selectedItem: {
         type: String,
@@ -158,10 +157,17 @@ Custom property | Description | Default
       }
     },
 
+    /**
+    * Figures out whether the item is currently selected.
+    * @method _computeClass
+    */
+    _computeClass: function(selectedId, id) {
+      return selectedId === id ? 'list-ui__item pointer selected' : 'list-ui__item pointer';
+    },
 
     /**
     * Adds visual style to the currently selected item and triggers display of the details.
-    * @method selectItem
+    * @method _selectItem
     */
     _selectItem: function(evt) {
       var otherItems = document.getElementsByClassName("selected");
@@ -173,7 +179,7 @@ Custom property | Description | Default
     },
     /**
     * Formats the date strings in each listItem to display correctly in the table using Moment.js.
-    * @method formatDates
+    * @method _formatDates
     */
     _formatDates: function() {
       Array.prototype.forEach.call(this.listItems, function(listItem) {
@@ -186,10 +192,13 @@ Custom property | Description | Default
           listItem.formattedDate = listItem.date;
         }
       });
+
+      // By default, the first item in the array is selected on load.
+      this.selectedItem = this.listItems[0].id;
     },
     /**
     * Searches through the list titles and subtitles and filters based on the query.
-    * @method computeFilter
+    * @method _computeFilter
     */
     _computeFilter: function(query) {
       // clear all selections
@@ -215,7 +224,7 @@ Custom property | Description | Default
     },
     /**
     * Sort function for the array of list items.
-    * @method computeSort
+    * @method _computeSort
     */
     _computeSort: function(sortBy) {
       sortBy = sortBy.toLowerCase();

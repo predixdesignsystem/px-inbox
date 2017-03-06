@@ -1,3 +1,7 @@
+v0.2.25
+==================
+* forced default selection, updated demo per design feedback
+
 v0.2.24
 ==================
 * update style variables for dropdown
