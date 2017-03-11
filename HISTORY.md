@@ -1,3 +1,7 @@
+v0.2.26
+==================
+* change foreach loops to for loops
+
 v0.2.25
 ==================
 * forced default selection, updated demo per design feedback

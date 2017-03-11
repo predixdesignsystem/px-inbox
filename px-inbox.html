@@ -171,9 +171,10 @@ Custom property | Description | Default
     */
     _selectItem: function(evt) {
       var otherItems = document.getElementsByClassName("selected");
-      Array.prototype.forEach.call(otherItems, function(otherItem) {
-        otherItem.classList.remove("selected");
-      });
+      for (var i=0; i<otherItems.length; i++) {
+        otherItems[i].classList.remove("selected");
+      };
+
       evt.currentTarget.classList.add("selected");
       this.selectedItem = evt.currentTarget.id;
     },
@@ -182,17 +183,16 @@ Custom property | Description | Default
     * @method _formatDates
     */
     _formatDates: function() {
-      Array.prototype.forEach.call(this.listItems, function(listItem) {
+      for (var i=0; i<this.listItems.length; i++) {
         // If date is defined and recognized as a valid date string, convert to a friendlier display format.
-        if(listItem.date && moment(listItem.date).isValid()) {
-          listItem.formattedDate = moment(listItem.date).fromNow();
+        if(this.listItems[i].date && moment(this.listItems[i].date).isValid()) {
+          this.listItems[i].formattedDate = moment(this.listItems[i].date).fromNow();
         }
         // If not recognized as a valid date string, just display whatever was passed in.
         else {
-          listItem.formattedDate = listItem.date;
+          lthis.istItems[i].formattedDate = this.listItems[i].date;
         }
-      });
-
+      };
       // By default, the first item in the array is selected on load.
       this.selectedItem = this.listItems[0].id;
     },
@@ -203,9 +203,10 @@ Custom property | Description | Default
     _computeFilter: function(query) {
       // clear all selections
       var otherItems = document.getElementsByClassName("selected");
-      Array.prototype.forEach.call(otherItems, function(otherItem) {
-        otherItem.classList.remove("selected");
-      });
+
+      for (var i=0; i<otherItems.length; i++) {
+        otherItems[i].classList.remove("selected");
+      };
       this.selectedItem = "";
 
       if (!query) {
@@ -230,9 +231,9 @@ Custom property | Description | Default
       sortBy = sortBy.toLowerCase();
       // clear all selections
       var otherItems = document.getElementsByClassName("selected");
-      Array.prototype.forEach.call(otherItems, function(otherItem) {
-        otherItem.classList.remove("selected");
-      });
+      for (var i=0; i<otherItems.length; i++) {
+        otherItems[i].classList.remove("selected");
+      };
       this.selectedItem = "";
       // return sort function which maps severities to numeric values
       if(sortBy === "severity") {
