@@ -170,7 +170,7 @@ Custom property | Description | Default
     * @method _selectItem
     */
     _selectItem: function(evt) {
-      var otherItems = document.getElementsByClassName("selected");
+      var otherItems = Polymer.dom(this.root).querySelectorAll('.selected');
       for (var i=0; i<otherItems.length; i++) {
         otherItems[i].classList.remove("selected");
       };
@@ -202,7 +202,7 @@ Custom property | Description | Default
     */
     _computeFilter: function(query) {
       // clear all selections
-      var otherItems = document.getElementsByClassName("selected");
+      var otherItems = Polymer.dom(this.root).querySelectorAll('.selected');
 
       for (var i=0; i<otherItems.length; i++) {
         otherItems[i].classList.remove("selected");
@@ -230,7 +230,7 @@ Custom property | Description | Default
     _computeSort: function(sortBy) {
       sortBy = sortBy.toLowerCase();
       // clear all selections
-      var otherItems = document.getElementsByClassName("selected");
+      var otherItems = Polymer.dom(this.root).querySelectorAll('.selected')
       for (var i=0; i<otherItems.length; i++) {
         otherItems[i].classList.remove("selected");
       };

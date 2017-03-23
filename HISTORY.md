@@ -1,3 +1,7 @@
+v0.2.28
+==================
+* replace getElementsByClassName
+
 v0.2.27
 ==================
 * updated px-vis-dropdown to 3.X
