@@ -1,6 +1,6 @@
 {
   "name": "px-inbox",
-  "version": "0.2.26",
+  "version": "0.2.27",
   "main": [
     "px-inbox.html"
   ],
@@ -29,7 +29,7 @@
     "px-meta-lists-design": "^0.4.0",
     "px-forms-design": "^1.1.2",
     "moment": "^2.15.1",
-    "px-dropdown": "^2.2.9"
+    "px-dropdown": "^3.0.0"
   },
   "devDependencies": {
     "px-starter-kit-design": "^0.7.1",

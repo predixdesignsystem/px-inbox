@@ -1,3 +1,7 @@
+v0.2.27
+==================
+* updated px-vis-dropdown to 3.X
+
 v0.2.26
 ==================
 * change foreach loops to for loops
