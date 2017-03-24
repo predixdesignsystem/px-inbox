@@ -1,3 +1,7 @@
+v0.2.29
+==================
+* fix issues #3 & #4
+
 v0.2.28
 ==================
 * replace getElementsByClassName
