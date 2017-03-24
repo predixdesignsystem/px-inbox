@@ -1,6 +1,14 @@
+v1.0.0
+==================
+* fix issues #3 & #4, uprev for semver reasons
+
+v0.2.30
+==================
+* fix other typo
+
 v0.2.29
 ==================
-* fix issues #3 & #4
+* fix typo
 
 v0.2.28
 ==================
