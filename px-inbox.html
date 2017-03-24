@@ -162,7 +162,7 @@ Custom property | Description | Default
     * @method _computeClass
     */
     _computeClass: function(selectedId, id) {
-      return selectedId === id ? 'list-ui__item pointer selected' : 'list-ui__item pointer';
+      return JSON.stringify(selectedId) === JSON.stringify(id) ? 'list-ui__item pointer selected' : 'list-ui__item pointer';
     },
 
     /**
@@ -190,11 +190,13 @@ Custom property | Description | Default
         }
         // If not recognized as a valid date string, just display whatever was passed in.
         else {
-          lthis.istItems[i].formattedDate = this.listItems[i].date;
+          this.listItems[i].formattedDate = this.listItems[i].date;
         }
       };
       // By default, the first item in the array is selected on load.
-      this.selectedItem = this.listItems[0].id;
+      if(this.listItems && this.listItems.length > 0) {
+        this.selectedItem = this.listItems[0].id;
+      }
     },
     /**
     * Searches through the list titles and subtitles and filters based on the query.
