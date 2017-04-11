@@ -162,7 +162,7 @@ Custom property | Description | Default
     * @method _computeClass
     */
     _computeClass: function(selectedId, id) {
-      return JSON.stringify(selectedId) === JSON.stringify(id) ? 'list-ui__item pointer selected' : 'list-ui__item pointer';
+      return String(selectedId) === String(id) ? 'list-ui__item pointer selected' : 'list-ui__item pointer';
     },
 
     /**

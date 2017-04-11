@@ -1,3 +1,7 @@
+v1.0.1
+==================
+* fixed #5
+
 v1.0.0
 ==================
 * fix issues #3 & #4, uprev for semver reasons
