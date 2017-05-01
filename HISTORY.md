@@ -1,3 +1,7 @@
+v2.0.0
+==================
+* removed unused code: px-input-group-design
+
 v1.0.1
 ==================
 * fixed #5

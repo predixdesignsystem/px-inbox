@@ -1,6 +1,6 @@
 {
   "name": "px-inbox",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "main": [
     "px-inbox.html"
   ],
@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "px-starter-kit-design": "^0.7.1",
-    "px-demo": "^1.4.5",
-    "px-input-group-design": "^1.1.3"
+    "px-demo": "^1.4.5"
   }
 }
