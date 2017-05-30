@@ -26,27 +26,27 @@ common/abstract rules go in px-inbox-sketch.scss, not in this file.
 // Component
 
 .list {
-  border-right: 1px solid var(--px-inbox-border-color, $gray6);
+  border-right: 1px solid var(--px-inbox-border-color, $gray8);
 }
 .subtitle, .info {
-  color: var(--px-inbox-secondary-text-color, $gray6);
+  color: var(--px-inbox-secondary-text-color, $gray8);
 }
 .list-ui__item {
-  border-bottom-color: var(--px-inbox-border-color, $gray6);
+  border-bottom-color: var(--px-inbox-border-color, $gray8);
   background-color: var(--px-inbox-li-background-color, $gray1);
 }
 .list-ui__item.selected {
-  background-color: var(--px-inbox-li-background-color--selected, $select-blue-default);
+  background-color: var(--px-inbox-li-background-color--selected, $select-default);
   color: var(--px-inbox-li-text-color--selected, $white);
   .subtitle, .info {
     color: var(--px-inbox-li-text-color--selected, $white);
   }
 }
 .header, .details {
-  border-bottom: 1px solid var(--px-inbox-border-color, $gray6);
+  border-bottom: 1px solid var(--px-inbox-border-color, $gray8);
 }
 .label {
-  color: var(--px-inbox-secondary-text-color, $gray6);
+  color: var(--px-inbox-secondary-text-color, $gray8);
 }
 
 @mixin iconCommon {
@@ -66,7 +66,7 @@ common/abstract rules go in px-inbox-sketch.scss, not in this file.
   &.important {
     @include iconCommon;
     .svg-triangle polygon {
-      fill: var(--px-inbox-alert-color, $alert-red);
+      fill: var(--px-inbox-alert-color, $status-red3);
       stroke: var(--px-inbox-icon-outline-color, $white);
       stroke-width: 1;
     }
@@ -92,7 +92,7 @@ common/abstract rules go in px-inbox-sketch.scss, not in this file.
     height: 1.9rem !important;
     width: 1.9rem !important;
     margin-right: 0.8rem !important;
-    background-color: var(--px-inbox-warning-color, $alert-orange);
+    background-color: var(--px-inbox-warning-color, $status-orange3);
     transform: rotate(45deg);
     @include iconCommon;
     span {
@@ -111,14 +111,14 @@ common/abstract rules go in px-inbox-sketch.scss, not in this file.
     height:  1.8rem;
     width:  1.8rem;
     min-width: 1.8rem;
-    background-color: var(--px-inbox-error-color, $alert-yellow);
+    background-color: var(--px-inbox-error-color, $status-yellow3);
     @include iconCommon;
     span:before {
       content: '3';
     }
   }
   &.information {
-    background-color: var(--px-inbox-information-color, $alert-blue);
+    background-color: var(--px-inbox-information-color, $status-blue3);
     border-radius: 40px;
     @include iconCommon;
     span:before {
