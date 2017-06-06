@@ -1,0 +1,181 @@
+/*
+ * Copyright (c) 2014 GE Global Research. All rights reserved.
+ *
+ * The copyright to the computer software herein is the property of
+ * GE Global Research. The software may be used and/or copied only
+ * with the written permission of GE Global Research or in accordance
+ * with the terms and conditions stipulated in the agreement/contract
+ * under which the software has been supplied.
+ */
+
+// Settings
+@import "px-colors-design/_settings.colors.scss";
+
+// Generic
+@import "px-normalize-design/_generic.normalize.scss";
+@import "px-box-sizing-design/_generic.box-sizing.scss";
+@import "px-helpers-design/_generic.helpers.scss";
+
+// Base
+@import "px-flexbox-design/_base.flexbox.scss";
+@import "px-viewport-design/_base.viewport.scss";
+$inuit-enable-input--search: true;
+@import "px-forms-design/_base.forms.scss";
+$inuit-enable-list-ui--small: true;
+$inuit-list-ui-border-color: transparent;
+@import "px-list-ui-design/_objects.list-ui.scss";
+@import "px-shadows-design/_objects.shadows.scss";
+
+
+// Component
+:host {
+  overflow-y: auto;
+  display: flex;
+  height: var(--px-inbox-height, 100vh);
+}
+.list {
+  height: 100%;
+  flex-basis: var(--px-inbox-list-width, 320px);
+  border-right: 1px solid var(--px-inbox-border-color, transparent);
+  background-color: var(--px-inbox-li-background-color, $gray1);
+}
+.list__header {
+  flex: 0 0 auto;
+}
+.list-ui--small {
+  overflow-y: auto;
+}
+.list-ui--small .list-ui__item {
+  height: calculateRem(80px);
+  padding-left: $inuit-base-spacing-unit;
+  padding-right: $inuit-base-spacing-unit;
+  border-bottom-color: var(--px-inbox-border-color, $gray3);
+}
+.list-ui--small .list-ui__item.selected {
+  background-color: var(--px-inbox-li-background-color--selected, $select-default);
+  color: var(--px-inbox-li-text-color--selected, $white);
+  .subtitle, .info {
+    color: var(--px-inbox-li-text-color--selected, $white);
+  }
+}
+.title {
+  display: -webkit-box;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  line-height: $inuit-base-spacing-unit--large;
+  max-height: calc(2*$inuit-base-spacing-unit--large);
+}
+.subtitle {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  line-height: $inuit-base-spacing-unit--large;
+  max-height: $inuit-base-spacing-unit--large;
+  color: var(--px-inbox-secondary-text-color, $gray10);
+}
+.info {
+  text-align: right;
+  margin-left: 2rem;
+  color: var(--px-inbox-secondary-text-color, $gray10);
+}
+px-dropdown {
+  margin-top: -2px;
+}
+.detail {
+  height: 100%;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+.label {
+  color: var(--px-inbox-secondary-text-color, $gray10);
+}
+.svg-canvas {
+    display: none;
+}
+.sort-dropdown {
+  min-width: 5rem;
+}
+@mixin iconCommon {
+}
+#icon {
+  position: relative;
+  height:  1rem;
+  width:  1rem;
+  min-width: 1rem;
+  margin-top: 2px;
+  margin-right: 5px;
+  font-size: 10px;
+  line-height: 1rem;
+  font-weight: bold;
+  color: var(--px-inbox-icon-outline-color, $white);
+  border: 1px solid var(--px-inbox-icon-outline-color, $white);
+  &.important {
+    .svg-triangle {
+      fill: var(--px-inbox-alert-color, $status-red3);
+      stroke: var(--px-inbox-icon-outline-color, $white);
+      margin: 0.1rem auto;
+      width: 1rem;
+      height: 1rem;
+    }
+    border: none;
+    span:before {
+      content: '1';
+      position: absolute;
+      top: 3px;
+      left: 5px;
+    }
+    .svg-canvas {
+      display: block !important;
+      position: absolute;
+      top: 0px;
+    }
+  }
+  &.warning {
+    margin-right: 0.4rem !important;
+    background-color: var(--px-inbox-warning-color, $status-orange3);
+    transform: rotate(45deg);
+    span {
+      display: block;
+      transform: rotate(-45deg);
+    }
+    span:before {
+      content: '2';
+      position: absolute;
+      top: -3px;
+      left: 0px;
+    }
+  }
+  &.error {
+    background-color: var(--px-inbox-error-color, $status-yellow3);
+    span:before {
+      content: '3';
+      position: absolute;
+      top: -1px;
+      left: 4px;
+    }
+  }
+  &.information {
+    background-color: var(--px-inbox-information-color, $status-blue3);
+    border-radius: 1rem;
+    span:before {
+      content: '4';
+      position: absolute;
+      top: -1px;
+      left: 4px;
+    }
+  }
+}
+
+// Trumps
+$inuit-enable-margins--tiny: true;
+$inuit-enable-margins--small: true;
+$inuit-enable-paddings: true;
+@import "px-spacing-design/_trumps.spacing.scss";
+@import "px-widths-design/_trumps.widths.scss";

@@ -1,6 +1,5 @@
 <!-- Common imports -->
 <link rel="import" href="../../polymer/polymer.html" />
-<link rel="import" href="../../px-polymer-font-awesome/px-polymer-font-awesome.html" />
 
 <!-- Common demo imports -->
 <link rel="import" href="../../px-demo/px-demo-header.html" />
@@ -20,7 +19,11 @@
 <!-- Demo DOM module -->
 <dom-module id="local-element-demo">
   <template>
-    <style include="px-demo-styles" is="custom-style"></style>
+    <style include="px-demo-styles" is="custom-style">
+    :root {
+      --px-inbox-height: 394px;
+    }
+    </style>
 
     <!-- Header -->
     <px-demo-header
@@ -152,7 +155,7 @@
             "id":"2",
             "title":"Drum Level Anomaly",
             "subtitle":"Block 2",
-            "severity":"warning",
+            "severity":"",
             "date":"2016-10-04T01:27",
             "alertId":"249375",
             "alertSource":"Ignition",
@@ -178,8 +181,8 @@
             "model":"9985A"
           },{
             "id":"4",
-            "title":"Drum Level Anomaly",
-            "subtitle":"Block 4",
+            "title":"Drum Level Anomaly Detected During Routine Service",
+            "subtitle":"Block 4 of GT23183 of Power Plant XYZ",
             "severity":"information",
             "date":"2016-10-03T01:05",
             "alertId":"1999574",
@@ -204,6 +207,20 @@
             "serialNumber":"IL194800",
             "dlnType":"DLN 6",
             "model":"TTA3"
+          },{
+            "id":"6",
+            "title":"CMS Hot Spot",
+            "subtitle":"GT240183",
+            "severity":"warning",
+            "date":"2016-10-01T02:30",
+            "alertId":"482000",
+            "alertSource":"Combustion",
+            "receivedDateTime":"2016-10-01T11:16",
+            "caseNumber":"127587105",
+            "customer":"Sally Ride",
+            "serialNumber":"IL194893",
+            "dlnType":"DLN 6",
+            "model":"TTA3"
           }],
         inputType: 'code:JSON'
       },
@@ -225,7 +242,7 @@
       var inboxItem = this.props.listItems.value.find(function(item) {
         return item.id===e.detail.value;
       });
-      if (!inboxItem || !inboxItem.title || !inboxItem.severity) return;
+      if (!inboxItem || !inboxItem.title) return;
       this.set("detailTitle", inboxItem.title);
       this.set("detailSeverity", inboxItem.severity);
       this.set("detailIsSelected", true);

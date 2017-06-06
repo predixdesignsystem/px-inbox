@@ -41,57 +41,49 @@ Custom property | Description | Default
 <dom-module id="px-inbox">
   <template>
     <style include="px-inbox-styles"></style>
-    <div id="container" class="container flex">
-      <div id="list" class="list u-1/3">
-        <div class="search-field flex flex--left flex--middle">
-          <input class="text-input" value="{{_query::input}}"></input>
-          <iron-icon class="search-icon" icon="fa:fa-search"></iron-icon>
-        </div>
-        <div class="flex flex--left flex--middle">
-          <span class="u-mh--">Sort by:</span>
-          <px-dropdown class="sort-dropdown" value="{{sortBy}}" display-value="{{sortBy}}">
-            <px-dropdown-content
-              class="sort-dropdown-content"
-              extend-dropdown=true
-              extend-dropdown-by=15
-              items='[
-                {"key":"one", "val": "Title"},
-                {"key":"two", "val": "Subtitle"},
-                {"key":"two", "val": "Severity"},
-                {"key":"two", "val": "Date"}]'>
-            </px-dropdown-content>
+    <div id="list" class="list flex flex--col">
+      <div class="list__header u-p flex flex--col shadow-component">
+        <input class="text-input input--search" value="{{_query::input}}" placeholder="Search"/>
+        <div class="flex flex--left flex--middle u-mt-">
+          <span class="label u-mb--">Sort by:</span>
+          <px-dropdown
+            class="sort-dropdown"
+            select-by="val"
+            button-style="bare"
+            selected="{{sortBy}}"
+            display-value="{{sortBy}}"
+            items='[{"key":"one", "val": "Title"},{"key":"two", "val": "Subtitle"},{"key":"two", "val": "Severity"},{"key":"two", "val": "Date"}]'>
           </px-dropdown>
         </div>
-        <ul class="list-ui list-ui--small">
-          <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy)}}">
-            <li id="{{listItem.id}}" class$="{{_computeClass(selectedItem,listItem.id)}}" on-click="_selectItem">
-              <div class="flex flex--justify">
-                <div class="flex flex--left">
-                  <div id="icon" class$="{{listItem.severity}} u-mr-">
+      </div>
+      <ul class="list-ui list-ui--small">
+        <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy)}}">
+          <li id="{{listItem.id}}" class$="{{_computeClass(selectedItem,listItem.id)}}" on-click="_selectItem">
+            <div class="flex flex--justify">
+              <div class="flex flex--left">
+                <template is="dom-if" if="{{listItem.severity}}">
+                  <div id="icon" class$="{{listItem.severity}}">
                     <div class="svg-canvas">
                       <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-triangle">
-                        <polygon points="0,27 15,0 30,27"/>
+                        <polygon points="0.5,14.5 7.5,0.5 14.5,14.5"/>
                       </svg>
                     </div>
                     <span class="number"></span>
                   </div>
-                  <div class="text">
-                    <span class="title">{{listItem.title}}</span>
-                    <br/>
-                    <span class="subtitle">{{listItem.subtitle}}</span>
-                  </div>
-                </div>
-                <div class="flex flex--right">
-                  <span class="info">{{listItem.formattedDate}}</span>
+                </template>
+                <div class="text">
+                  <span class="title">{{listItem.title}}</span>
+                  <span class="subtitle">{{listItem.subtitle}}</span>
                 </div>
               </div>
-            </li>
-          </template>
-        </ul>
-      </div>
-      <div id="detail" class="detail u-2/3">
-        <content></content>
-      </div>
+              <span class="info">{{listItem.formattedDate}}</span>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
+    <div id="detail" class="detail">
+      <content></content>
     </div>
 
   </template>
@@ -144,16 +136,6 @@ Custom property | Description | Default
       sortBy: {
         type: String,
         value: "Date"
-      },
-      /**
-      * Height to render the inbox view component.
-      * @property height
-      * @default "100vh"
-      */
-      height: {
-        type: String,
-        value: "100vh",
-        observer: "_updateHeight"
       }
     },
 
@@ -261,9 +243,6 @@ Custom property | Description | Default
           return (a[sortBy] < b[sortBy]) ? -1 : (a[sortBy] > b[sortBy]) ? 1 : 0;
         }
       }
-    },
-    _updateHeight: function() {
-      this.$.container.style.height = this.height;
     }
   });
 </script>

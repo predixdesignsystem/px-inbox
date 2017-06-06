@@ -26,14 +26,15 @@
   ],
   "dependencies": {
     "polymer": "^1.6.0",
-    "px-theme": "^3.0.0",
-    "px-meta-lists-design": "^1.0.0",
     "px-forms-design": "^2.0.0",
     "moment": "^2.15.1",
-    "px-dropdown": "^4.0.0"
+    "px-dropdown": "^4.0.0",
+    "px-list-ui-design": "^2.0.0"
   },
   "devDependencies": {
+    "px-theme": "^3.0.0",
     "px-starter-kit-design": "^1.0.0",
-    "px-demo": "^2.0.0"
+    "px-demo": "^2.0.0",
+    "px-shadows-design": "^1.0.0"
   }
 }

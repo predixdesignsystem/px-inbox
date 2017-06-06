@@ -6,6 +6,8 @@
 <link rel="import" href="../../polymer/polymer.html"/>
 <link rel="import" href="../css/px-inbox-styles.html">
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
+<link rel="import" href="../../px-headings-design/css/px-headings-design-demo-styles.html" />
+<link rel="import" href="../../px-polymer-font-awesome/px-icon-set.html" />
 
 <!--
 This sub-component is simply an example for demo purposes.
@@ -16,63 +18,63 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
 
 <dom-module id="px-inbox-detail-demo">
   <template>
-    <style include="px-inbox-styles"></style>
+    <style include="px-inbox-styles">
+      :host {
+        display: flex;
+        flex-direction: column;
+      }
+      .heading--page, .details {
+        padding: 2rem;
+        border-bottom: 1px solid rgb(216,224,229);
+        flex: 0 0 auto;
+      }
+    </style>
     <style include="px-demo-styles"></style>
      <template is="dom-if" if="{{isSelected}}">
-      <div class="header flex flex--left">
-        <div id="icon" class$="{{severity}} u-mr-">
-          <div class="svg-canvas">
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-triangle">
-              <polygon points="0,27 15,0 30,27"/>
-            </svg>
-          </div>
-          <span class="number"></span>
-        </div>
-        <span class="epsilon" style="line-height:30px;">{{title}}</span>
-      </div>
+      <div class="heading--page flex flex--left">{{title}}</div>
       <div class="details">
-        <span class="caps title">Alert Information</span>
+        <span class="heading--section"><iron-icon class="u-mr-" icon="px:alerts"></iron-icon>Alert Information</span>
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">Alert ID</span><br/>
-            <span>{{alertId}}</span>
+            <span class="value">{{alertId}}</span>
           </div>
           <div class="flex__item">
             <span class="label">Alert Source</span><br/>
-            <span>{{alertSource}}</span>
+            <span class="value">{{alertSource}}</span>
           </div>
         </div>
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">Received Date/Time</span><br/>
-            <span>{{receivedDateTime}}</span>
+            <span class="value">{{receivedDateTime}}</span>
           </div>
           <div class="flex__item">
             <span class="label">Case Number</span><br/>
-            <span>{{caseNumber}}</span>
+            <span class="value">{{caseNumber}}</span>
           </div>
         </div>
       </div>
       <div class="details">
-        <span class="caps title">Asset Information</span>
+        <span class="heading--section"><iron-icon class="u-mr-" icon="px:asset"></iron-icon>Asset Information</span>
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">Customer</span><br/>
-            <span>{{customer}}</span>
+            <span class="value">{{customer}}</span>
           </div>
           <div class="flex__item">
             <span class="label">Serial Number</span><br/>
-            <span>{{serialNumber}}</span>
+            <span class="value">{{serialNumber}}</span>
           </div>
         </div>
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">DLN Type</span><br/>
-            <span>{{dlnType}}</span>
+            <span class="value">{{dlnType}}</span>
           </div>
           <div class="flex__item">
             <span class="label">Model</span><br/>
-            <span>{{model}}</span>
+            <span class="value">{{model}}</span>
           </div>
         </div>
       </div>
@@ -88,7 +90,7 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
     properties: {
 
       /*
-       * This property checks whether the user has selected an inbox item 
+       * This property checks whether the user has selected an inbox item
        *
        * @property isSelected
        * @type Boolean
