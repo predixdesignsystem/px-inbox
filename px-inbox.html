@@ -12,7 +12,7 @@
 
 ##### Usage
 
-    <px-inbox height="100vh" list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","date":"2016-10-05T01:29"}]'>
+    <px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","date":"2016-10-05T01:29"}]'>
       // define or bind to detail view here
     </px-inbox>
 
@@ -21,16 +21,18 @@ The following custom properties are available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--px-inbox-border-color` | Border color for list items | `$gray6`
-`--px-inbox-secondary-text-color` | Text color for subtitle and date | `$gray6`
-`--px-inbox-li-background-color` | Background color for list items | `$gray1`
-`--px-inbox-li-background-color--selected` | Background color for selected list item | `$select-blue-default`
-`--px-inbox-li-text-color--selected` | Text color for selected list item | `$white`
-`--px-inbox-icon-outline-color` | Outline color for all alert icons | `$white`
-`--px-inbox-alert-color` | Background color for level 1 alert icons | `$alert-red`
-`--px-inbox-warning-color` | Background color for level 2 alert icons | `$alert-orange`
-`--px-inbox-error-color` | Background color for level 3 alert icons | `$alert-yellow`
-`--px-inbox-information-color` | Background color for level 4 alert icons | `$alert-blue`
+`--px-inbox-list-width` | Width of the list portion of the inbox | 320px
+`--px-inbox-height` | Height of the full inbox component | 100vh
+`--px-inbox-border-color` | Border color for list items |
+`--px-inbox-secondary-text-color` | Text color for subtitle and date |
+`--px-inbox-li-background-color` | Background color for list items |
+`--px-inbox-li-background-color--selected` | Background color for selected list item |
+`--px-inbox-li-text-color--selected` | Text color for selected list item |
+`--px-inbox-icon-outline-color` | Outline color for all alert icons |
+`--px-inbox-alert-color` | Background color for level 1 alert icons |
+`--px-inbox-warning-color` | Background color for level 2 alert icons |
+`--px-inbox-error-color` | Background color for level 3 alert icons |
+`--px-inbox-information-color` | Background color for level 4 alert icons |
 
 @element px-inbox
 @blurb A list/detail or "Inbox" view for drilling down on items for more information.
@@ -65,7 +67,7 @@ Custom property | Description | Default
                   <div id="icon" class$="{{listItem.severity}}">
                     <div class="svg-canvas">
                       <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-triangle">
-                        <polygon points="0.5,14.5 7.5,0.5 14.5,14.5"/>
+                        <polygon points="0.5,21.5 11.25,0.5 21.5,21.5"/>
                       </svg>
                     </div>
                     <span class="number"></span>
