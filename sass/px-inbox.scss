@@ -13,11 +13,9 @@
 // Generic
 @import "px-normalize-design/_generic.normalize.scss";
 @import "px-box-sizing-design/_generic.box-sizing.scss";
-@import "px-helpers-design/_generic.helpers.scss";
 
 // Base
 @import "px-flexbox-design/_base.flexbox.scss";
-@import "px-viewport-design/_base.viewport.scss";
 $inuit-enable-input--search: true;
 @import "px-forms-design/_base.forms.scss";
 $inuit-enable-list-ui--small: true;
@@ -32,6 +30,7 @@ $inuit-list-ui-border-color: transparent;
   overflow-y: auto;
   display: flex;
   height: var(--px-inbox-height, 100vh);
+  --px-alert-label-border-color: var(--px-inbox-li-text-color--selected, white);
 }
 .list {
   height: 100%;
@@ -116,4 +115,3 @@ $inuit-enable-margins--tiny: true;
 $inuit-enable-margins--small: true;
 $inuit-enable-paddings: true;
 @import "px-spacing-design/_trumps.spacing.scss";
-@import "px-widths-design/_trumps.widths.scss";
