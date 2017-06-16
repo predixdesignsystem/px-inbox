@@ -24,6 +24,7 @@ $inuit-enable-list-ui--small: true;
 $inuit-list-ui-border-color: transparent;
 @import "px-list-ui-design/_objects.list-ui.scss";
 @import "px-shadows-design/_objects.shadows.scss";
+@import "px-actionable-design/_objects.actionable.scss";
 
 
 // Component
@@ -66,7 +67,7 @@ $inuit-list-ui-border-color: transparent;
   -webkit-box-orient: vertical;
   word-break: break-word;
   line-height: $inuit-base-spacing-unit--large;
-  max-height: calc(2*$inuit-base-spacing-unit--large);
+  max-height: 2 * $inuit-base-spacing-unit--large;
 }
 .subtitle {
   display: -webkit-box;
@@ -81,6 +82,7 @@ $inuit-list-ui-border-color: transparent;
 }
 .info {
   text-align: right;
+  font-size: calculateRem(12px);
   margin-left: 2rem;
   color: var(--px-inbox-secondary-text-color, darkgray);
 }
@@ -101,75 +103,12 @@ px-dropdown {
 .sort-dropdown {
   min-width: 5rem;
 }
-@mixin iconCommon {
+px-alert-label {
+  margin-right: 0.6666rem;
 }
-#icon {
-  position: relative;
-  height:  1.5rem;
-  width:  1.5rem;
-  min-width: 1.5rem;
-  margin-right: 5px;
-  font-size: 14px;
-  line-height: 1rem;
-  font-weight: bold;
-  color: var(--px-inbox-icon-outline-color, white);
-  border: 1px solid var(--px-inbox-icon-outline-color, white);
-  &.important {
-    .svg-triangle {
-      fill: var(--px-inbox-alert-color, red);
-      stroke: var(--px-inbox-icon-outline-color, white);
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-    border: none;
-    span:before {
-      content: '1';
-      position: absolute;
-      top: 6px;
-      left: 8px;
-    }
-    .svg-canvas {
-      display: block !important;
-      position: absolute;
-      top: 0px;
-    }
-  }
-  &.warning {
-    margin-right: 0.4rem !important;
-    background-color: var(--px-inbox-warning-color, orange);
-    transform: rotate(45deg);
-    span {
-      display: block;
-      transform: rotate(-45deg);
-    }
-    span:before {
-      content: '2';
-      position: absolute;
-      height: 1.3333rem;
-      width: 1.3333rem;
-      top: -1px;
-      left: 0px;
-    }
-  }
-  &.error {
-    background-color: var(--px-inbox-error-color, gold);
-    span:before {
-      content: '3';
-      position: absolute;
-      top: 2px;
-      left: 6px;
-    }
-  }
-  &.information {
-    background-color: var(--px-inbox-information-color, blue);
-    border-radius: 1rem;
-    span:before {
-      content: '4';
-      position: absolute;
-      top: 3px;
-      left: 7px;
-    }
-  }
+iron-icon#sortIcon {
+  width: 1rem;
+  height: 1rem;
 }
 
 // Trumps

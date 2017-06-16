@@ -3,7 +3,8 @@ v2.0.0
 * update dependencies and colors for design refresh
 * removed unused code: px-input-group-design
 * component redesign
-* remove default styling
+* removed default styling
+* added requested enhancements #6 and #7
 
 v1.0.1
 ==================

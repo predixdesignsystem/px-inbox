@@ -21,7 +21,7 @@
   <template>
     <style include="px-demo-styles" is="custom-style">
     :root {
-      --px-inbox-height: 394px;
+      --px-inbox-height: 500px;
     }
     </style>
 
@@ -43,10 +43,9 @@
       <px-demo-code-editor props="{{props}}"></px-demo-code-editor>
 
       <!-- Component ---------------------------------------------------------->
-      <px-demo-component class="flex__item">
+      <px-demo-component class="flex__item" style="height:500px;">
         <px-inbox
           list-items="{{props.listItems.value}}"
-          height="{{props.height.value}}"
           on-selected-item-changed="_updateInboxDetails">
             <px-inbox-detail-demo
                 title="{{detailTitle}}"
@@ -223,12 +222,6 @@
             "model":"TTA3"
           }],
         inputType: 'code:JSON'
-      },
-      height: {
-        type: String,
-        defaultValue: '398px',
-        inputType: 'text',
-        inputPlaceholder: '400px'
       },
       lightDomContent: {
         type: String,

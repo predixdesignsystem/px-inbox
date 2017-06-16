@@ -6,11 +6,13 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="css/px-inbox-styles.html">
 <link rel="import" href="../px-dropdown/px-dropdown.html" />
+<link rel="import" href="../px-polymer-font-awesome/px-icon-set.html" />
+<link rel="import" href="../px-alert-label/px-alert-label.html" />
 <script src="../moment/moment.js"></script>
 
 <!--
 
-##### Usage
+### Usage
 
     <px-inbox list-items='[{"id":"1","title":"GT Vibration","subtitle":"Block 2","severity":"important","date":"2016-10-05T01:29"}]'>
       // define or bind to detail view here
@@ -56,22 +58,16 @@ Custom property | Description | Default
             display-value="{{sortBy}}"
             items='[{"key":"one", "val": "Title"},{"key":"two", "val": "Subtitle"},{"key":"two", "val": "Severity"},{"key":"two", "val": "Date"}]'>
           </px-dropdown>
+          <iron-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px:arrow-up"></iron-icon>
         </div>
       </div>
       <ul class="list-ui list-ui--small">
-        <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy)}}">
-          <li id="{{listItem.id}}" class$="{{_computeClass(selectedItem,listItem.id)}}" on-click="_selectItem">
+        <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy,sortOrder)}}">
+          <li id="{{listItem.id}}" class$="list-ui__item pointer {{_computeClass(selectedItem,listItem.id)}}" on-click="_selectItem">
             <div class="flex flex--justify">
               <div class="flex flex--left">
                 <template is="dom-if" if="{{listItem.severity}}">
-                  <div id="icon" class$="{{listItem.severity}}">
-                    <div class="svg-canvas">
-                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-triangle">
-                        <polygon points="0.5,21.5 11.25,0.5 21.5,21.5"/>
-                      </svg>
-                    </div>
-                    <span class="number"></span>
-                  </div>
+                  <px-alert-label type="{{listItem.severity}}" label="{{_getLabel(listItem.severity)}}" badge></px-alert-label>
                 </template>
                 <div class="text">
                   <span class="title">{{listItem.title}}</span>
@@ -110,7 +106,6 @@ Custom property | Description | Default
       * - subtitle
       * - severity (one of "important", "error", "warning", or "information")
       * - date (optional, should be valid <a href="https://www.w3.org/TR/NOTE-datetime">8601 date strings</a>)
-      * @property listItems
       */
       listItems: {
         type: Array,
@@ -118,7 +113,6 @@ Custom property | Description | Default
       },
       /**
       * ID of the selected item, for pulling up the details to display in the right side of the inbox view.
-      * @property selectedItem
       */
       selectedItem: {
         type: String,
@@ -126,32 +120,43 @@ Custom property | Description | Default
       },
       /**
       * Search query used to filter the list.
-      * @property _query
       */
       _query: {
         type: String
       },
       /**
       * Property to sort the list by.
-      * @property sortBy
       */
       sortBy: {
         type: String,
         value: "Date"
+      },
+      /**
+      * Sort order - ascending or descending.
+      */
+      sortOrder: {
+        type: String,
+        value: "ascending"
+      },
+      /**
+      * By default, the first item in the list will be selected.
+      * Set this flag to "true" to disable this default selection.
+      */
+      disableAutoSelect: {
+        type: Boolean,
+        value: false
       }
     },
 
     /**
     * Figures out whether the item is currently selected.
-    * @method _computeClass
     */
     _computeClass: function(selectedId, id) {
-      return String(selectedId) === String(id) ? 'list-ui__item pointer selected' : 'list-ui__item pointer';
+      return (selectedId && String(selectedId) === String(id)) ? 'selected' : '';
     },
 
     /**
     * Adds visual style to the currently selected item and triggers display of the details.
-    * @method _selectItem
     */
     _selectItem: function(evt) {
       var otherItems = Polymer.dom(this.root).querySelectorAll('.selected');
@@ -164,7 +169,6 @@ Custom property | Description | Default
     },
     /**
     * Formats the date strings in each listItem to display correctly in the table using Moment.js.
-    * @method _formatDates
     */
     _formatDates: function() {
       for (var i=0; i<this.listItems.length; i++) {
@@ -177,28 +181,20 @@ Custom property | Description | Default
           this.listItems[i].formattedDate = this.listItems[i].date;
         }
       };
-      // By default, the first item in the array is selected on load.
-      if(this.listItems && this.listItems.length > 0) {
+      // Unless otherwise specified, the first item in the array is selected on load.
+      if(!this.disableAutoSelect && !this.selectedItem && this.listItems && this.listItems.length > 0) {
         this.selectedItem = this.listItems[0].id;
       }
     },
     /**
     * Searches through the list titles and subtitles and filters based on the query.
-    * @method _computeFilter
     */
     _computeFilter: function(query) {
-      // clear all selections
-      var otherItems = Polymer.dom(this.root).querySelectorAll('.selected');
-
-      for (var i=0; i<otherItems.length; i++) {
-        otherItems[i].classList.remove("selected");
-      };
-      this.selectedItem = "";
-
       if (!query) {
         // set filter to null to disable filtering
         return null;
-      } else {
+      }
+      else {
         // return a filter function for the current search query
         query = query.toLowerCase();
         return function(listItem) {
@@ -211,39 +207,72 @@ Custom property | Description | Default
     },
     /**
     * Sort function for the array of list items.
-    * @method _computeSort
     */
-    _computeSort: function(sortBy) {
-      sortBy = sortBy.toLowerCase();
-      // clear all selections
-      var otherItems = Polymer.dom(this.root).querySelectorAll('.selected')
-      for (var i=0; i<otherItems.length; i++) {
-        otherItems[i].classList.remove("selected");
-      };
-      this.selectedItem = "";
+    _computeSort: function(sortBy,sortOrder) {
+      sortBy = sortBy ? sortBy.toLowerCase() : '';
+      var asc = sortOrder === 'ascending';
       // return sort function which maps severities to numeric values
-      if(sortBy === "severity") {
+      if(sortBy === "severity" && asc) {
         return function(a, b) {
           var severities = {
             "important":4,
             "warning":3,
             "error":2,
-            "information":1
+            "information":1,
+            "":0
+          }
+          return severities[b.severity] - severities[a.severity];
+        }
+      }
+      else if(sortBy === "severity" && !asc) {
+        return function(b, a) {
+          var severities = {
+            "important":4,
+            "warning":3,
+            "error":2,
+            "information":1,
+            "":0
           }
           return severities[b.severity] - severities[a.severity];
         }
       }
       // return sort function which correctly compares dates
-      else if (sortBy === "date") {
+      else if(sortBy === "date" && asc) {
         return function(a,b) {
           return (a.date > b.date) ? -1 : (a.date < b.date) ? 1 : 0;
         }
       }
+      else if(sortBy === "date" && !asc) {
+        return function(b,a) {
+          return (a.date > b.date) ? -1 : (a.date < b.date) ? 1 : 0;
+        }
+      }
       // return sort function which compares the items mathematically
-      else {
+      else if(asc) {
         return function(a, b) {
           return (a[sortBy] < b[sortBy]) ? -1 : (a[sortBy] > b[sortBy]) ? 1 : 0;
         }
+      }
+      else {
+        return function(b, a) {
+          return (a[sortBy] < b[sortBy]) ? -1 : (a[sortBy] > b[sortBy]) ? 1 : 0;
+        }
+      }
+    },
+    _getLabel: function(severity) {
+      if(severity === 'important') return '1';
+      if(severity === 'warning') return '2';
+      if(severity === 'error') return '3';
+      if(severity === 'information') return '4';
+    },
+    _reverseSort: function() {
+      if(this.sortOrder === 'ascending') {
+        this.sortOrder = 'descending';
+        this.$.sortIcon.icon = 'px:arrow-down';
+      }
+      else if(this.sortOrder === 'descending') {
+        this.sortOrder = 'ascending';
+        this.$.sortIcon.icon = 'px:arrow-up';
       }
     }
   });

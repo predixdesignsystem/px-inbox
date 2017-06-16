@@ -26,15 +26,18 @@
   ],
   "dependencies": {
     "polymer": "^1.6.0",
-    "px-forms-design": "^2.0.0",
     "moment": "^2.15.1",
     "px-dropdown": "^4.0.0",
-    "px-list-ui-design": "^2.0.0"
+    "px-polymer-font-awesome": "^2.0.0",
+    "px-alert-label": "^2.0.0"
   },
   "devDependencies": {
     "px-theme": "^3.0.0",
-    "px-starter-kit-design": "^1.0.0",
     "px-demo": "^2.0.0",
-    "px-shadows-design": "^1.0.0"
+    "px-forms-design": "^2.0.0",
+    "px-list-ui-design": "^2.0.0",
+    "px-starter-kit-design": "^1.0.0",
+    "px-shadows-design": "^1.0.0",
+    "px-actionable-design": "^2.0.0"
   }
 }
