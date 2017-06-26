@@ -99,6 +99,30 @@
         value: function(){ return this.demoProps; }
       },
 
+      sortItems: {
+        type: Array,
+        value: function() {
+          return [
+            {
+              "key": "one",
+              "val": "UUID"
+            },
+            {
+              "key": "two",
+              "val": "Tag"
+            },
+            {
+              "key": "three",
+              "val": "Classification"
+            },
+            {
+              "key": "four",
+              "val": "Date"
+            }
+          ];
+        }
+      },
+
       /**
        * An array of pre-configured `props` that can be used to provide the user
        * with a set of common examples. These configs will be made available
@@ -134,13 +158,7 @@
 
       /* A JSON array that will be passed into the items for the drop menu on the inbox.  To maintain sorting functionality, each item in props must have a field with the same name as the name in the sort menu up to capitalization.
       */
-      sortItems: {
-        type: Array,
-        value: function() {
-          return [{"key":"one", "val": "Title"},{"key":"two", "val": "Subtitle"}, {"key":"two", "val": "Severity"},{"key":"two", "val": "Date"}];
-        }
 
-      }
     },
 
     /**
