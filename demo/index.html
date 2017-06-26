@@ -46,7 +46,8 @@
       <px-demo-component class="flex__item" style="height:500px;">
         <px-inbox
           list-items="{{props.listItems.value}}"
-          on-selected-item-changed="_updateInboxDetails">
+          on-selected-item-changed="_updateInboxDetails"
+          sort-items="{{sortItems}}">
             <px-inbox-detail-demo
                 title="{{detailTitle}}"
                 severity="{{detailSeverity}}"
@@ -59,6 +60,8 @@
                 serial-number="{{detailSerialNumber}}"
                 dln-type="{{detailDlnType}}"
                 model="{{detailModel}}">
+                <!-- sort-items="{{sortItems}}" -->
+
             </px-inbox-detail-demo>
         </px-inbox>
       </px-demo-component>
@@ -128,6 +131,16 @@
         type: Boolean,
         value: false
       },
+
+      /* A JSON array that will be passed into the items for the drop menu on the inbox.  To maintain sorting functionality, each item in props must have a field with the same name as the name in the sort menu up to capitalization.
+      */
+      sortItems: {
+        type: Array,
+        value: function() {
+          return [{"key":"one", "val": "Title"},{"key":"two", "val": "Subtitle"}, {"key":"two", "val": "Severity"},{"key":"two", "val": "Date"}];
+        }
+
+      }
     },
 
     /**
