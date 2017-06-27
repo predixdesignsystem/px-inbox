@@ -46,7 +46,7 @@ Custom property | Description | Default
   <template>
     <style include="px-inbox-styles"></style>
     <div id="list" class="list flex flex--col">
-      <div class="list__header u-p flex flex--col shadow-component">
+      <div class="list__header u-p flex flex--col">
         <input class="text-input input--search" value="{{_query::input}}" placeholder="Search"/>
         <div class="flex flex--left flex--middle u-mt-">
           <span class="label u-mb--">Sort by:</span>
@@ -61,7 +61,7 @@ Custom property | Description | Default
           <iron-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px:arrow-up"></iron-icon>
         </div>
       </div>
-      <ul class="list-ui list-ui--small">
+      <ul id="list__body" class="list-ui list-ui--small" on-scroll="_updateClass">
         <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy,sortOrder)}}">
           <li id="{{listItem.id}}" class$="list-ui__item pointer {{_computeClass(selectedItem,listItem.id)}}" on-click="_selectItem">
             <div class="flex flex--justify">
@@ -274,6 +274,16 @@ Custom property | Description | Default
         this.sortOrder = 'ascending';
         this.$.sortIcon.icon = 'px:arrow-up';
       }
+    },
+    _updateClass: function() {
+      this.debounce('update-class', function() {
+        if(this.$.list__body.scrollTop > 0) {
+          this.toggleClass('shadow-component', true, Polymer.dom(this.root).querySelector('.list__header'));
+        }
+        else {
+          this.toggleClass('shadow-component', false, Polymer.dom(this.root).querySelector('.list__header'));
+        }
+      }, 50);
     }
   });
 </script>
