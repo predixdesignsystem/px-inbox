@@ -36,7 +36,10 @@
     "px-demo": "^2.0.0",
     "px-forms-design": "^2.0.0",
     "px-list-ui-design": "^2.0.0",
-    "px-starter-kit-design": "^1.0.0",
+    "px-headings-design": "^1.0.0",
+    "px-normalize-design": "^1.0.0",
+    "px-box-sizing-design": "^1.0.0",
+    "px-flexbox-design": "^1.0.0",
     "px-shadows-design": "^1.0.0",
     "px-actionable-design": "^2.0.0"
   }
