@@ -5,6 +5,7 @@ v2.0.0
 * component redesign
 * removed default styling
 * added requested enhancements #6 and #7
+* code review feedback
 
 v1.0.1
 ==================
