@@ -25,7 +25,7 @@
     "wct.conf.json"
   ],
   "dependencies": {
-    "polymer": "^1.6.0",
+    "polymer": "^1.9.0",
     "moment": "^2.15.1",
     "px-dropdown": "^4.0.0",
     "px-polymer-font-awesome": "^2.0.0",
