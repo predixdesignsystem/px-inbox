@@ -1,6 +1,6 @@
 #px-inbox [![Build Status](https://travis-ci.org/PredixDev/px-inbox.svg?branch=master)](https://travis-ci.org/PredixDev/px-inbox)
 -----------------------------------------------
-[![px-inbox demo](px-inbox.png?raw=true)](https://predixdev.github.io/predix-ui/?type=component&show=px-inbox/)
+
 
 ## Overview
 

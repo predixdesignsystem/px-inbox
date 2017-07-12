@@ -28,7 +28,7 @@
     "polymer": "^1.9.0",
     "moment": "^2.15.1",
     "px-dropdown": "^4.0.0",
-    "px-polymer-font-awesome": "^2.0.0",
+    "px-icon-set": "^2.0.0",
     "px-alert-label": "^2.0.0"
   },
   "devDependencies": {

@@ -9,6 +9,7 @@
  */
 
 // Settings
+@import "px-defaults-design/_settings.defaults.scss";
 
 // Generic
 @import "px-normalize-design/_generic.normalize.scss";
@@ -106,7 +107,7 @@ px-dropdown {
 px-alert-label {
   margin-right: 0.6666rem;
 }
-iron-icon#sortIcon {
+px-icon#sortIcon {
   width: 1rem;
   height: 1rem;
 }
