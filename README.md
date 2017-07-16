@@ -1,10 +1,8 @@
-#px-inbox [![Build Status](https://travis-ci.org/PredixDev/px-inbox.svg?branch=master)](https://travis-ci.org/PredixDev/px-inbox)
------------------------------------------------
-
+# px-inbox [![Build Status](https://travis-ci.org/PredixDev/px-inbox.svg?branch=master)](https://travis-ci.org/PredixDev/px-inbox)
 
 ## Overview
 
-A list/detail or “Inbox” view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.
+The px-inbox component provides a list/detail or “Inbox” view. This type of view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.
 
 ## Usage
 
