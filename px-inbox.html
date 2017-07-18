@@ -59,7 +59,7 @@ Custom property | Description | Default
             display-value="{{sortBy}}"
             items='[{"key":"one", "val": "Title"},{"key":"two", "val": "Subtitle"},{"key":"two", "val": "Severity"},{"key":"two", "val": "Date"}]'>
           </px-dropdown>
-          <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="pxm:up"></px-icon>
+          <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px-nav:up"></px-icon>
         </div>
       </div>
       <ul id="list__body" class="list-ui list-ui--small" on-scroll="_updateClass">
@@ -269,11 +269,11 @@ Custom property | Description | Default
     _reverseSort: function() {
       if(this.sortOrder === 'ascending') {
         this.sortOrder = 'descending';
-        this.$.sortIcon.icon = 'px:arrow-down';
+        this.$.sortIcon.icon = 'px-nav:down';
       }
       else if(this.sortOrder === 'descending') {
         this.sortOrder = 'ascending';
-        this.$.sortIcon.icon = 'px:arrow-up';
+        this.$.sortIcon.icon = 'px-nav:up';
       }
     },
     _updateClass: function() {
