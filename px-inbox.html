@@ -57,7 +57,7 @@ Custom property | Description | Default
             button-style="bare"
             selected="{{sortBy}}"
             display-value="{{sortBy}}"
-            items='[{"key":"one", "val": "Title"},{"key":"two", "val": "Subtitle"},{"key":"two", "val": "Severity"},{"key":"two", "val": "Date"}]'>
+            items="{{sortItems}}">
           </px-dropdown>
           <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px-nav:up"></px-icon>
         </div>
@@ -139,6 +139,15 @@ Custom property | Description | Default
         type: String,
         value: "ascending"
       },
+
+      /* A JSON array that will be passed into the items for the drop menu on the inbox.  To maintain sorting functionality, each item in props must have a field with the same name as the name in the sort menu up to capitalization.  Follow formatting for px-dropdown component.
+      */
+      sortItems: {
+        type: Array,
+        defaultValue: function() {
+          return [{"key":"1", "val": "Title"},{"key":"2", "val": "Subtitle"}, {"key":"3", "val": "Severity"},{"key":"4", "val": "Date"}];
+        }
+      },
       /**
       * By default, the first item in the list will be selected.
       * Set this flag to "true" to disable this default selection.
@@ -197,7 +206,7 @@ Custom property | Description | Default
       }
       else {
         // return a filter function for the current search query
-        query = query.toLowerCase();
+        query = query.toString().toLowerCase();
         return function(listItem) {
           var title = listItem.title.toLowerCase();
           var subtitle = listItem.subtitle.toLowerCase();
