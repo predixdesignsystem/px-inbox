@@ -1,10 +1,8 @@
-#px-inbox [![Build Status](https://travis-ci.org/PredixDev/px-inbox.svg?branch=master)](https://travis-ci.org/PredixDev/px-inbox)
------------------------------------------------
-[![px-inbox demo](px-inbox.png?raw=true)](https://predixdev.github.io/predix-ui/?type=component&show=px-inbox/)
+# px-inbox [![Build Status](https://travis-ci.org/PredixDev/px-inbox.svg?branch=master)](https://travis-ci.org/PredixDev/px-inbox)
 
 ## Overview
 
-A list/detail or “Inbox” view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.
+`Px-inbox` is a Predix UI component which provides a list/detail or “Inbox” view. This type of view is appropriate when a user has a list of items, with detailed information or actions associated with each item, e.g. alerts associated with a fleet of assets, or open cases in a field service engineer’s queue. It allows the user to switch back and forth between items without losing the higher level overview, or having to navigate back and forth between screens repeatedly.
 
 ## Usage
 
@@ -18,13 +16,13 @@ Node, npm and bower are necessary to install the component and dependencies. web
 
 ## Getting Started
 
-First, install the component via bower on the command line.
+First, install the component via bower on the command line:
 
 ```
 bower install px-inbox --save
 ```
 
-Second, import the component to your application with the following tag in your head.
+Second, import the component in your application with the following tag in your head:
 
 ```
 <link rel="import" href="/bower_components/px-inbox/px-inbox.html"/>

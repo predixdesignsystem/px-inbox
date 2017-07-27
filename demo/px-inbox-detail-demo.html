@@ -6,7 +6,8 @@
 <link rel="import" href="../../polymer/polymer.html"/>
 <link rel="import" href="../css/px-inbox-styles.html">
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
-<link rel="import" href="../../px-polymer-font-awesome/px-icon-set.html" />
+<link rel="import" href="../../px-icon-set/px-icon-set.html" />
+<link rel="import" href="../../px-icon-set/px-icon.html" />
 
 <!--
 This sub-component is simply an example for demo purposes.
@@ -32,7 +33,7 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
      <template is="dom-if" if="{{isSelected}}">
       <div class="heading--page flex flex--left">{{title}}</div>
       <div class="details">
-        <span class="heading--section"><iron-icon class="u-mr-" icon="px:exclamation-triangle"></iron-icon>Alert Information</span>
+        <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon>Alert Information</span>
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">Alert ID</span><br/>
@@ -55,7 +56,7 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
         </div>
       </div>
       <div class="details">
-        <span class="heading--section"><iron-icon class="u-mr-" icon="px:asset"></iron-icon>Asset Information</span>
+        <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:asset"></px-icon>Asset Information</span>
         <div class="flex u-mt">
           <div class="flex__item">
             <span class="label">Customer</span><br/>

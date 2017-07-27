@@ -6,7 +6,8 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="css/px-inbox-styles.html">
 <link rel="import" href="../px-dropdown/px-dropdown.html" />
-<link rel="import" href="../px-polymer-font-awesome/px-icon-set.html" />
+<link rel="import" href="../px-icon-set/px-icon-set.html" />
+<link rel="import" href="../px-icon-set/px-icon.html" />
 <link rel="import" href="../px-alert-label/px-alert-label.html" />
 <script src="../moment/moment.js"></script>
 
@@ -58,7 +59,7 @@ Custom property | Description | Default
             display-value="{{sortBy}}"
             items="{{sortItems}}">
           </px-dropdown>
-          <iron-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px:arrow-up"></iron-icon>
+          <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px-nav:up"></px-icon>
         </div>
       </div>
       <ul id="list__body" class="list-ui list-ui--small" on-scroll="_updateClass">
@@ -277,11 +278,11 @@ Custom property | Description | Default
     _reverseSort: function() {
       if(this.sortOrder === 'ascending') {
         this.sortOrder = 'descending';
-        this.$.sortIcon.icon = 'px:arrow-down';
+        this.$.sortIcon.icon = 'px-nav:down';
       }
       else if(this.sortOrder === 'descending') {
         this.sortOrder = 'ascending';
-        this.$.sortIcon.icon = 'px:arrow-up';
+        this.$.sortIcon.icon = 'px-nav:up';
       }
     },
     _updateClass: function() {
