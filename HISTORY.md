@@ -1,3 +1,7 @@
+v2.0.1
+==================
+* fix search icon and header layout
+
 v2.0.0
 ==================
 * update dependencies and colors for design refresh

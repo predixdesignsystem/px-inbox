@@ -47,20 +47,24 @@ Custom property | Description | Default
   <template>
     <style include="px-inbox-styles"></style>
     <div id="list" class="list flex flex--col">
-      <div class="list__header u-p flex flex--col">
-        <input class="text-input input--search" value="{{_query::input}}" placeholder="Search"/>
-        <div class="flex flex--left flex--middle u-mt-">
-          <span class="label u-mb--">Sort by:</span>
+      <div class="search u-mt u-mh u-mb-">
+        <input class="text-input" value="{{_query::input}}" placeholder="Search"/>
+        <px-icon class="search__icon" icon="px-nav:search"></px-icon>
+      </div>
+      <div class="flex flex--justify flex--middle u-mh u-mb">
+        <div class="flex flex--row flex--middle">
+          <span class="label u-mr--">Sort by:</span>
           <px-dropdown
             class="sort-dropdown"
             select-by="val"
             button-style="bare"
             selected="{{sortBy}}"
             display-value="{{sortBy}}"
-            items='[{"key":"one", "val": "Title"},{"key":"two", "val": "Subtitle"},{"key":"two", "val": "Severity"},{"key":"two", "val": "Date"}]'>
+            items='[{"key":"one", "val": "Title"},{"key":"two", "val": "Subtitle"},{"key":"two", "val": "Severity"},{"key":"two", "val": "Date"}]'
+            disable-clear>
           </px-dropdown>
-          <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px-nav:up"></px-icon>
         </div>
+        <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px-nav:up"></px-icon>
       </div>
       <ul id="list__body" class="list-ui list-ui--small" on-scroll="_updateClass">
         <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy,sortOrder)}}">
@@ -68,11 +72,11 @@ Custom property | Description | Default
             <div class="flex flex--justify">
               <div class="flex flex--left">
                 <template is="dom-if" if="{{listItem.severity}}">
-                  <px-alert-label type="{{listItem.severity}}" label="{{_getLabel(listItem.severity)}}" badge></px-alert-label>
+                  <px-alert-label class="flex__item" type="{{listItem.severity}}" label="{{_getLabel(listItem.severity)}}" badge></px-alert-label>
                 </template>
                 <div class="text">
-                  <span class="title">{{listItem.title}}</span>
-                  <span class="subtitle">{{listItem.subtitle}}</span>
+                  <span class="title flex__item">{{listItem.title}}</span>
+                  <span class="subtitle flex__item">{{listItem.subtitle}}</span>
                 </div>
               </div>
               <span class="info">{{listItem.formattedDate}}</span>

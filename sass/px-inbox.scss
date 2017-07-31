@@ -42,6 +42,22 @@ $inuit-list-ui-border-color: transparent;
 .list__header {
   flex: 0 0 auto;
 }
+.search {
+  position: relative;
+  display: block;
+}
+.search__icon {
+  position: absolute;
+  top: 0;
+  right: calculateRem(5px);
+  width: 1.5rem;
+  height: 2rem;
+  display: block;
+  padding: 4px;
+  color: var(--px-inbox-secondary-text-color, gray);
+  --iron-icon-width: calc(100%-5px);
+  --iron-icon-height: calc(100%-5px);
+}
 .list-ui--small {
   overflow-y: auto;
 }
@@ -113,7 +129,7 @@ px-icon#sortIcon {
 }
 
 // Trumps
+$inuit-enable-margins: true;
 $inuit-enable-margins--tiny: true;
 $inuit-enable-margins--small: true;
-$inuit-enable-paddings: true;
 @import "px-spacing-design/_trumps.spacing.scss";
