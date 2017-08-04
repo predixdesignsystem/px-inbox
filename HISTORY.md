@@ -1,3 +1,7 @@
+v2.0.2
+==================
+* runtime theming for demo
+
 v2.0.1
 ==================
 * fix search icon and header layout
