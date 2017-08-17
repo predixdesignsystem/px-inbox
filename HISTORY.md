@@ -1,3 +1,7 @@
+v2.2.0
+==================
+* add support for localization
+
 v2.1.1
 ==================
 * tweak spacing
