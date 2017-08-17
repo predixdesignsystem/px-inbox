@@ -1,3 +1,7 @@
+v2.1.0
+==================
+* add iron-resize and responsive behavior
+
 v2.0.3
 ==================
 * pickup latest forms css

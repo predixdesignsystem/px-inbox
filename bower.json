@@ -1,6 +1,6 @@
 {
   "name": "px-inbox",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "main": [
     "px-inbox.html"
   ],
@@ -29,7 +29,8 @@
     "moment": "^2.15.1",
     "px-dropdown": "^4.0.0",
     "px-icon-set": "^2.0.0",
-    "px-alert-label": "^2.0.0"
+    "px-alert-label": "^2.0.0",
+    "iron-resizable-behavior": "^2.0.1"
   },
   "devDependencies": {
     "px-theme": "^3.0.0",
@@ -42,7 +43,8 @@
     "px-flexbox-design": "^1.0.0",
     "px-shadows-design": "^1.0.0",
     "px-actionable-design": "^2.0.0",
-    "px-spacing-design": "^1.0.0"
+    "px-spacing-design": "^1.0.0",
+    "px-key-value-pair": "^1.0.2"
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.24"

@@ -3,11 +3,12 @@
     siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
 -->
-<link rel="import" href="../../polymer/polymer.html"/>
+<link rel="import" href="../../polymer/polymer.html" />
 <link rel="import" href="../css/px-inbox-styles.html">
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
 <link rel="import" href="../../px-icon-set/px-icon-set.html" />
 <link rel="import" href="../../px-icon-set/px-icon.html" />
+<link rel="import" href="../../px-key-value-pair/px-key-value-pair.html" />
 
 <!--
 This sub-component is simply an example for demo purposes.
@@ -19,63 +20,40 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
 <dom-module id="px-inbox-detail-demo">
   <template>
     <style include="px-inbox-styles">
-      :host {
+       :host {
         display: flex;
         flex-direction: column;
+        height: auto;
       }
-      .heading--page, .details {
+      .heading--page,
+      .details {
         padding: 2rem;
-        border-bottom: 1px solid rgb(216,224,229);
+        border-bottom: 1px solid rgb(216, 224, 229);
         flex: 0 0 auto;
+      }
+      px-key-value-pair {
+        min-width: 10rem;
       }
     </style>
     <style include="px-demo-styles"></style>
-     <template is="dom-if" if="{{isSelected}}">
+    <template is="dom-if" if="{{isSelected}}">
       <div class="heading--page flex flex--left">{{title}}</div>
       <div class="details">
         <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon>Alert Information</span>
-        <div class="flex u-mt">
-          <div class="flex__item">
-            <span class="label">Alert ID</span><br/>
-            <span class="value">{{alertId}}</span>
-          </div>
-          <div class="flex__item">
-            <span class="label">Alert Source</span><br/>
-            <span class="value">{{alertSource}}</span>
-          </div>
-        </div>
-        <div class="flex u-mt">
-          <div class="flex__item">
-            <span class="label">Received Date/Time</span><br/>
-            <span class="value">{{receivedDateTime}}</span>
-          </div>
-          <div class="flex__item">
-            <span class="label">Case Number</span><br/>
-            <span class="value">{{caseNumber}}</span>
-          </div>
+        <div class="flex flex--row flex--wrap flex--justify">
+          <px-key-value-pair class="u-mv" key="Alert ID" value="{{alertId}}"></px-key-value-pair>
+          <px-key-value-pair class="u-mv" key="Alert Source" value="{{alertSource}}"></px-key-value-pair>
+          <px-key-value-pair class="u-mv" key="Received Date/Time" value="{{receivedDateTime}}"></px-key-value-pair>
+          <px-key-value-pair class="u-mv" key="Case Number" value="{{caseNumber}}"></px-key-value-pair>
         </div>
       </div>
       <div class="details">
         <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:asset"></px-icon>Asset Information</span>
-        <div class="flex u-mt">
-          <div class="flex__item">
-            <span class="label">Customer</span><br/>
-            <span class="value">{{customer}}</span>
-          </div>
-          <div class="flex__item">
-            <span class="label">Serial Number</span><br/>
-            <span class="value">{{serialNumber}}</span>
-          </div>
-        </div>
-        <div class="flex u-mt">
-          <div class="flex__item">
-            <span class="label">DLN Type</span><br/>
-            <span class="value">{{dlnType}}</span>
-          </div>
-          <div class="flex__item">
-            <span class="label">Model</span><br/>
-            <span class="value">{{model}}</span>
-          </div>
+        <div class="flex flex--row flex--wrap flex--justify">
+          <px-key-value-pair class="u-mv" key="Customer" value="{{customer}}"></px-key-value-pair>
+          <px-key-value-pair class="u-mv" key="Serial Number" value="{{serialNumber}}"></px-key-value-pair>
+          <px-key-value-pair class="u-mv" key="DLN Type" value="{{dlnType}}"></px-key-value-pair>
+          <px-key-value-pair class="u-mv" key="Model" value="{{model}}"></px-key-value-pair>
         </div>
       </div>
     </template>
@@ -135,4 +113,5 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
       }
     }
   });
+
 </script>

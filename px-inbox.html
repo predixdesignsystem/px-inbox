@@ -9,6 +9,7 @@
 <link rel="import" href="../px-icon-set/px-icon-set.html" />
 <link rel="import" href="../px-icon-set/px-icon.html" />
 <link rel="import" href="../px-alert-label/px-alert-label.html" />
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
 <script src="../moment/moment.js"></script>
 
 <!--
@@ -51,7 +52,7 @@ Custom property | Description | Default
         <input class="text-input" value="{{_query::input}}" placeholder="Search"/>
         <px-icon class="search__icon" icon="px-nav:search"></px-icon>
       </div>
-      <div class="flex flex--justify flex--middle u-mh u-mb">
+      <div class="flex flex--justify flex--middle u-ph u-pb shadow-navigation">
         <div class="flex flex--row flex--middle">
           <span class="label u-mr--">Sort by:</span>
           <px-dropdown
@@ -68,7 +69,7 @@ Custom property | Description | Default
       </div>
       <ul id="list__body" class="list-ui list-ui--small" on-scroll="_updateClass">
         <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy,sortOrder)}}">
-          <li id="{{listItem.id}}" class$="list-ui__item pointer {{_computeClass(selectedItem,listItem.id)}}" on-click="_selectItem">
+          <li id="{{listItem.id}}" class$="list-ui__item pointer {{_computeClass(selectedItem,listItem.id)}}" on-tap="_selectItem">
             <div class="flex flex--justify">
               <div class="flex flex--left">
                 <template is="dom-if" if="{{listItem.severity}}">
@@ -86,6 +87,7 @@ Custom property | Description | Default
       </ul>
     </div>
     <div id="detail" class="detail">
+      <span class="back-link actionable" on-tap="_goBackToList"><px-icon icon="px-nav:back"></px-icon> Back</span>
       <content></content>
     </div>
 
@@ -96,6 +98,14 @@ Custom property | Description | Default
   Polymer({
 
     is: 'px-inbox',
+
+    behaviors: [
+      Polymer.IronResizableBehavior
+    ],
+
+    listeners: {
+      "iron-resize" : "_calculateBounds"
+    },
 
     /**
     * Event that is fired when the selected item is changed in the list component.
@@ -171,6 +181,35 @@ Custom property | Description | Default
 
       evt.currentTarget.classList.add("selected");
       this.selectedItem = evt.currentTarget.id;
+      this.toggleClass('detail-active', true, this.$.list);
+      this.toggleClass('list-active', false, this.$.detail);
+    },
+    /**
+    * When the window or any parent container is resized, need to recalculate the bounds
+    * of the px-inbox and react accordingly - in constrained situations, the list and detail
+    * will not be displayed simultaneously but will toggle back and forth instead.
+    */
+    _calculateBounds: function(evt) {
+      this.debounce('resize', function() {
+        if(parseInt(window.getComputedStyle(this).getPropertyValue('width')) < 700) {
+          this.toggleClass('constrained', true, this.$.list);
+          this.toggleClass('constrained', true, this.$.detail);
+        }
+        else {
+          this.toggleClass('constrained', false, this.$.list);
+          this.toggleClass('constrained', false, this.$.detail);
+          this.toggleClass('detail-active', true, this.$.list);
+          this.toggleClass('list-active', false, this.$.detail);
+        }
+      }, 500);
+    },
+    /**
+    * For small form factors, these classes are toggled in order to toggle back and forth
+    * between the list and detail views.
+    */
+    _goBackToList: function(evt) {
+      this.toggleClass('detail-active', false, this.$.list);
+      this.toggleClass('list-active', true, this.$.detail);
     },
     /**
     * Formats the date strings in each listItem to display correctly in the table using Moment.js.
