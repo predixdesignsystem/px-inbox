@@ -1,3 +1,7 @@
+v2.0.3
+==================
+* pickup latest forms css
+
 v2.0.2
 ==================
 * runtime theming for demo
