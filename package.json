@@ -2,7 +2,7 @@
     "name": "px-inbox",
     "author": "General Electric",
     "description": "A Px component for list-detail view",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "private": false,
     "extName": null,
     "repository": {

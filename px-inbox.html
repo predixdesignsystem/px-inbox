@@ -242,7 +242,7 @@ Custom property | Description | Default
     */
     _calculateBounds: function (evt) {
       this.debounce('resize', function () {
-        if (parseInt(window.getComputedStyle(this).getPropertyValue('width')) < 700) {
+        if (this.getBoundingClientRect().width < 700) {
           this.toggleClass('constrained', true, this.$.list);
           this.toggleClass('constrained', true, this.$.detail);
         }

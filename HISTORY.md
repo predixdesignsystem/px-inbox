@@ -1,3 +1,7 @@
+v2.2.2
+==================
+* fix infinite resize loop
+
 v2.2.1
 ==================
 * tweak spacing again
