@@ -1,3 +1,7 @@
+v2.2.3
+==================
+* fix alignment in IE/S9
+
 v2.2.2
 ==================
 * fix infinite resize loop

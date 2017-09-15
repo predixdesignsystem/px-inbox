@@ -69,11 +69,11 @@ Custom property | Description | Default
             <div class="flex flex--justify">
               <div class="flex flex--left">
                 <template is="dom-if" if="{{listItem.severity}}">
-                  <px-alert-label class="flex__item" type="{{listItem.severity}}" label="{{_getLabel(listItem.severity)}}" badge></px-alert-label>
+                  <px-alert-label class="flex__item--msfix" type="{{listItem.severity}}" label="{{_getLabel(listItem.severity)}}" badge></px-alert-label>
                 </template>
                 <div class="text">
-                  <span class="title flex__item">{{listItem.title}}</span>
-                  <span class="subtitle flex__item">{{listItem.subtitle}}</span>
+                  <div class="title flex__item">{{listItem.title}}</div>
+                  <div class="subtitle flex__item">{{listItem.subtitle}}</div>
                 </div>
               </div>
               <span class="info">{{listItem.formattedDate}}</span>
