@@ -14,6 +14,7 @@
 // Generic
 @import "px-normalize-design/_generic.normalize.scss";
 @import "px-box-sizing-design/_generic.box-sizing.scss";
+@import "px-helpers-design/_generic.helpers.scss";
 
 // Base
 @import "px-flexbox-design/_base.flexbox.scss";
@@ -72,12 +73,15 @@ $inuit-list-ui-border-color: transparent;
   padding-left: $inuit-base-spacing-unit;
   padding-right: $inuit-base-spacing-unit;
   border-bottom-color: var(--px-inbox-border-color, gray);
-}
-.list-ui--small .list-ui__item.selected {
-  background-color: var(--px-inbox-li-background-color--selected, blue);
-  color: var(--px-inbox-li-text-color--selected, white);
-  .subtitle, .info {
+  &:hover {
+    background-color: var(--px-inbox-li-background-color--hover, lightgray);
+  }
+  &.selected {
+    background-color: var(--px-inbox-li-background-color--selected, blue);
     color: var(--px-inbox-li-text-color--selected, white);
+    .subtitle, .info {
+      color: var(--px-inbox-li-text-color--selected, white);
+    }
   }
 }
 .title {

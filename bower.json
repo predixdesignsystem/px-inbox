@@ -1,6 +1,6 @@
 {
   "name": "px-inbox",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "main": [
     "px-inbox.html"
   ],
@@ -45,7 +45,8 @@
     "px-shadows-design": "^1.0.0",
     "px-actionable-design": "^2.0.0",
     "px-spacing-design": "^1.0.0",
-    "px-key-value-pair": "^1.0.2"
+    "px-key-value-pair": "^1.0.2",
+    "px-helpers-design": "^1.0.7"
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.24"
