@@ -1,3 +1,7 @@
+v2.2.4
+==================
+* add device flags
+
 v2.2.3
 ==================
 * fix alignment in IE/S9
