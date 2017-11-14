@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Component Test : Fixture for px-inbox</title>
+
+    <!-- BOILERPLATE -->
+    <!-- load webcomponents.js polyfill for browsers that don't support native web components -->
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- load web-component-tester test runner script -->
+    <script src="../../web-component-tester/browser.js"></script>
+    <!-- load and apply default theme, required to run tests -->
+    <link rel="import" href="../../px-theme/px-theme-styles.html"/>
+    <custom-style>
+      <style include="px-theme-styles" is="custom-style"></style>
+    </custom-style>
+
+    <!-- UNIQUE TO THIS COMPONENT -->
+    <!-- import web components to test -->
+    <link rel="import" href="../px-inbox.html"/>
+    <!-- load test script -->
+    <script src="px-inbox-tests.js"></script>
+  </head>
+  <body>
+    <h3>Web Component Test : Fixture for px-inbox</h3>
+    <test-fixture id="InboxFixture">
+      <template>
+        <px-inbox
+            list-items='[{"id":"1","title":"CMS Cold Spot","subtitle":"GT240182","severity":"important","date":"2016-10-05T01:29","formattedDate":"15 days ago"},{"id":"2","title":"Drum Level Anomaly","subtitle":"Block 2","severity":"warning","date":"2016-10-04T01:27","formattedDate":"16 days ago"},{"id":"3","title":"GT Vibration","subtitle":"GT20145","severity":"error","date":"2016-10-03T01:21","formattedDate":"17 days ago"},{"id":"4","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-10-03T01:05","formattedDate":"17 days ago"},{"id":"5","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-10-02T12:30","formattedDate":"17 days ago"},{"id":"6","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-10-02T01:33","formattedDate":"18 days ago"}]'>
+        </px-inbox>
+      </template>
+    </test-fixture>
+    <test-fixture id="InboxDisableAutoSelectFixture">
+      <template>
+        <px-inbox
+            disable-auto-select
+            list-items='[{"id":"1","title":"CMS Cold Spot","subtitle":"GT240182","severity":"important","date":"2016-10-05T01:29","formattedDate":"15 days ago"},{"id":"2","title":"Drum Level Anomaly","subtitle":"Block 2","severity":"warning","date":"2016-10-04T01:27","formattedDate":"16 days ago"},{"id":"3","title":"GT Vibration","subtitle":"GT20145","severity":"error","date":"2016-10-03T01:21","formattedDate":"17 days ago"},{"id":"4","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-10-03T01:05","formattedDate":"17 days ago"},{"id":"5","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-10-02T12:30","formattedDate":"17 days ago"},{"id":"6","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-10-02T01:33","formattedDate":"18 days ago"}]'>
+        </px-inbox>
+      </template>
+    </test-fixture>
+  </body>
+</html>

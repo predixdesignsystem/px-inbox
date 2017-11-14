@@ -25,17 +25,17 @@
     "wct.conf.json"
   ],
   "dependencies": {
-    "polymer": "^1.9.0",
-    "moment": "^2.15.1",
-    "px-dropdown": "^4.0.0",
-    "px-icon-set": "^2.0.0",
-    "px-alert-label": "^2.0.0",
+    "polymer": "#1.9 - 2",
+    "px-dropdown": "^4.1.0",
+    "px-icon-set": "^2.1.0",
+    "px-alert-label": "^2.1.0",
     "iron-resizable-behavior": "^2.0.1",
     "app-localize-behavior": "^2.0.0"
   },
   "devDependencies": {
     "px-theme": "^3.0.0",
-    "px-demo": "^2.0.0",
+    "px-demo": "^3.0.0",
+    "px-key-value-pair": "^1.2.0",
     "px-forms-design": "^2.0.0",
     "px-list-ui-design": "^2.0.0",
     "px-headings-design": "^1.0.0",
@@ -45,10 +45,23 @@
     "px-shadows-design": "^1.0.0",
     "px-actionable-design": "^2.0.0",
     "px-spacing-design": "^1.0.0",
-    "px-key-value-pair": "^1.0.2",
-    "px-helpers-design": "^1.0.7"
+    "px-helpers-design": "^1.0.7",
+    "web-component-tester": "^6.4.0"
   },
   "resolutions": {
-    "webcomponentsjs": "^0.7.24"
+    "webcomponentsjs": "^1.0.0"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "polymer": "^1.9.0"
+      },
+      "devDependencies": {
+        "web-component-tester": "^5.0.0"
+      },
+      "resolutions": {
+        "webcomponentsjs": "^0.7.0"
+      }
+    }
   }
 }
