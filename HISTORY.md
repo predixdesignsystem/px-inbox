@@ -1,3 +1,7 @@
+v2.2.7
+==================
+* remove old css variables from documentation
+
 v2.2.6
 ==================
 * allow severity of undefined in sort order
