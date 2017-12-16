@@ -8,6 +8,14 @@ v2.3.0
 * Refactor to remove moment.js dependency in favor of a small fromNow method,
   adds localization strings to match
 
+v2.2.7
+==================
+* remove old css variables from documentation
+
+v2.2.6
+==================
+* allow severity of undefined in sort order
+
 v2.2.5
 ==================
 * fix hover state (#11)
