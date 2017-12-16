@@ -19,10 +19,10 @@
 <!-- Demo DOM module -->
 <dom-module id="px-inbox-demo">
   <template>
-    <style include="px-demo-styles" is="custom-style">
-    :root {
-      --px-inbox-height: 500px;
-    }
+    <style include="px-demo-styles">
+      :host {
+        --px-inbox-height: 500px;
+      }
     </style>
 
     <!-- Header -->
@@ -35,41 +35,40 @@
     <!-- Interactive -->
     <px-demo-interactive>
       <!-- Configs -->
-      <px-demo-configs configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
 
       <!-- Props -->
-      <px-demo-props props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
 
       <!-- Code Editor -->
-      <px-demo-code-editor props="{{props}}"></px-demo-code-editor>
+      <px-demo-code-editor slot="px-demo-code-editor" props="{{props}}"></px-demo-code-editor>
 
       <!-- Component ---------------------------------------------------------->
-      <px-demo-component class="flex__item" style="height:500px;">
+      <px-demo-component slot="px-demo-component" class="flex__item" style="height:500px;">
         <px-inbox
           list-items="{{props.listItems.value}}"
-          on-selected-item-changed="_updateInboxDetails">
+          selected-item-ref="{{selectedItemRef}}">
             <px-inbox-detail-demo
-                title="{{detailTitle}}"
-                severity="{{detailSeverity}}"
-                is-selected="{{detailIsSelected}}"
-                alert-id="{{detailAlertId}}"
-                alert-source="{{detailAlertSource}}"
-                received-date-time="{{detailReceivedDateTime}}"
-                case-number="{{detailCaseNumber}}"
-                customer="{{detailCustomer}}"
-                serial-number="{{detailSerialNumber}}"
-                dln-type="{{detailDlnType}}"
-                model="{{detailModel}}">
+                title="{{selectedItemRef.title}}"
+                severity="{{selectedItemRef.severity}}"
+                is-selected="{{selectedItemRef.isSelected}}"
+                alert-id="{{selectedItemRef.alertId}}"
+                alert-source="{{selectedItemRef.alertSource}}"
+                received-date-time="{{selectedItemRef.receivedDateTime}}"
+                case-number="{{selectedItemRef.caseNumber}}"
+                customer="{{selectedItemRef.customer}}"
+                serial-number="{{selectedItemRef.serialNumber}}"
+                dln-type="{{selectedItemRef.dlnType}}"
+                model="{{selectedItemRef.model}}">
             </px-inbox-detail-demo>
         </px-inbox>
       </px-demo-component>
       <!-- END Component ------------------------------------------------------>
 
       <px-demo-component-snippet
+          slot="px-demo-component-snippet"
           element-properties="{{props}}"
-          element-name="px-inbox"
-          scripts-includes=["https://cdn.rawgit.com/moment/moment/2.17.1/moment.js"]
-          polygit-includes=["moment+moment+2.17.1"]>
+          element-name="px-inbox">
       </px-demo-component-snippet>
     </px-demo-interactive>
 
@@ -228,28 +227,6 @@
         type: String,
         value: "Define or bind to detail view here"
       }
-    },
-
-    _updateInboxDetails: function(e) {
-      var selectedId = e.detail.value;
-      if (!this.props || !this.props.listItems) return;
-      var inboxItem = this.props.listItems.value.find(function(item) {
-        return item.id===e.detail.value;
-      });
-      if (!inboxItem || !inboxItem.title) return;
-      this.set("detailTitle", inboxItem.title);
-      this.set("detailSeverity", inboxItem.severity);
-      this.set("detailIsSelected", true);
-      this.set("detailAlertId", inboxItem.alertId);
-      this.set("detailAlertSource", inboxItem.alertSource);
-      this.set("detailReceivedDateTime", inboxItem.receivedDateTime);
-      this.set("detailCaseNumber", inboxItem.caseNumber);
-      this.set("detailCustomer", inboxItem.customer);
-      this.set("detailSerialNumber", inboxItem.serialNumber);
-      this.set("detailDlnType", inboxItem.dlnType);
-      this.set("detailModel", inboxItem.model);
-    },
-
-
+    }
   });
 </script>

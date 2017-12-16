@@ -34,17 +34,21 @@ $inuit-list-ui-border-color: transparent;
   height: var(--px-inbox-height, 100vh);
   --px-alert-label-border-color: var(--px-inbox-li-text-color--selected, white);
 }
+.inbox-container {
+  display: flex;
+  flex: 1 1 auto;
+}
 .list {
   height: 100%;
   flex: 0 0 var(--px-inbox-list-width, calculateRem(320px));
   border-right: 1px solid var(--px-inbox-border-color, transparent);
   background-color: var(--px-inbox-li-background-color, white);
-  &.constrained {
-    flex-basis: 100%;
-    &.detail-active {
-      display: none;
-    }
-  }
+}
+.collapsed > .list {
+  flex-basis: 100%;
+}
+.collapsed--detail-active > .list {
+  display: none;
 }
 .list__header {
   flex: 0 0 auto;
@@ -120,12 +124,18 @@ px-dropdown {
   height: 100%;
   overflow-y: auto;
   flex: 1 1 auto;
-  &.list-active {
-    display: none;
-  }
+  // &.list-active {
+  //   display: none;
+  // }
   &.constrained .back-link {
-    display: block;
+    // display: block;
   }
+}
+.collapsed > .detail .back-link {
+  display: block;
+}
+.collapsed--list-active > .detail {
+  display: none;
 }
 .label {
   color: var(--px-inbox-secondary-text-color, darkgray);

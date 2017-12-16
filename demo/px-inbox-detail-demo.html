@@ -36,27 +36,27 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
       }
     </style>
     <style include="px-demo-styles"></style>
-    <template is="dom-if" if="{{isSelected}}">
-      <div class="heading--page flex flex--left">{{title}}</div>
-      <div class="details">
-        <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon>Alert Information</span>
-        <div class="flex flex--row flex--wrap flex--justify">
-          <px-key-value-pair class="u-mv" key="Alert ID" value="{{alertId}}"></px-key-value-pair>
-          <px-key-value-pair class="u-mv" key="Alert Source" value="{{alertSource}}"></px-key-value-pair>
-          <px-key-value-pair class="u-mv" key="Received Date/Time" value="{{receivedDateTime}}"></px-key-value-pair>
-          <px-key-value-pair class="u-mv" key="Case Number" value="{{caseNumber}}"></px-key-value-pair>
-        </div>
+
+    <div class="heading--page flex flex--left">{{title}}</div>
+    <div class="details">
+      <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon>Alert Information</span>
+      <div class="flex flex--row flex--wrap flex--justify">
+        <px-key-value-pair class="u-mv" key="Alert ID" value="{{alertId}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Alert Source" value="{{alertSource}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Received Date/Time" value="{{receivedDateTime}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Case Number" value="{{caseNumber}}"></px-key-value-pair>
       </div>
-      <div class="details">
-        <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:asset"></px-icon>Asset Information</span>
-        <div class="flex flex--row flex--wrap flex--justify">
-          <px-key-value-pair class="u-mv" key="Customer" value="{{customer}}"></px-key-value-pair>
-          <px-key-value-pair class="u-mv" key="Serial Number" value="{{serialNumber}}"></px-key-value-pair>
-          <px-key-value-pair class="u-mv" key="DLN Type" value="{{dlnType}}"></px-key-value-pair>
-          <px-key-value-pair class="u-mv" key="Model" value="{{model}}"></px-key-value-pair>
-        </div>
+    </div>
+    <div class="details">
+      <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:asset"></px-icon>Asset Information</span>
+      <div class="flex flex--row flex--wrap flex--justify">
+        <px-key-value-pair class="u-mv" key="Customer" value="{{customer}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Serial Number" value="{{serialNumber}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="DLN Type" value="{{dlnType}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Model" value="{{model}}"></px-key-value-pair>
       </div>
-    </template>
+    </div>
+
   </template>
 </dom-module>
 
@@ -66,18 +66,6 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
     is: 'px-inbox-detail-demo',
 
     properties: {
-
-      /*
-       * This property checks whether the user has selected an inbox item
-       *
-       * @property isSelected
-       * @type Boolean
-       */
-      isSelected: {
-        type: Boolean,
-        value: false
-      },
-
       /*
        * The following properties provide hooks through which we can display detailed information about the selected inbox item
        */

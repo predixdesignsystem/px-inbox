@@ -1,3 +1,13 @@
+v2.3.0
+==================
+* Upgrades component to be Polymer 1.x/2.x hybrid compatible
+* Adds new property selectedItemRef that notifies out the selected item object.
+  This makes it more convenient to bind the selected item and get information
+  about it rather than looping over the listItems to find the one that matches
+  the ID in selectedItem.
+* Refactor to remove moment.js dependency in favor of a small fromNow method,
+  adds localization strings to match
+
 v2.2.7
 ==================
 * remove old css variables from documentation

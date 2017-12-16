@@ -11,7 +11,6 @@
 <link rel="import" href="../px-alert-label/px-alert-label.html" />
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html" />
-<script src="../moment/moment.js"></script>
 
 <!--
 
@@ -44,51 +43,57 @@ Custom property | Description | Default
 <dom-module id="px-inbox">
   <template>
     <style include="px-inbox-styles"></style>
-    <div id="list" class="list flex flex--col">
-      <div class="search u-mt u-mh u-mb-">
-        <input class="text-input" value="{{_query::input}}" placeholder="[[localize('Search')]]" />
-        <px-icon class="search__icon" icon="px-nav:search"></px-icon>
-      </div>
-      <div class="flex flex--justify flex--middle u-ph u-pb shadow-navigation">
-        <div class="flex flex--row flex--middle">
-          <span class="label u-mr--">[[localize('Sort by')]]:</span>
-          <px-dropdown id="dropdown" class="sort-dropdown" select-by="key" button-style="bare" selected="{{sortBy}}" display-value="{{localize(sortBy)}}"
-            items='[{"key":"Title", "val": "Title"},{"key":"Subtitle", "val": "Subtitle"},{"key":"Severity", "val": "Severity"},{"key":"Date", "val": "Date"}]'
-            disable-clear>
-          </px-dropdown>
+    <section class$="inbox-container [[_getCollapsedClassNames(_isCollapsed, _detailViewActive)]]">
+      <div id="list" class="list flex flex--col">
+        <div class="search u-mt u-mh u-mb-">
+          <input class="text-input" value="{{_query::input}}" placeholder="[[localize('Search')]]" />
+          <px-icon class="search__icon" icon="px-nav:search"></px-icon>
         </div>
-        <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_reverseSort" icon="px-nav:up"></px-icon>
-      </div>
-      <ul id="list__body" class="list-ui list-ui--small" on-scroll="_updateClass">
-        <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy,sortOrder)}}">
-          <li id="{{listItem.id}}" class$="list-ui__item pointer {{_computeClass(selectedItem,listItem.id)}}" on-tap="_selectItem">
-            <div class="flex flex--justify">
-              <div class="flex flex--left">
-                <template is="dom-if" if="{{listItem.severity}}">
-                  <px-alert-label class="flex__item--msfix" type="{{listItem.severity}}" label="{{_getLabel(listItem.severity)}}" badge></px-alert-label>
-                </template>
-                <div class="text">
-                  <div class="title flex__item">{{listItem.title}}</div>
-                  <div class="subtitle flex__item">{{listItem.subtitle}}</div>
+        <div class="flex flex--justify flex--middle u-ph u-pb shadow-navigation">
+          <div class="flex flex--row flex--middle">
+            <span class="label u-mr--">[[localize('Sort by')]]:</span>
+            <px-dropdown
+                id="dropdown"
+                class="sort-dropdown"
+                select-by="key"
+                button-style="bare"
+                selected="{{sortBy}}"
+                display-value="{{localize(sortBy)}}"
+                items="[[_getLocalizedSortOptions(localize)]]"
+                disable-clear>
+            </px-dropdown>
+          </div>
+          <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_handleReverseSort" icon="[[_getSortIcon(sortOrder)]]"></px-icon>
+        </div>
+        <ul id="list__body" class="list-ui list-ui--small" on-scroll="_updateShadowScrollClassName">
+          <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy, sortOrder)}}">
+            <li id="{{listItem.id}}" class$="list-ui__item pointer {{_getSelectedItemClassName(selectedItem,listItem.id)}}" on-tap="_handleItemTapped">
+              <div class="flex flex--justify">
+                <div class="flex flex--left">
+                  <template is="dom-if" if="{{listItem.severity}}">
+                    <px-alert-label class="flex__item--msfix" type="{{listItem.severity}}" label="{{_getLabel(listItem.severity)}}" badge></px-alert-label>
+                  </template>
+                  <div class="text">
+                    <div class="title flex__item">{{listItem.title}}</div>
+                    <div class="subtitle flex__item">{{listItem.subtitle}}</div>
+                  </div>
                 </div>
+                <span class="info">{{_getFormattedDate(listItem.date, localize)}}</span>
               </div>
-              <span class="info">{{listItem.formattedDate}}</span>
-            </div>
-          </li>
-        </template>
-      </ul>
-    </div>
-    <div id="detail" class="detail">
-      <span class="back-link actionable u-m-" on-tap="_goBackToList"><px-icon class="u-mr--" icon="px-nav:back"></px-icon>[[localize('Back')]]</span>
-      <content></content>
-    </div>
-
+            </li>
+          </template>
+        </ul>
+      </div>
+      <div id="detail" class="detail">
+        <span class="back-link actionable u-m-" on-tap="_handleShowListView"><px-icon class="u-mr--" icon="px-nav:back"></px-icon>[[localize('Back')]]</span>
+        <slot></slot>
+      </div>
+    </section>
   </template>
 </dom-module>
 
 <script>
   Polymer({
-
     is: 'px-inbox',
 
     behaviors: [
@@ -96,71 +101,82 @@ Custom property | Description | Default
       Polymer.AppLocalizeBehavior
     ],
 
-    listeners: {
-      "iron-resize": "_calculateBounds"
-    },
-
-    observers: [
-      "_updateSortOptions(language, resources, useKeyIfMissing)"
-    ],
-
-    /**
-    * Event that is fired when the selected item is changed in the list component.
-    * You should listen for this event and then access selectedItem to get the ID of the item.
-    * @event selected-item-changed
-    */
-
     properties: {
       /**
-      * Array of items to include in the list. Each item in the array should be an object with:
-      * - id (used for fetching the details view)
-      * - title
-      * - subtitle
-      * - severity (one of "important", "error", "warning", or "information")
-      * - date (optional, should be valid <a href="https://www.w3.org/TR/NOTE-datetime">8601 date strings</a>)
-      */
+       * Array of items to include in the list. Each item in the array should be
+       * an object with the following keys:
+       * - id  - must be a string, used to update the `selectedItem` property when an item is selected
+       * - title
+       * - subtitle
+       * - severity - one of "important", "error", "warning", or "information"
+       * - date - optional, should be valid <a href="https://www.w3.org/TR/NOTE-datetime">8601 date strings</a>
+       */
       listItems: {
         type: Array,
-        observer: '_formatDates'
+        observer: '_setInitialSelectedItem'
       },
       /**
-      * ID of the selected item, for pulling up the details to display in the right side of the inbox view.
-      */
+       * ID of the selected item. Set this property to update the selected item,
+       * or listen for changes to observe when the user selects an item.
+       */
       selectedItem: {
         type: String,
         notify: true
       },
       /**
-      * Search query used to filter the list.
-      */
+       * Reference to the selected item object, updated when a new item is
+       * selected. Read-only, set `selectedItem` to change what's selected
+       */
+      selectedItemRef: {
+        type: Object,
+        notify: true,
+        readOnly: true,
+        computed: '_computeSelectedItemRef(selectedItem, listItems, listItems.*)'
+      },
+      /**
+       * Search query used to filter the list.
+       */
       _query: {
         type: String
       },
       /**
-      * Property to sort the list by.
-      */
+       * Determines how the inbox list is sorted. Updated automatically when the
+       * user selects a new item from the sort by dropdown. Choose from one of
+       * the following values to set through data binding:
+       * "Title" | "Subtitle" | "Severity" | "Date"
+       */
       sortBy: {
         type: String,
-        value: "Date"
+        value: "Date",
+        notify: true
       },
       /**
-      * Sort order - ascending or descending.
-      */
+       * Sets the sort order for the inbox list. Updated automatically when the
+       * user clicks the arrow button to toggle the sort order. Choose from one
+       * of the following values to set through data binding:
+       * "ascending" | "descending"
+       */
       sortOrder: {
         type: String,
-        value: "ascending"
+        value: "ascending",
+        notify: true
       },
       /**
-      * By default, the first item in the list will be selected.
-      * Set this flag to "true" to disable this default selection.
-      */
+       * By default, the first item in `listItems` will be selected when the
+       * `listItems` property is changed. Set this flag to `true` to disable
+       * the auto select behavior. This property must be set before `listItems`
+       * is first set, or the first item may be selected anyway. Its recommended
+       * to set this as a static attribute on the px-inbox tag to ensure it
+       * is set before the `listItems` are first set.
+       */
       disableAutoSelect: {
         type: Boolean,
         value: false
       },
       /**
        * A valid IETF language tag as a string that `px-localize-behavior` will
-       * use to localize this component. Refer to px-localize-behavior for currently supported languages.
+       * use to localize this component. Refer to px-localize-behavior for
+       * currently supported languages.
        *
        * See https://github.com/PolymerElements/app-localize-behavior for API
        * documentation and more information.
@@ -170,9 +186,9 @@ Custom property | Description | Default
         value: 'en'
       },
       /**
-      * Use the key for localization if value for  language is missing. Should
-      * always be true for  our components
-      */
+       * Use the key for localization if value for language is missing. Should
+       * always be true for our components
+       */
       useKeyIfMissing: {
         type: Boolean,
         value: true
@@ -182,105 +198,123 @@ Custom property | Description | Default
        */
       resources: {
         type: Object,
-        value: function () {
+        value: function() {
           return {
-            'en': {
-              "Back": "Back",
-              "Sort by": "Sort by",
-              "Search": "Search",
-              "Title": "Title",
-              "Subtitle": "Subtitle",
-              "Severity": "Severity",
-              "Date": "Date"
+            "en": {
+              "Back"     : "Back",
+              "Sort by"  : "Sort by",
+              "Search"   : "Search",
+              "Title"    : "Title",
+              "Subtitle" : "Subtitle",
+              "Severity" : "Severity",
+              "Date"     : "Date",
+              "years ago"    : "years ago",
+              "a year ago"   : "a year ago",
+              "months ago"   : "months ago",
+              "a month ago"  : "a month ago",
+              "days ago"     : "days ago",
+              "a day ago"    : "a day ago",
+              "hours ago"    : "hours ago",
+              "an hour ago"  : "an hour ago",
+              "minutes ago"  : "minutes ago",
+              "a minute ago" : "a minute ago",
+              "a few seconds ago" : "a few seconds ago"
             }
           }
         }
+      },
+      /**
+       * Set to `true` when the inbox is collapsed on mobile screen sizes.
+       */
+      _isCollapsed: {
+        type: Boolean,
+        value: false
+      },
+      /**
+       * On small screens the user can navigate back and forth between a detail
+       * view showing the message contents, and a list view showing the inbox
+       * items. This boolean manages the visible state.
+       */
+      _detailViewActive: {
+        type: Boolean,
+        value: false,
+        observer: '_setInitialSelectedItem'
       }
     },
-    /**
-    * Updates the options in the sort dropdown if any of the app-localize properties are changed.
-    */
-    _updateSortOptions: function () {
-      var options = [
-        { "key": "Title", "val": this.localize("Title") },
-        { "key": "Subtitle", "val": this.localize("Subtitle") },
-        { "key": "Severity", "val": this.localize("Severity") },
-        { "key": "Date", "val": this.localize("Date") }
-      ];
-      this.$.dropdown.set('items', options);
-    },
-
-    /**
-    * Figures out whether the item is currently selected.
-    */
-    _computeClass: function (selectedId, id) {
-      return (selectedId && String(selectedId) === String(id)) ? 'selected' : '';
-    },
-
-    /**
-    * Adds visual style to the currently selected item and triggers display of the details.
-    */
-    _selectItem: function (evt) {
-      var otherItems = Polymer.dom(this.root).querySelectorAll('.selected');
-      for (var i = 0; i < otherItems.length; i++) {
-        otherItems[i].classList.remove("selected");
-      };
-
-      evt.currentTarget.classList.add("selected");
-      this.selectedItem = evt.currentTarget.id;
-      this.toggleClass('detail-active', true, this.$.list);
-      this.toggleClass('list-active', false, this.$.detail);
+    listeners: {
+      "iron-resize": "_calculateBounds"
     },
     /**
-    * When the window or any parent container is resized, need to recalculate the bounds
-    * of the px-inbox and react accordingly - in constrained situations, the list and detail
-    * will not be displayed simultaneously but will toggle back and forth instead.
-    */
-    _calculateBounds: function (evt) {
-      this.debounce('resize', function () {
-        if (this.getBoundingClientRect().width < 700) {
-          this.toggleClass('constrained', true, this.$.list);
-          this.toggleClass('constrained', true, this.$.detail);
-        }
-        else {
-          this.toggleClass('constrained', false, this.$.list);
-          this.toggleClass('constrained', false, this.$.detail);
-          this.toggleClass('detail-active', true, this.$.list);
-          this.toggleClass('list-active', false, this.$.detail);
-        }
-      }, 500);
-    },
-    /**
-    * For small form factors, these classes are toggled in order to toggle back and forth
-    * between the list and detail views.
-    */
-    _goBackToList: function (evt) {
-      this.toggleClass('detail-active', false, this.$.list);
-      this.toggleClass('list-active', true, this.$.detail);
-    },
-    /**
-    * Formats the date strings in each listItem to display correctly in the table using Moment.js.
-    */
-    _formatDates: function () {
-      for (var i = 0; i < this.listItems.length; i++) {
-        // If date is defined and recognized as a valid date string, convert to a friendlier display format.
-        if (this.listItems[i].date && moment(this.listItems[i].date).isValid()) {
-          this.listItems[i].formattedDate = moment(this.listItems[i].date).fromNow();
-        }
-        // If not recognized as a valid date string, just display whatever was passed in.
-        else {
-          this.listItems[i].formattedDate = this.listItems[i].date;
-        }
-      };
-      // Unless otherwise specified, the first item in the array is selected on load.
-      if (!this.disableAutoSelect && !this.selectedItem && this.listItems && this.listItems.length > 0) {
+     * Selects an inbox item when the component is first instantiated.
+     */
+    _setInitialSelectedItem: function() {
+      if (Array.isArray(this.listItems) && this.listItems.length > 0 && !this.selectedItem && this.disableAutoSelect === false) {
         this.selectedItem = this.listItems[0].id;
       }
     },
     /**
-    * Searches through the list titles and subtitles and filters based on the query.
-    */
-    _computeFilter: function (query) {
+     * Selects an item when the user taps on it.
+     */
+    _handleItemTapped: function(evt) {
+      this.selectedItem = evt.model.listItem.id;
+      this._detailViewActive = true;
+    },
+    /**
+     * Returns the user to the inbox list view in collapsed mode.
+     */
+    _handleShowListView: function() {
+      this._detailViewActive = false;
+    },
+    /**
+     * When the window or any parent container is resized, recalculates the bounds
+     * of the px-inbox and decide if the inbox is collapsed. Show the list and
+     * detail views side-by-side when not collapsed, and toggle back and forth
+     * between then when collapsed.
+     */
+    _calculateBounds: function(evt) {
+      this.debounce('resize', function() {
+        if (this.getBoundingClientRect().width < 700) {
+          this._isCollapsed = true;
+        }
+        else {
+          this._isCollapsed = false;
+          this._detailViewActive = true;
+        }
+      }, 500);
+    },
+    _getFormattedDate: function(date, localize) {
+      if (typeof date === 'string' && this._isValidDate(date)) {
+        return this._formatDateFromNow(new Date(date), new Date(), localize);
+      }
+      return date;
+    },
+    _isValidDate: function(dateString) {
+      return !isNaN(new Date(dateString).getTime());
+    },
+    _formatDateFromNow: function(date, nowDate, localize) {
+      const seconds = Math.floor((nowDate - date) / 1000);
+      const years = Math.floor(seconds / 31536000);
+      const months = Math.floor(seconds / 2592000);
+      const days = Math.floor(seconds / 86400);
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor(seconds / 60);
+
+      if (days > 548)                   return `${years} ${localize('years ago')}`;
+      if (days >= 320 && days <= 547)   return localize('a year ago');
+      if (days >= 45 && days <= 319)    return `${months} ${localize('months ago')}`;
+      if (days >= 26 && days <= 45)     return localize('a month ago');
+      if (hours >= 36 && days <= 25)    return `${days} ${localize('days ago')}`;
+      if (hours >= 22 && hours <= 35)   return localize('a day ago');
+      if (minutes >= 90 && hours <= 21) return `${hours} ${localize('hours ago')}`;
+      if (minutes >= 45 && minutes <= 89) return localize('an hour ago');
+      if (seconds >= 90 && minutes <= 44) return `${minutes} ${localize('minutes ago')}`;
+      if (seconds >= 45 && seconds <= 89) return localize('a minute ago');
+      if (seconds >= 0 && seconds <= 45)  return localize('a few seconds ago');
+    },
+    /**
+     * Searches through the list titles and subtitles and filters based on the query.
+     */
+    _computeFilter: function(query) {
       if (!query) {
         // set filter to null to disable filtering
         return null;
@@ -288,7 +322,7 @@ Custom property | Description | Default
       else {
         // return a filter function for the current search query
         query = query.toLowerCase();
-        return function (listItem) {
+        return function(listItem) {
           var title = listItem.title.toLowerCase();
           var subtitle = listItem.subtitle.toLowerCase();
           return (title.indexOf(query) != -1 ||
@@ -297,14 +331,25 @@ Custom property | Description | Default
       }
     },
     /**
+     * Reverses the sort order for the component.
+     */
+    _handleReverseSort: function() {
+      if (this.sortOrder === 'ascending') {
+        this.sortOrder = 'descending';
+      }
+      else if (this.sortOrder === 'descending') {
+        this.sortOrder = 'ascending';
+      }
+    },
+    /**
     * Sort function for the array of list items.
     */
-    _computeSort: function (sortBy, sortOrder) {
+    _computeSort: function(sortBy, sortOrder) {
       sortBy = sortBy ? sortBy.toLowerCase() : '';
       var asc = sortOrder === 'ascending';
       // return sort function which maps severities to numeric values
       if (sortBy === "severity" && asc) {
-        return function (a, b) {
+        return function(a, b) {
           var severities = {
             "important": 4,
             "warning": 3,
@@ -317,7 +362,7 @@ Custom property | Description | Default
         }
       }
       else if (sortBy === "severity" && !asc) {
-        return function (b, a) {
+        return function(b, a) {
           var severities = {
             "important": 4,
             "warning": 3,
@@ -331,45 +376,74 @@ Custom property | Description | Default
       }
       // return sort function which correctly compares dates
       else if (sortBy === "date" && asc) {
-        return function (a, b) {
+        return function(a, b) {
           return (a.date > b.date) ? -1 : (a.date < b.date) ? 1 : 0;
         }
       }
       else if (sortBy === "date" && !asc) {
-        return function (b, a) {
+        return function(b, a) {
           return (a.date > b.date) ? -1 : (a.date < b.date) ? 1 : 0;
         }
       }
       // return sort function which compares the items mathematically
       else if (asc) {
-        return function (a, b) {
+        return function(a, b) {
           return (a[sortBy] < b[sortBy]) ? -1 : (a[sortBy] > b[sortBy]) ? 1 : 0;
         }
       }
       else {
-        return function (b, a) {
+        return function(b, a) {
           return (a[sortBy] < b[sortBy]) ? -1 : (a[sortBy] > b[sortBy]) ? 1 : 0;
         }
       }
     },
-    _getLabel: function (severity) {
+    _getSortIcon: function(sortOrder) {
+      if (sortOrder === 'ascending') {
+        return 'px-nav:up';
+      }
+      if (sortOrder === 'descending') {
+        return 'px-nav:down';
+      }
+    },
+    _getLocalizedSortOptions: function(localize) {
+      return [
+        { "key": "Title", "val": localize("Title") },
+        { "key": "Subtitle", "val": localize("Subtitle") },
+        { "key": "Severity", "val": localize("Severity") },
+        { "key": "Date", "val": localize("Date") }
+      ];
+    },
+    _getSelectedItemClassName: function(selectedId, id) {
+      if (selectedId && id && id === selectedId) {
+        return 'selected';
+      }
+    },
+    _getCollapsedClassNames: function(isCollapsed, detailViewActive) {
+      if (isCollapsed) {
+        return 'collapsed ' + (detailViewActive ? 'collapsed--detail-active' : 'collapsed--list-active');
+      }
+    },
+    _getLabel: function(severity) {
       if (severity === 'important') return '1';
       if (severity === 'warning') return '2';
       if (severity === 'error') return '3';
       if (severity === 'information') return '4';
     },
-    _reverseSort: function () {
-      if (this.sortOrder === 'ascending') {
-        this.sortOrder = 'descending';
-        this.$.sortIcon.icon = 'px-nav:down';
-      }
-      else if (this.sortOrder === 'descending') {
-        this.sortOrder = 'ascending';
-        this.$.sortIcon.icon = 'px-nav:up';
+    _computeSelectedItemRef: function(selectedItemId, items) {
+      if (selectedItemId && items && Array.isArray(items)) {
+        for (let i=0; i<items.length; i++) {
+          if (items[i].id === selectedItemId) {
+            return items[i];
+          }
+        }
       }
     },
-    _updateClass: function () {
-      this.debounce('update-class', function () {
+    /**
+     * When the user scrolls the inbox list, add a class to show a shadow
+     * to indicate some items are not visible.
+     */
+    _updateShadowScrollClassName: function() {
+      this.debounce('update-class', function() {
         if (this.$.list__body.scrollTop > 0) {
           this.toggleClass('shadow-component', true, Polymer.dom(this.root).querySelector('.list__header'));
         }
@@ -379,5 +453,4 @@ Custom property | Description | Default
       }, 50);
     }
   });
-
 </script>
