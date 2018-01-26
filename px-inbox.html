@@ -286,6 +286,9 @@ Custom property | Description | Default
       if (typeof date === 'string' && this._isValidDate(date)) {
         return this._formatDateFromNow(new Date(date), new Date(), localize);
       }
+      if(date instanceof Date && this._isValidDate(date)) {
+        return this._formatDateFromNow(date, new Date(), localize);
+      }
       return date;
     },
     _isValidDate: function(dateString) {

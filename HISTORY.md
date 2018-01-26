@@ -1,3 +1,7 @@
+v2.3.1
+==================
+* accept dates as objects or strings
+
 v2.3.0
 ==================
 * Upgrades component to be Polymer 1.x/2.x hybrid compatible
