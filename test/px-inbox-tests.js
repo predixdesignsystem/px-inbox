@@ -140,4 +140,12 @@ describe('px-inbox date formatting', () => {
     const pastDate = new Date('2013-12-10T23:00:00'); // 3 years before nowDate
     assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), '3 years ago');
   });
+
+  it('handles date objects correctly', () => {
+    const item = [{"id":"1","title":"test","subtitle":"test","date":new Date(),"severity":"important"}];
+    inboxEl.set('listItems', item);
+    flush(function() {
+      assert.equal(Polymer.dom(inboxEl.root).querySelector('.info').textContent.trim(), 'a few seconds ago');
+    });
+  });
 });

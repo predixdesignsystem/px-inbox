@@ -1,5 +1,9 @@
 v2.3.1
 ==================
+* add unit test for date objects
+
+v2.3.1
+==================
 * accept dates as objects or strings
 
 v2.3.0
