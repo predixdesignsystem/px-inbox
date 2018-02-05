@@ -1,3 +1,7 @@
+v2.3.3
+==================
+* properly scope localize (#13)
+
 v2.3.2
 ==================
 * add unit test for date objects
