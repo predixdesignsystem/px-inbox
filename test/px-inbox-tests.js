@@ -64,81 +64,80 @@ describe('px-inbox', () => {
 
 describe('px-inbox date formatting', () => {
   let inboxEl;
-  const localizeStub = str => str;
-
+  
   beforeEach((done) => {
     inboxEl = fixture('InboxFixture');
     flush(done);
   });
 
   it('does not format dates that are not valid ISO-8601 strings', () => {
-    assert.equal(inboxEl._getFormattedDate('a long time ago', ()=>null), 'a long time ago');
+    assert.equal(inboxEl._getFormattedDate('a long time ago'), 'a long time ago');
   });
 
   it('correctly formats time a few seconds ago', () => {
     const nowDate = new Date('2016-10-05T08:00:00');
     const pastDate = new Date('2016-10-05T07:59:16'); // 44 seconds before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), 'a few seconds ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), 'a few seconds ago');
   });
 
   it('correctly formats time a minute ago', () => {
     const nowDate = new Date('2016-10-05T08:00:00');
     const pastDate = new Date('2016-10-05T07:59:15'); // 45 seconds before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), 'a minute ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), 'a minute ago');
   });
 
   it('correctly formats time [n] minutes ago', () => {
     const nowDate = new Date('2016-10-05T08:00:00');
     const pastDate = new Date('2016-10-05T07:16:00'); // 44 minutes before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), '44 minutes ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), '44 minutes ago');
   });
 
   it('correctly formats time an hour ago', () => {
     const nowDate = new Date('2016-10-05T08:00:00');
     const pastDate = new Date('2016-10-05T07:15:00'); // 45 minutes before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), 'an hour ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), 'an hour ago');
   });
 
   it('correctly formats time [n] hours ago', () => {
     const nowDate = new Date('2016-10-05T23:00:00');
     const pastDate = new Date('2016-10-05T02:00:00'); // 21 hours before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), '21 hours ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), '21 hours ago');
   });
 
   it('correctly formats time a day ago', () => {
     const nowDate = new Date('2016-10-05T23:00:00');
     const pastDate = new Date('2016-10-05T01:00:00'); // 22 hours before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), 'a day ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), 'a day ago');
   });
 
   it('correctly formats time [n] days ago', () => {
     const nowDate = new Date('2016-10-28T23:00:00');
     const pastDate = new Date('2016-10-03T23:00:00'); // 25 days before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), '25 days ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), '25 days ago');
   });
 
   it('correctly formats time a month ago', () => {
     const nowDate = new Date('2016-10-28T23:00:00');
     const pastDate = new Date('2016-10-02T23:00:00'); // 26 days before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), 'a month ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), 'a month ago');
   });
 
   it('correctly formats time [n] months ago', () => {
     const nowDate = new Date('2016-12-10T23:00:00');
     const pastDate = new Date('2016-02-10T23:00:00'); // 10 months before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), '10 months ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), '10 months ago');
   });
 
   it('correctly formats time a year ago', () => {
     const nowDate = new Date('2016-12-10T23:00:00');
     const pastDate = new Date('2016-01-10T23:00:00'); // 11 months before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), 'a year ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), 'a year ago');
   });
 
   it('correctly formats time [n] years ago', () => {
     const nowDate = new Date('2016-12-10T23:00:00');
     const pastDate = new Date('2013-12-10T23:00:00'); // 3 years before nowDate
-    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate, localizeStub), '3 years ago');
+    assert.equal(inboxEl._formatDateFromNow(pastDate, nowDate), '3 years ago');
   });
 
   it('handles date objects correctly', () => {

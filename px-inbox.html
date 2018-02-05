@@ -59,7 +59,7 @@ Custom property | Description | Default
                 button-style="bare"
                 selected="{{sortBy}}"
                 display-value="{{localize(sortBy)}}"
-                items="[[_getLocalizedSortOptions(localize)]]"
+                items="[[_getLocalizedSortOptions()]]"
                 disable-clear>
             </px-dropdown>
           </div>
@@ -78,7 +78,7 @@ Custom property | Description | Default
                     <div class="subtitle flex__item">{{listItem.subtitle}}</div>
                   </div>
                 </div>
-                <span class="info">{{_getFormattedDate(listItem.date, localize)}}</span>
+                <span class="info">{{_getFormattedDate(listItem.date)}}</span>
               </div>
             </li>
           </template>
@@ -282,19 +282,19 @@ Custom property | Description | Default
         }
       }, 500);
     },
-    _getFormattedDate: function(date, localize) {
+    _getFormattedDate: function(date) {
       if (typeof date === 'string' && this._isValidDate(date)) {
-        return this._formatDateFromNow(new Date(date), new Date(), localize);
+        return this._formatDateFromNow(new Date(date), new Date());
       }
       if(date instanceof Date && this._isValidDate(date)) {
-        return this._formatDateFromNow(date, new Date(), localize);
+        return this._formatDateFromNow(date, new Date());
       }
       return date;
     },
     _isValidDate: function(dateString) {
       return !isNaN(new Date(dateString).getTime());
     },
-    _formatDateFromNow: function(date, nowDate, localize) {
+    _formatDateFromNow: function(date, nowDate) {
       const seconds = Math.floor((nowDate - date) / 1000);
       const years = Math.floor(seconds / 31536000);
       const months = Math.floor(seconds / 2592000);
@@ -408,12 +408,12 @@ Custom property | Description | Default
         return 'px-nav:down';
       }
     },
-    _getLocalizedSortOptions: function(localize) {
+    _getLocalizedSortOptions: function() {
       return [
-        { "key": "Title", "val": localize("Title") },
-        { "key": "Subtitle", "val": localize("Subtitle") },
-        { "key": "Severity", "val": localize("Severity") },
-        { "key": "Date", "val": localize("Date") }
+        { "key": "Title", "val": this.localize("Title") },
+        { "key": "Subtitle", "val": this.localize("Subtitle") },
+        { "key": "Severity", "val": this.localize("Severity") },
+        { "key": "Date", "val": this.localize("Date") }
       ];
     },
     _getSelectedItemClassName: function(selectedId, id) {
