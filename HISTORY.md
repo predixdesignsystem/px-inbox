@@ -1,3 +1,7 @@
+v2.3.4
+==================
+* fixing up versions.
+
 v2.3.3
 ==================
 * properly scope localize (#13)
