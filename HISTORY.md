@@ -1,6 +1,7 @@
 v2.3.4
 ==================
-* fixing up versions.
+* fixing up versions
+* remove unneeded demo-style import
 
 v2.3.3
 ==================
