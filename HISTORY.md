@@ -1,3 +1,7 @@
+v2.3.5
+==================
+* reduce icon-set imports
+
 v2.3.4
 ==================
 * fixing up versions
