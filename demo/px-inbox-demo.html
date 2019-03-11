@@ -62,7 +62,9 @@ limitations under the License.
       <px-demo-component slot="px-demo-component" class="flex__item" style="height:500px;">
         <px-inbox
           list-items="{{props.listItems.value}}"
-          selected-item-ref="{{selectedItemRef}}">
+          selected-item-ref="{{selectedItemRef}}"
+          disable-search="{{props.disableSearch.value}}"
+          disable-sort="{{props.disableSort.value}}">
             <px-inbox-detail-demo
                 title="{{selectedItemRef.title}}"
                 severity="{{selectedItemRef.severity}}"
@@ -149,6 +151,16 @@ limitations under the License.
      * A reference for `this.props`.
      */
     demoProps: {
+      disableSearch: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      disableSort: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
       listItems: {
         type: Array,
         defaultValue: [{

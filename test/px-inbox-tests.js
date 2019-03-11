@@ -77,6 +77,31 @@ describe('px-inbox', () => {
       done();
     });
   });
+
+  it('does not render search if `disable-search` attribute is defined', (done) => {
+    const inboxSearchDisabledFixture = fixture('InboxSearchDisabledFixture');
+    flush(() => {
+      assert.isNull(Polymer.dom(inboxSearchDisabledFixture.root).querySelector('.search-container'));
+      done();
+    });
+  });
+
+  it('does not render sort if `disable-sort` attribute is defined', (done) => {
+    const inboxSortDisabledFixture = fixture('InboxSortDisabledFixture');
+    flush(() => {
+      assert.isNull(Polymer.dom(inboxSortDisabledFixture.root).querySelector('.sort-container'));
+      done();
+    });
+  });
+
+  it('does not render sort or search if `disable-search` and `disable-sort` attributes are defined', (done) => {
+    const inboxSearchAndSortDisabledFixture = fixture('InboxSearchAndSortDisabledFixture');
+    flush(() => {
+      assert.isNull(Polymer.dom(inboxSearchAndSortDisabledFixture.root).querySelector('.search-container'));
+      assert.isNull(Polymer.dom(inboxSearchAndSortDisabledFixture.root).querySelector('.sort-container'));
+      done();
+    });
+  });
 });
 
 describe('px-inbox date formatting', () => {
