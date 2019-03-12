@@ -1,3 +1,7 @@
+v2.4.0
+==================
+* Adding disable-search and disable-sort properties for hiding search and sort
+
 v2.3.5
 ==================
 * reduce icon-set imports
