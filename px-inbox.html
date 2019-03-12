@@ -62,8 +62,8 @@ Custom property | Description | Default
     <section class$="inbox-container [[_getCollapsedClassNames(_isCollapsed, _detailViewActive)]]">
       <div id="list" class="list flex flex--col">
         <template is="dom-if" if="[[!disableSearch]]">
-          <div class$="search-container [[_getSearchClasses(disableSort)]]">
-            <div class="search u-mt u-mh u-mb-">
+          <div class$="search-container [[_getSearchContainerClasses(disableSort)]]">
+            <div class$="search [[_getSearchClasses(disableSort)]]">
               <input class="text-input" value="{{_query::input}}" placeholder="[[localize('Search')]]" />
               <px-icon class="search__icon" icon="px-nav:search"></px-icon>
             </div>
@@ -158,7 +158,7 @@ Custom property | Description | Default
       /**
        * Disables search ability.
        */
-       disableSearch: {
+      disableSearch: {
         type: Boolean,
         value: false
       },
@@ -171,7 +171,7 @@ Custom property | Description | Default
       /**
        * Disables sort ability.
        */
-       disableSort: {
+      disableSort: {
         type: Boolean,
         value: false
       },
@@ -491,8 +491,12 @@ Custom property | Description | Default
         }
       }, 50);
     },
-     _getSearchClasses: function(sortDisabled) {
+    _getSearchContainerClasses: function(sortDisabled) {
       return `${sortDisabled ? 'shadow-navigation' : ''}`;
+    },
+    _getSearchClasses: function(sortDisabled) {
+      const defaultClasses = 'u-mt u-mh';
+      return `${defaultClasses} ${sortDisabled ? 'u-mb' : 'u-mb-'}`;
     },
      _getSortClasses: function(searchDisabled) {
       const defaultClasses = 'flex flex--justify flex--middle u-ph u-pb shadow-navigation';
