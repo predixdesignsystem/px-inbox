@@ -61,26 +61,32 @@ Custom property | Description | Default
     <style include="px-inbox-styles"></style>
     <section class$="inbox-container [[_getCollapsedClassNames(_isCollapsed, _detailViewActive)]]">
       <div id="list" class="list flex flex--col">
-        <div class="search u-mt u-mh u-mb-">
-          <input class="text-input" value="{{_query::input}}" placeholder="[[localize('Search')]]" />
-          <px-icon class="search__icon" icon="px-nav:search"></px-icon>
-        </div>
-        <div class="flex flex--justify flex--middle u-ph u-pb shadow-navigation">
-          <div class="flex flex--row flex--middle">
-            <span class="label u-mr--">[[localize('Sort by')]]:</span>
-            <px-dropdown
-                id="dropdown"
-                class="sort-dropdown"
-                select-by="key"
-                button-style="bare"
-                selected="{{sortBy}}"
-                display-value="{{localize(sortBy)}}"
-                items="[[_getLocalizedSortOptions(localize)]]"
-                disable-clear>
-            </px-dropdown>
+        <template is="dom-if" if="[[!disableSearch]]">
+          <div class$="search-container [[_getSearchContainerClasses(disableSort)]]">
+            <div class$="search [[_getSearchClasses(disableSort)]]">
+              <input class="text-input" value="{{_query::input}}" placeholder="[[localize('Search')]]" />
+              <px-icon class="search__icon" icon="px-nav:search"></px-icon>
+            </div>
           </div>
-          <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_handleReverseSort" icon="[[_getSortIcon(sortOrder)]]"></px-icon>
-        </div>
+        </template>
+        <template is="dom-if" if="[[!disableSort]]">
+          <div class$="sort-container [[_getSortClasses(disableSearch)]]">
+            <div class="flex flex--row flex--middle">
+              <span class="label u-mr--">[[localize('Sort by')]]:</span>
+              <px-dropdown
+                  id="dropdown"
+                  class="sort-dropdown"
+                  select-by="key"
+                  button-style="bare"
+                  selected="{{sortBy}}"
+                  display-value="{{localize(sortBy)}}"
+                  items="[[_getLocalizedSortOptions(localize)]]"
+                  disable-clear>
+              </px-dropdown>
+            </div>
+            <px-icon id="sortIcon" class="actionable actionable--action" on-tap="_handleReverseSort" icon="[[_getSortIcon(sortOrder)]]"></px-icon>
+          </div>
+        </template>
         <ul id="list__body" class="list-ui list-ui--small" on-scroll="_updateShadowScrollClassName">
           <template is="dom-repeat" items="{{listItems}}" as="listItem" filter="{{_computeFilter(_query)}}" sort="{{_computeSort(sortBy, sortOrder)}}">
             <li id="{{listItem.id}}" class$="list-ui__item pointer {{_getSelectedItemClassName(selectedItem,listItem.id)}}" on-tap="_handleItemTapped">
@@ -150,10 +156,24 @@ Custom property | Description | Default
         computed: '_computeSelectedItemRef(selectedItem, listItems, listItems.*)'
       },
       /**
+       * Disables search ability.
+       */
+      disableSearch: {
+        type: Boolean,
+        value: false
+      },
+      /**
        * Search query used to filter the list.
        */
       _query: {
         type: String
+      },
+      /**
+       * Disables sort ability.
+       */
+      disableSort: {
+        type: Boolean,
+        value: false
       },
       /**
        * Determines how the inbox list is sorted. Updated automatically when the
@@ -470,6 +490,17 @@ Custom property | Description | Default
           this.toggleClass('shadow-component', false, Polymer.dom(this.root).querySelector('.list__header'));
         }
       }, 50);
+    },
+    _getSearchContainerClasses: function(sortDisabled) {
+      return `${sortDisabled ? 'shadow-navigation' : ''}`;
+    },
+    _getSearchClasses: function(sortDisabled) {
+      const defaultClasses = 'u-mt u-mh';
+      return `${defaultClasses} ${sortDisabled ? 'u-mb' : 'u-mb-'}`;
+    },
+     _getSortClasses: function(searchDisabled) {
+      const defaultClasses = 'flex flex--justify flex--middle u-ph u-pb shadow-navigation';
+      return `${defaultClasses} ${searchDisabled ? 'u-pt' : ''}`;
     }
   });
 </script>
