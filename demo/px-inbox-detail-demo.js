@@ -1,4 +1,4 @@
-<!--
+/*
 Copyright (c) 2018, General Electric
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,28 +12,33 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
--->
-
-<!--
+*/
+/*
     Relative paths assume component is being run from inside an app or another component, where dependencies are flat
     siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
--->
-<link rel="import" href="../../polymer/polymer.html" />
-<link rel="import" href="../css/px-inbox-styles.html">
-<link rel="import" href="../../px-icon-set/px-icon-set-feature.html" />
-<link rel="import" href="../../px-icon-set/px-icon.html" />
-<link rel="import" href="../../px-key-value-pair/px-key-value-pair.html" />
-
-<!--
+*/
+/*
 This sub-component is simply an example for demo purposes.
 Any content placed between the <px-inbox> and </px-inbox> tags will be rendered as the "detail view"
 of the px-inbox list/detail component. You could componentize your detail view with Polymer like
 we've done in this file, or you could define your view in plain HTML/JS/CSS or any other library or framework.
--->
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
 
-<dom-module id="px-inbox-detail-demo">
-  <template>
+import '../css/px-inbox-styles.js';
+import 'px-icon-set/px-icon-set-feature.js';
+import 'px-icon-set/px-icon.js';
+import 'px-key-value-pair/px-key-value-pair.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+Polymer({
+  _template: html`
     <style include="px-inbox-styles">
        :host {
         display: flex;
@@ -70,50 +75,43 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
         <px-key-value-pair class="u-mv" key="Model" value="{{model}}"></px-key-value-pair>
       </div>
     </div>
+`,
 
-  </template>
-</dom-module>
+  is: 'px-inbox-detail-demo',
 
-<script>
-  Polymer({
-
-    is: 'px-inbox-detail-demo',
-
-    properties: {
-      /*
-       * The following properties provide hooks through which we can display detailed information about the selected inbox item
-       */
-      title: {
-        type: String
-      },
-      severity: {
-        type: String
-      },
-      alertId: {
-        type: String
-      },
-      alertSource: {
-        type: String
-      },
-      receivedDateTime: {
-        type: String
-      },
-      caseNumber: {
-        type: String
-      },
-      customer: {
-        type: String
-      },
-      serialNumber: {
-        type: String
-      },
-      dlnType: {
-        type: String
-      },
-      model: {
-        type: String
-      }
+  properties: {
+    /*
+     * The following properties provide hooks through which we can display detailed information about the selected inbox item
+     */
+    title: {
+      type: String
+    },
+    severity: {
+      type: String
+    },
+    alertId: {
+      type: String
+    },
+    alertSource: {
+      type: String
+    },
+    receivedDateTime: {
+      type: String
+    },
+    caseNumber: {
+      type: String
+    },
+    customer: {
+      type: String
+    },
+    serialNumber: {
+      type: String
+    },
+    dlnType: {
+      type: String
+    },
+    model: {
+      type: String
     }
-  });
-
-</script>
+  }
+});

@@ -23,62 +23,103 @@ limitations under the License.
 
     <!-- BOILERPLATE -->
     <!-- load webcomponents.js polyfill for browsers that don't support native web components -->
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <!-- load web-component-tester test runner script -->
-    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../wct-browser-legacy/browser.js"></script>
     <!-- load and apply default theme, required to run tests -->
-    <link rel="import" href="../../px-theme/px-theme-styles.html"/>
-    <custom-style>
+    <script type="module" src="../../px-theme/px-theme-styles.js"></script>
+    <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
       <style include="px-theme-styles" is="custom-style"></style>
-    </custom-style>
+    </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
 
     <!-- UNIQUE TO THIS COMPONENT -->
     <!-- import web components to test -->
-    <link rel="import" href="../px-inbox.html"/>
+    <script type="module" src="../px-inbox.js"></script>iner = document.createElement('template');
+$_documentContainer.innerHTML = `<link rel="import" href="../px-inbox.html">`;
+document.body.appendChild($_documentContainer.content);
+</script>
     <!-- load test script -->
-    <script src="px-inbox-tests.js"></script>
+    <script src="./px-inbox-tests.js"></script>
   </head>
   <body>
-    <h3>Web Component Test : Fixture for px-inbox</h3>
-    <test-fixture id="InboxFixture">
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+$_documentContainer.innerHTML = `<h3>Web Component Test : Fixture for px-inbox</h3>`;
+document.body.appendChild($_documentContainer.content);
+</script>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="InboxFixture">
       <template>
-        <px-inbox
-            list-items='[{"id":"1","title":"CMS Cold Spot","subtitle":"GT240182","severity":"important","date":"2016-10-05T01:29","formattedDate":"15 days ago"},{"id":"2","title":"Drum Level Anomaly","subtitle":"Block 2","severity":"warning","date":"2016-10-04T01:27","formattedDate":"16 days ago"},{"id":"3","title":"GT Vibration","subtitle":"GT20145","severity":"error","date":"2016-10-03T01:21","formattedDate":"17 days ago"},{"id":"4","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-10-03T01:05","formattedDate":"17 days ago"},{"id":"5","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-10-02T12:30","formattedDate":"17 days ago"},{"id":"6","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-10-02T01:33","formattedDate":"18 days ago"}]'>
+        <px-inbox list-items="[{&quot;id&quot;:&quot;1&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT240182&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-05T01:29&quot;,&quot;formattedDate&quot;:&quot;15 days ago&quot;},{&quot;id&quot;:&quot;2&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 2&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-04T01:27&quot;,&quot;formattedDate&quot;:&quot;16 days ago&quot;},{&quot;id&quot;:&quot;3&quot;,&quot;title&quot;:&quot;GT Vibration&quot;,&quot;subtitle&quot;:&quot;GT20145&quot;,&quot;severity&quot;:&quot;error&quot;,&quot;date&quot;:&quot;2016-10-03T01:21&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;4&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 4&quot;,&quot;severity&quot;:&quot;information&quot;,&quot;date&quot;:&quot;2016-10-03T01:05&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;5&quot;,&quot;title&quot;:&quot;GT Trip&quot;,&quot;subtitle&quot;:&quot;GT23193&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-02T12:30&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;6&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT29372&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-02T01:33&quot;,&quot;formattedDate&quot;:&quot;18 days ago&quot;}]">
         </px-inbox>
       </template>
-    </test-fixture>
-    <test-fixture id="InboxDisableAutoSelectFixture">
+    </test-fixture>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="InboxDisableAutoSelectFixture">
       <template>
-        <px-inbox
-            disable-auto-select
-            list-items='[{"id":"1","title":"CMS Cold Spot","subtitle":"GT240182","severity":"important","date":"2016-10-05T01:29","formattedDate":"15 days ago"},{"id":"2","title":"Drum Level Anomaly","subtitle":"Block 2","severity":"warning","date":"2016-10-04T01:27","formattedDate":"16 days ago"},{"id":"3","title":"GT Vibration","subtitle":"GT20145","severity":"error","date":"2016-10-03T01:21","formattedDate":"17 days ago"},{"id":"4","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-10-03T01:05","formattedDate":"17 days ago"},{"id":"5","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-10-02T12:30","formattedDate":"17 days ago"},{"id":"6","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-10-02T01:33","formattedDate":"18 days ago"}]'>
+        <px-inbox disable-auto-select="" list-items="[{&quot;id&quot;:&quot;1&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT240182&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-05T01:29&quot;,&quot;formattedDate&quot;:&quot;15 days ago&quot;},{&quot;id&quot;:&quot;2&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 2&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-04T01:27&quot;,&quot;formattedDate&quot;:&quot;16 days ago&quot;},{&quot;id&quot;:&quot;3&quot;,&quot;title&quot;:&quot;GT Vibration&quot;,&quot;subtitle&quot;:&quot;GT20145&quot;,&quot;severity&quot;:&quot;error&quot;,&quot;date&quot;:&quot;2016-10-03T01:21&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;4&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 4&quot;,&quot;severity&quot;:&quot;information&quot;,&quot;date&quot;:&quot;2016-10-03T01:05&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;5&quot;,&quot;title&quot;:&quot;GT Trip&quot;,&quot;subtitle&quot;:&quot;GT23193&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-02T12:30&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;6&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT29372&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-02T01:33&quot;,&quot;formattedDate&quot;:&quot;18 days ago&quot;}]">
         </px-inbox>
       </template>
-    </test-fixture>
-    <test-fixture id="InboxSearchDisabledFixture">
+    </test-fixture>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="InboxSearchDisabledFixture">
       <template>
-        <px-inbox
-            disable-search
-            list-items='[{"id":"1","title":"CMS Cold Spot","subtitle":"GT240182","severity":"important","date":"2016-10-05T01:29","formattedDate":"15 days ago"},{"id":"2","title":"Drum Level Anomaly","subtitle":"Block 2","severity":"warning","date":"2016-10-04T01:27","formattedDate":"16 days ago"},{"id":"3","title":"GT Vibration","subtitle":"GT20145","severity":"error","date":"2016-10-03T01:21","formattedDate":"17 days ago"},{"id":"4","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-10-03T01:05","formattedDate":"17 days ago"},{"id":"5","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-10-02T12:30","formattedDate":"17 days ago"},{"id":"6","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-10-02T01:33","formattedDate":"18 days ago"}]'>
+        <px-inbox disable-search="" list-items="[{&quot;id&quot;:&quot;1&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT240182&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-05T01:29&quot;,&quot;formattedDate&quot;:&quot;15 days ago&quot;},{&quot;id&quot;:&quot;2&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 2&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-04T01:27&quot;,&quot;formattedDate&quot;:&quot;16 days ago&quot;},{&quot;id&quot;:&quot;3&quot;,&quot;title&quot;:&quot;GT Vibration&quot;,&quot;subtitle&quot;:&quot;GT20145&quot;,&quot;severity&quot;:&quot;error&quot;,&quot;date&quot;:&quot;2016-10-03T01:21&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;4&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 4&quot;,&quot;severity&quot;:&quot;information&quot;,&quot;date&quot;:&quot;2016-10-03T01:05&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;5&quot;,&quot;title&quot;:&quot;GT Trip&quot;,&quot;subtitle&quot;:&quot;GT23193&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-02T12:30&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;6&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT29372&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-02T01:33&quot;,&quot;formattedDate&quot;:&quot;18 days ago&quot;}]">
         </px-inbox>
       </template>
-    </test-fixture>
-    <test-fixture id="InboxSortDisabledFixture">
+    </test-fixture>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="InboxSortDisabledFixture">
       <template>
-        <px-inbox
-            disable-sort
-            list-items='[{"id":"1","title":"CMS Cold Spot","subtitle":"GT240182","severity":"important","date":"2016-10-05T01:29","formattedDate":"15 days ago"},{"id":"2","title":"Drum Level Anomaly","subtitle":"Block 2","severity":"warning","date":"2016-10-04T01:27","formattedDate":"16 days ago"},{"id":"3","title":"GT Vibration","subtitle":"GT20145","severity":"error","date":"2016-10-03T01:21","formattedDate":"17 days ago"},{"id":"4","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-10-03T01:05","formattedDate":"17 days ago"},{"id":"5","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-10-02T12:30","formattedDate":"17 days ago"},{"id":"6","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-10-02T01:33","formattedDate":"18 days ago"}]'>
+        <px-inbox disable-sort="" list-items="[{&quot;id&quot;:&quot;1&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT240182&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-05T01:29&quot;,&quot;formattedDate&quot;:&quot;15 days ago&quot;},{&quot;id&quot;:&quot;2&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 2&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-04T01:27&quot;,&quot;formattedDate&quot;:&quot;16 days ago&quot;},{&quot;id&quot;:&quot;3&quot;,&quot;title&quot;:&quot;GT Vibration&quot;,&quot;subtitle&quot;:&quot;GT20145&quot;,&quot;severity&quot;:&quot;error&quot;,&quot;date&quot;:&quot;2016-10-03T01:21&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;4&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 4&quot;,&quot;severity&quot;:&quot;information&quot;,&quot;date&quot;:&quot;2016-10-03T01:05&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;5&quot;,&quot;title&quot;:&quot;GT Trip&quot;,&quot;subtitle&quot;:&quot;GT23193&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-02T12:30&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;6&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT29372&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-02T01:33&quot;,&quot;formattedDate&quot;:&quot;18 days ago&quot;}]">
         </px-inbox>
       </template>
-    </test-fixture>
-    <test-fixture id="InboxSearchAndSortDisabledFixture">
+    </test-fixture>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="InboxSearchAndSortDisabledFixture">
       <template>
-        <px-inbox
-            disable-search
-            disable-sort
-            list-items='[{"id":"1","title":"CMS Cold Spot","subtitle":"GT240182","severity":"important","date":"2016-10-05T01:29","formattedDate":"15 days ago"},{"id":"2","title":"Drum Level Anomaly","subtitle":"Block 2","severity":"warning","date":"2016-10-04T01:27","formattedDate":"16 days ago"},{"id":"3","title":"GT Vibration","subtitle":"GT20145","severity":"error","date":"2016-10-03T01:21","formattedDate":"17 days ago"},{"id":"4","title":"Drum Level Anomaly","subtitle":"Block 4","severity":"information","date":"2016-10-03T01:05","formattedDate":"17 days ago"},{"id":"5","title":"GT Trip","subtitle":"GT23193","severity":"important","date":"2016-10-02T12:30","formattedDate":"17 days ago"},{"id":"6","title":"CMS Cold Spot","subtitle":"GT29372","severity":"warning","date":"2016-10-02T01:33","formattedDate":"18 days ago"}]'>
+        <px-inbox disable-search="" disable-sort="" list-items="[{&quot;id&quot;:&quot;1&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT240182&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-05T01:29&quot;,&quot;formattedDate&quot;:&quot;15 days ago&quot;},{&quot;id&quot;:&quot;2&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 2&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-04T01:27&quot;,&quot;formattedDate&quot;:&quot;16 days ago&quot;},{&quot;id&quot;:&quot;3&quot;,&quot;title&quot;:&quot;GT Vibration&quot;,&quot;subtitle&quot;:&quot;GT20145&quot;,&quot;severity&quot;:&quot;error&quot;,&quot;date&quot;:&quot;2016-10-03T01:21&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;4&quot;,&quot;title&quot;:&quot;Drum Level Anomaly&quot;,&quot;subtitle&quot;:&quot;Block 4&quot;,&quot;severity&quot;:&quot;information&quot;,&quot;date&quot;:&quot;2016-10-03T01:05&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;5&quot;,&quot;title&quot;:&quot;GT Trip&quot;,&quot;subtitle&quot;:&quot;GT23193&quot;,&quot;severity&quot;:&quot;important&quot;,&quot;date&quot;:&quot;2016-10-02T12:30&quot;,&quot;formattedDate&quot;:&quot;17 days ago&quot;},{&quot;id&quot;:&quot;6&quot;,&quot;title&quot;:&quot;CMS Cold Spot&quot;,&quot;subtitle&quot;:&quot;GT29372&quot;,&quot;severity&quot;:&quot;warning&quot;,&quot;date&quot;:&quot;2016-10-02T01:33&quot;,&quot;formattedDate&quot;:&quot;18 days ago&quot;}]">
         </px-inbox>
       </template>
-    </test-fixture>
+    </test-fixture>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
   </body>
 </html>
